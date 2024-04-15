@@ -1,0 +1,145 @@
+
+/* 
+COLORS:
+    GREY: #393e41
+    ORANGE: #e94f37
+    LIGHT GREY: #d9d9d9
+*/
+
+
+/* DEFAULT STYLE */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', serif;
+    background-color: #e94f37;
+    color: #393E41;
+}
+
+a, a:link, a:visited {
+    text-decoration: none;
+    color: #d9d9d9;
+}
+
+li {
+    list-style-type: none;
+}
+
+header {
+    background-color: #d9d9d9;
+}   
+
+.nav-elements {
+    padding: 24px 40px; /* da u navbar svaka komponenta bude cijelom visinom kao dugme i kad se hoveruje promijedi se pozadinska boja */
+}
+
+.nav-element {
+    display: inline-block;
+    margin-right: 32px;
+}
+
+.nav-element a {
+    color: #393E41;
+}
+
+.nav-last-element {
+    margin-right: 0;
+}
+
+.nav-right {
+    float: right;
+}
+
+.nav-element a:hover {
+    text-decoration: underline;
+}
+
+.nav-element .nav-active {
+    color: #e94f37;
+}
+
+h1 {
+    color: #d9d9d9;
+    font-weight: 500;
+    font-size: 6em;
+}
+
+.title {
+    text-align: center;
+    background-color: #393E41;
+}
+
+/* MAIN STYLE */
+
+.main-container {
+    margin: 100px auto;
+    width: 80%;
+    padding: 40px;
+    background-color: #d9d9d9;
+    border-radius: 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+}
+
+.movie-title {
+    font-size: 4em;
+    font-weight: 500;
+}
+
+.date-text, .time-text {
+    font-size: 2em;
+    font-weight: 500;
+}
+
+.seat-container {
+    display: grid;
+    grid-template-columns: repeat(14, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+
+    column-gap: 8px;
+}
+
+.seat {
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.icon-seat:hover {
+    color: #e94f37;
+    /* fill: #e94f37; */
+}
+
+
+.icon-seat {
+    width: 32px;
+    height: 32px;
+}
+
+.seat-taken .icon-seat {
+    fill: #393E41;
+}
+
+.screen {
+    width: 450px;
+    border-bottom: 2px solid #393E41;
+}
+
+.button-buy {
+    padding: 24px 40px;
+    background-color: #e94f37;
+    color: #393E41;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+
+
+
