@@ -1,0 +1,129 @@
+
+/* 
+COLORS:
+    GREY: #393e41
+    ORANGE: #e94f37
+    LIGHT GREY: #d9d9d9
+*/
+
+
+/* DEFAULT STYLE */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', serif;
+    background-color: #e94f37;
+    color: #393E41;
+}
+
+a, a:link, a:visited {
+    text-decoration: none;
+    color: #d9d9d9;
+}
+
+li {
+    list-style-type: none;
+}
+
+header {
+    background-color: #d9d9d9;
+}   
+
+.nav-elements {
+    padding: 24px 40px; /* da u navbar svaka komponenta bude cijelom visinom kao dugme i kad se hoveruje promijedi se pozadinska boja */
+}
+
+.nav-element {
+    display: inline-block;
+    margin-right: 32px;
+}
+
+.nav-element a {
+    color: #393E41;
+}
+
+.nav-last-element {
+    margin-right: 0;
+}
+
+.nav-right {
+    float: right;
+}
+
+.nav-element a:hover {
+    text-decoration: underline;
+}
+
+.nav-element .nav-active {
+    color: #e94f37;
+}
+
+h1 {
+    color: #d9d9d9;
+    font-weight: 500;
+    font-size: 6em;
+}
+
+.title {
+    text-align: center;
+    background-color: #393E41;
+}
+
+/* MAIN STYLE */
+
+.profile-container {
+    margin: 100px auto;
+    width: 80%;
+    padding: 40px;
+    background-color: #d9d9d9;
+    border-radius: 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+}
+
+.img-profile {
+    border-radius: 50%;
+}
+
+.profile-username {
+    font-size: 3em;
+}
+
+.profile-ticket-text {
+    font-size: 1.5em;
+}
+
+.ticket-container {
+    background-color: #393E41;
+    border-radius: 24px;
+    padding: 24px;
+    width: 90%;
+
+    display: flex;
+    gap: 24px;
+    /* flex-wrap: wrap; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ticket {
+    background-color: #d9d9d9;
+    border-radius: 24px;
+    padding: 16px;
+    width: 90%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+
