@@ -1,0 +1,140 @@
+
+/* 
+COLORS:
+    GREY: #393e41
+    ORANGE: #e94f37
+    LIGHT GREY: #d9d9d9
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', serif;
+    background-color: #e94f37;
+    color: #393E41;
+}
+
+a, a:link, a:visited {
+    text-decoration: none;
+    color: #d9d9d9;
+}
+
+li {
+    list-style-type: none;
+}
+
+header {
+    background-color: #d9d9d9;
+}   
+
+.nav-elements {
+    padding: 24px 40px; /* da u navbar svaka komponenta bude cijelom visinom kao dugme i kad se hoveruje promijedi se pozadinska boja */
+}
+
+.nav-element {
+    display: inline-block;
+    margin-right: 32px;
+}
+
+.nav-element a {
+    color: #393E41;
+}
+
+.nav-last-element {
+    margin-right: 0;
+}
+
+.nav-right {
+    float: right;
+}
+
+.nav-element a:hover {
+    text-decoration: underline;
+}
+
+.nav-element .nav-active {
+    color: #e94f37;
+}
+
+h1 {
+    color: #d9d9d9;
+    font-weight: 500;
+    font-size: 6em;
+}
+
+.title {
+    text-align: center;
+    background-color: #393E41;
+}
+
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 40px;
+    gap: 32px;
+}
+
+.card {
+    background-color: #d9d9d9;
+    width: 95%;
+    height: 300px;
+    text-align: center;
+    border-radius: 24px;
+    padding: 32px;
+
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+}
+
+.card-projections {
+    width: 100%;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+
+.card-projection {
+    width: 50px;
+    width: 25%;
+    background-color: #393E41;
+    color: #d9d9d9;
+    padding: 24px;
+    border-radius: 8px;
+}
+
+.card-projection:hover {
+    background-color: #e94f37;
+}
+
+
+.card-image {
+    justify-self: flex-start;
+    align-self: stretch;
+}
+
+img {
+    width: 200px;
+    height: 100%;
+    object-fit: fill;
+    border-radius: 16px;
+}
+
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
