@@ -1,3 +1,5 @@
-export const getScreenings = (req, res) => {};
+const getScreenings = (req, res) => {};
 
-export const createScreening = (req, res) => {};
+const createScreening = (req, res) => {};
+
+module.exports = { getScreenings, createScreening };

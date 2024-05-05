@@ -1,5 +1,7 @@
-export const register = (req, res) => {};
+const register = (req, res) => {};
 
-export const login = (req, res) => {};
+const login = (req, res) => {};
 
-export const logout = (req, res) => {};
+const logout = (req, res) => {};
+
+module.exports = { register, login, logout };

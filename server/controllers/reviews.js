@@ -1,3 +1,5 @@
-export const getReviews = (req, res) => {};
+const getReviews = (req, res) => {};
 
-export const createReview = (req, res) => {};
+const createReview = (req, res) => {};
+
+module.exports = { getReviews, createReview };

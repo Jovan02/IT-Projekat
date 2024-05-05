@@ -10,3 +10,5 @@ const router = express.Router();
 router.get("/:id", getScreenings);
 
 router.post("/create", createScreening);
+
+module.exports = router;

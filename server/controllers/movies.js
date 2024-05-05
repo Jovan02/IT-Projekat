@@ -1,5 +1,7 @@
-export const getMovies = (req, res) => {};
+const getMovies = (req, res) => {};
 
-export const getMovie = (req, res) => {};
+const getMovie = (req, res) => {};
 
-export const createMovie = (req, res) => {};
+const createMovie = (req, res) => {};
+
+module.exports = { getMovies, getMovie, createMovie };
