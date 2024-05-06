@@ -1,0 +1,17 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Inter", serif;
+    background-color: #e94f37;
+    color: #393e41;
+}
+
+a,
+a:link,
+a:visited {
+    text-decoration: none;
+    color: #393e41;
+}
