@@ -1,0 +1,36 @@
+li {
+    list-style-type: none;
+}
+
+header {
+    background-color: #d9d9d9;
+}
+
+.nav-elements {
+    padding: 24px 40px;
+}
+
+.nav-element {
+    display: inline-block;
+    margin-right: 32px;
+}
+
+.nav-element a {
+    color: #393e41;
+}
+
+.nav-last-element {
+    margin-right: 0;
+}
+
+.nav-right {
+    float: right;
+}
+
+.nav-element a:hover {
+    text-decoration: underline;
+}
+
+.nav-element .nav-active {
+    color: #e94f37;
+}
