@@ -1,0 +1,64 @@
+h1 {
+    color: #d9d9d9;
+    font-weight: 500;
+    font-size: 6em;
+}
+
+.title {
+    text-align: center;
+    background-color: #393e41;
+}
+
+/* MAIN STYLE */
+
+.profile-container {
+    margin: 100px auto;
+    width: 80%;
+    padding: 40px;
+    background-color: #d9d9d9;
+    border-radius: 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+}
+
+.img-profile {
+    border-radius: 50%;
+}
+
+.profile-username {
+    font-size: 3em;
+}
+
+.profile-ticket-text {
+    font-size: 1.5em;
+}
+
+.ticket-container {
+    background-color: #393e41;
+    border-radius: 24px;
+    padding: 24px;
+    width: 90%;
+
+    display: flex;
+    gap: 24px;
+    /* flex-wrap: wrap; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ticket {
+    background-color: #d9d9d9;
+    border-radius: 24px;
+    padding: 16px;
+    width: 90%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
