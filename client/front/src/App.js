@@ -5,21 +5,31 @@ import {
     Route,
     Outlet,
 } from "react-router-dom";
+import "./styles/App.css";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-import "./styles/App.css";
 import Welcome from "./pages/Welcome";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Profile from "./pages/Profile";
+
+const Layout = () => {
+    return (
+        <div>
+            <Navbar />
+            <Outlet />
+        </div>
+    );
+};
 
 const router = createBrowserRouter([
     {
-        path: "/",
+        path: "/welcome",
         element: <Welcome />,
     },
     {
         path: "/",
-        element: <Navbar />,
+        element: <Layout />,
         children: [
             {
                 path: "/home",
@@ -28,6 +38,10 @@ const router = createBrowserRouter([
             {
                 path: "/browse",
                 element: <h1>Browse</h1>,
+            },
+            {
+                path: "/profile",
+                element: <Profile />,
             },
         ],
     },
