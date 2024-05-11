@@ -9,6 +9,6 @@ const router = express.Router();
 
 router.get("/", getMovies);
 router.get("/:id", getMovie);
-router.post("/create", createMovie);
+router.post("/", createMovie);
 
 module.exports = router;

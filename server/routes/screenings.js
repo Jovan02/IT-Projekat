@@ -7,8 +7,8 @@ const {
 
 const router = express.Router();
 
-router.get("/:id", getScreenings);
+router.get("/", getScreenings);
 
-router.post("/create", createScreening);
+router.post("/", createScreening);
 
 module.exports = router;
