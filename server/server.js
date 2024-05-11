@@ -3,8 +3,12 @@ const authRoutes = require("./routes/auth");
 const moviesRoutes = require("./routes/movies");
 const screeningsRoutes = require("./routes/screenings");
 const reviewsRoutes = require("./routes/reviews");
+const cors = require("cors");
 
 const app = express();
+
+app.use(express.json());
+app.use(cors());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/movies", moviesRoutes);
