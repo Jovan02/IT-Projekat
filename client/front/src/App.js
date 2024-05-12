@@ -12,6 +12,9 @@ import Welcome from "./pages/Welcome";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
+import SingleMovie from "./pages/SingleMovie";
+import Ticket from "./pages/Ticket";
+import AdminPanel from "./pages/AdminPanel";
 
 const Layout = () => {
     return (
@@ -42,6 +45,18 @@ const router = createBrowserRouter([
             {
                 path: "/profile",
                 element: <Profile />,
+            },
+            {
+                path: "/movie/",
+                element: <SingleMovie />,
+            },
+            {
+                path: "/ticket/",
+                element: <Ticket />,
+            },
+            {
+                path: "/admin-panel/",
+                element: <AdminPanel />,
             },
         ],
     },
