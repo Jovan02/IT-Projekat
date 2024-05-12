@@ -13,6 +13,16 @@ const getScreenings = (req, res) => {
     });
 };
 
-const createScreening = (req, res) => {};
+const createScreening = (req, res) => {
+    const { date, time, movieId, hallId } = req.body;
+    const query = `INSERT INTO screening (Date, Time, MovieID, HallID) VALUES (?, ?, ?, ?)`;
+    db.query(query, [date, time, movieId, hallId], (err, result) => {
+        if (err) {
+            res.status(500).json(err);
+        } else {
+            res.status(201).json("Screening created");
+        }
+    });
+};
 
 module.exports = { getScreenings, createScreening };
