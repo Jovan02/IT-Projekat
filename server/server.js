@@ -3,6 +3,7 @@ const authRoutes = require("./routes/auth");
 const moviesRoutes = require("./routes/movies");
 const screeningsRoutes = require("./routes/screenings");
 const reviewsRoutes = require("./routes/reviews");
+const ticketsRoutes = require("./routes/tickets");
 const cors = require("cors");
 
 const app = express();
@@ -14,6 +15,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/movies", moviesRoutes);
 app.use("/api/screenings", screeningsRoutes);
 app.use("/api/reviews", reviewsRoutes);
+app.use("/api/tickets", ticketsRoutes);
 
 app.listen(8000, () => {
     console.log("Server is running on port 8000");
