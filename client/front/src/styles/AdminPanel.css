@@ -1,0 +1,240 @@
+/* 
+COLORS:
+    GREY: #393e41
+    ORANGE: #e94f37
+    LIGHT GREY: #d9d9d9
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Inter", serif;
+    background-color: #e94f37;
+}
+
+a,
+a:link,
+a:visited {
+    text-decoration: none;
+    color: #d9d9d9;
+}
+
+li {
+    list-style-type: none;
+}
+
+header {
+    background-color: #d9d9d9;
+}
+
+.nav-elements {
+    padding: 24px 40px; /* da u navbar svaka komponenta bude cijelom visinom kao dugme i kad se hoveruje promijedi se pozadinska boja */
+}
+
+.nav-element {
+    display: inline-block;
+    margin-right: 32px;
+}
+
+.nav-element a {
+    color: #393e41;
+}
+
+.nav-last-element {
+    margin-right: 0;
+}
+
+.nav-right {
+    float: right;
+}
+
+.nav-element a:hover {
+    text-decoration: underline;
+}
+
+.nav-element .nav-active {
+    color: #e94f37;
+}
+
+h1 {
+    color: #d9d9d9;
+    font-weight: 500;
+    font-size: 6em;
+}
+
+.title {
+    text-align: center;
+    background-color: #393e41;
+}
+
+.main-container {
+    padding: 40px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+}
+
+.choice-buttons {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.choice-buttons .button {
+    width: 200px;
+    padding: 16px 24px;
+    background-color: #d9d9d9;
+    color: #393e41;
+    border: none;
+    border-radius: 50px;
+
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.choice-buttons .button:hover {
+    background-color: #393e41;
+    color: #d9d9d9;
+}
+
+.manage-users-container {
+    background-color: #d9d9d9;
+    border-radius: 24px;
+    padding: 40px;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+}
+
+.manage-user-card {
+    width: 300px;
+    padding: 24px;
+    background-color: #393e41;
+    border-radius: 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: center;
+}
+
+.manage-user-card .username {
+    text-align: center;
+    color: #d9d9d9;
+}
+
+.manage-user-card .button-delete {
+    background-color: transparent;
+    border: none;
+    color: #e94f37;
+    font-size: 1.1em;
+}
+
+.manage-user-card .button-delete:hover {
+    text-decoration: underline;
+}
+
+.add-movie-container {
+    width: 300px;
+    padding: 24px;
+    background-color: #d9d9d9;
+    border-radius: 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.add-movie-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-movie-container form label {
+    color: #393e41;
+    font-size: 1.3em;
+}
+
+input[type="file"]::file-selector-button {
+    display: none;
+}
+
+input[type="file"]:hover {
+    color: #e94f37;
+}
+
+.add-movie-container form input,
+.add-movie-container form .description {
+    width: 90%;
+    padding: 16px;
+    border: none;
+    border-radius: 24px;
+    background-color: #393e41;
+    color: #d9d9d9;
+
+    font-size: 1.1em;
+}
+
+.button-movie {
+    width: 200px;
+    padding: 16px 24px;
+    background-color: #e94f37;
+    color: #393e41;
+    border: none;
+    border-radius: 50px;
+    align-self: center;
+
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.button-movie:hover {
+    background-color: #393e41;
+    color: #d9d9d9;
+}
+
+.add-screening {
+    width: 300px;
+    padding: 24px;
+    background-color: #d9d9d9;
+    border-radius: 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.add-screening form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-screening form label {
+    color: #393e41;
+    font-size: 1.3em;
+}
+
+.add-screening form input,
+.add-screening form .description {
+    width: 90%;
+    padding: 16px;
+    border: none;
+    border-radius: 24px;
+    background-color: #393e41;
+    color: #d9d9d9;
+
+    font-size: 1.1em;
+}
