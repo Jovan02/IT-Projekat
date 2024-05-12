@@ -34,11 +34,14 @@ const register = (req, res) => {
             if (result.length > 0) {
                 res.status(400).json("User already exists");
             } else {
-                return registerUserPromise(email, username, password);
+                return registerUserPromise(email, username, password)
+                    .then((res) => {
+                        res.status(201).json("User created successfully");
+                    })
+                    .catch((err) => {
+                        res.status(500).json(err);
+                    });
             }
-        })
-        .then((result) => {
-            res.status(201).json("User registered");
         })
         .catch((err) => {
             res.status(500).json(err);
