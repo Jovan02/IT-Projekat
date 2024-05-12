@@ -13,6 +13,18 @@ const getReviews = (req, res) => {
     });
 };
 
-const createReview = (req, res) => {};
+const createReview = (req, res) => {
+    const { userId, movieId, description, rating } = req.body;
+
+    const query = `INSERT INTO review(UserID, MovieID, Description, Rating) VALUES (?, ?, ?, ?)`;
+
+    db.query(query, [userId, movieId, description, rating], (err, result) => {
+        if (err) {
+            res.status(500).json(err);
+        } else {
+            res.status(200).json("Review created successfully");
+        }
+    });
+};
 
 module.exports = { getReviews, createReview };
