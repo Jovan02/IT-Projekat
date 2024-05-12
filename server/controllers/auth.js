@@ -1,31 +1,48 @@
 const db = require("../db");
 
+function checkUserExistsPromise(username) {
+    return new Promise((resolve, reject) => {
+        const checkQuery = `SELECT * FROM user WHERE Username = ?`;
+        db.query(checkQuery, [username], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+function registerUserPromise(email, username, password) {
+    return new Promise((resolve, reject) => {
+        const registerQuery = `INSERT INTO user (Email, Username, Password) VALUES (?, ?, ?)`;
+        db.query(registerQuery, [email, username, password], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
 const register = (req, res) => {
     const { email, username, password } = req.body;
 
-    const checkQuery = `SELECT * FROM user WHERE Username = ?`;
-    db.query(checkQuery, [username], (err, result) => {
-        if (err) {
+    checkUserExistsPromise(username)
+        .then((result) => {
+            if (result.length > 0) {
+                res.status(400).json("User already exists");
+            } else {
+                return registerUserPromise(email, username, password);
+            }
+        })
+        .then((result) => {
+            res.status(201).json("User registered");
+        })
+        .catch((err) => {
             res.status(500).json(err);
-            return;
-        } else if (result.length > 0) {
-            res.status(409).json("User already exists");
-            return;
-        } else {
-            const registerQuery = `INSERT INTO user (Email, Username, Password) VALUES (?, ?, ?)`;
-            db.query(
-                registerQuery,
-                [email, username, password],
-                (err, result) => {
-                    if (err) {
-                        res.status(500).json(err);
-                    } else {
-                        res.status(201).json("User registered");
-                    }
-                }
-            );
-        }
-    });
+        });
 };
 
 const login = (req, res) => {
