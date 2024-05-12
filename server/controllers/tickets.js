@@ -16,15 +16,13 @@ const getTicketsById = (req, res) => {
 
 const createTicket = (req, res) => {
     const { userId, screeningId, seatRow, seatColumn, hallId } = req.body;
-    const query = `INSERT INTO tickets (UserID, ScreeningID, SeatRow, SeatColumn, HallID) VALUES (?, ?, ?, ?, ?)`;
+    const query = `INSERT INTO ticket (UserID, ScreeningID, SeatRow, SeatColumn, HallID) VALUES (?, ?, ?, ?, ?)`;
     db.query(
         query,
         [userId, screeningId, seatRow, seatColumn, hallId],
         (err, result) => {
             if (err) {
-                res.status(500).json({
-                    message: "There was an error creating the ticket",
-                });
+                res.status(500).json(err); //{message: "There was an error creating the ticket",}
             } else {
                 res.json({
                     message: "Ticket created successfully",
@@ -34,4 +32,18 @@ const createTicket = (req, res) => {
     );
 };
 
-module.exports = { getTicketsById, createTicket };
+const getTicketsByUserId = (req, res) => {
+    const { id } = req.body;
+    const query = `SELECT * FROM tickets WHERE UserID = ?`;
+    db.query(query, [id], (err, result) => {
+        if (err) {
+            res.status(500).json({
+                message: "There was an error getting the tickets",
+            });
+        } else {
+            res.json(result);
+        }
+    });
+};
+
+module.exports = { getTicketsById, createTicket, getTicketsByUserId };
