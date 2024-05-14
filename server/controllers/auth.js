@@ -1,4 +1,6 @@
 const db = require("../db");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 function checkUserExistsPromise(username) {
     return new Promise((resolve, reject) => {
@@ -16,6 +18,7 @@ function checkUserExistsPromise(username) {
 function registerUserPromise(email, username, password) {
     return new Promise((resolve, reject) => {
         const registerQuery = `INSERT INTO user (Email, Username, Password) VALUES (?, ?, ?)`;
+
         db.query(registerQuery, [email, username, password], (err, result) => {
             if (err) {
                 reject(err);
@@ -29,38 +32,67 @@ function registerUserPromise(email, username, password) {
 const register = (req, res) => {
     const { email, username, password } = req.body;
 
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(password, salt);
+
     checkUserExistsPromise(username)
         .then((result) => {
             if (result.length > 0) {
-                res.status(400).json("User already exists");
+                res.status(400).json({ message: "User already exists" });
             } else {
-                return registerUserPromise(email, username, password)
-                    .then((res) => {
-                        res.status(201).json("User created successfully");
+                registerUserPromise(email, username, hashedPassword)
+                    .then((resp) => {
+                        res.status(201).json({
+                            message: "User created successfully",
+                        });
                     })
                     .catch((err) => {
-                        res.status(500).json(err);
+                        res.status(500).json({
+                            message: "Error creating user",
+                        });
                     });
             }
         })
         .catch((err) => {
-            res.status(500).json(err);
+            res.status(500).json({ message: "Error checking user" });
         });
 };
 
 const login = (req, res) => {
     const { username, password } = req.body;
 
-    const query = `SELECT * FROM user WHERE Username = ? AND Password = ?`;
-    db.query(query, [username, password], (err, result) => {
-        if (err) {
-            res.status(500).json(err);
-        } else if (result.length === 0) {
-            res.status(401).json("Invalid username or password");
-        } else {
-            res.status(200).json("Login successful");
-        }
-    });
+    checkUserExistsPromise(username)
+        .then((result) => {
+            if (result.length === 0) {
+                return res.status(401).json({ message: "User not found" });
+            } else {
+                const isPasswordCorrect = bcrypt.compareSync(
+                    password,
+                    result[0].Password
+                );
+
+                if (!isPasswordCorrect) {
+                    return res
+                        .status(401)
+                        .json({ message: "Password incorrect" });
+                }
+
+                const token = jwt.sign(
+                    {
+                        id: result[0].ID,
+                        isAdmin: result[0].isAdmin,
+                    },
+                    "bfa987fa5008f1e25bc851f95792ffe972d666c73f4bea50f81a3235c234b3fd"
+                );
+
+                const { ID, Password, ...other } = result[0];
+
+                return res.status(200).json({ token, ...other });
+            }
+        })
+        .catch((err) => {
+            res.status(500).json({ message: error });
+        });
 };
 
 const logout = (req, res) => {};
