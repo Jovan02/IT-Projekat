@@ -1,8 +1,8 @@
 const db = require("../db");
 
 const getReviews = (req, res) => {
-    const query = `SELECT * FROM review WHERE MovieID = ?`;
-    db.query(query, [req.body.movieId], (err, result) => {
+    const query = `SELECT * FROM review r INNER JOIN user u ON r.UserID=u.ID WHERE MovieID = ?`;
+    db.query(query, [req.params.id], (err, result) => {
         if (err) {
             res.status(500).json({ message: err });
         } else if (result.length === 0) {
@@ -15,7 +15,6 @@ const getReviews = (req, res) => {
 
 const createReview = (req, res) => {
     const { userId, movieId, description, rating } = req.body;
-
     const query = `INSERT INTO review(UserID, MovieID, Description, Rating) VALUES (?, ?, ?, ?)`;
 
     db.query(query, [userId, movieId, description, rating], (err, result) => {
