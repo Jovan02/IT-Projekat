@@ -1,8 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/Navbar.css";
+import { useState, useContext } from "react";
+import AuthContext from "../AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+    const navigate = useNavigate();
+
+    const { user } = useContext(AuthContext);
+    const { logout } = useContext(AuthContext);
+
+    const handleLogout = () => {
+        logout();
+        navigate("/welcome");
+    };
+
     return (
         <header>
             <nav>
@@ -16,12 +29,28 @@ const Navbar = () => {
                     <li class="nav-element">
                         <Link to="/contact">Contact</Link>
                     </li>
-                    <li class="nav-element nav-right nav-last-element">
-                        <Link to="/register">Register</Link>
-                    </li>
-                    <li class="nav-element nav-right">
-                        <Link to="/login">Login</Link>
-                    </li>
+                    {user.IsAdmin == 1 && (
+                        <li class="nav-element">
+                            <Link to="/admin-panel">Admin Panel</Link>
+                        </li>
+                    )}
+                    {!user && (
+                        <li class="nav-element nav-right nav-last-element">
+                            <Link to="/register">Register</Link>
+                        </li>
+                    )}
+                    {!user && (
+                        <li class="nav-element nav-right">
+                            <Link to="/login">Login</Link>
+                        </li>
+                    )}
+                    {user && (
+                        <li class="nav-element nav-right nav-last-element">
+                            <Link to="/welcome" onClick={handleLogout}>
+                                Logout
+                            </Link>
+                        </li>
+                    )}
                 </ul>
             </nav>
         </header>
