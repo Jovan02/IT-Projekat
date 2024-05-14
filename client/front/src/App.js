@@ -47,7 +47,7 @@ const router = createBrowserRouter([
                 element: <Profile />,
             },
             {
-                path: "/movie/",
+                path: "/movie/:id",
                 element: <SingleMovie />,
             },
             {
