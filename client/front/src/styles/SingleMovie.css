@@ -165,6 +165,11 @@ img {
     border-radius: 8px;
 }
 
+.movie-projection:hover {
+    background-color: #e94f37;
+    color: #d9d9d9;
+}
+
 .movie-rating-container {
     width: 100%;
 
@@ -177,13 +182,15 @@ img {
 .movie-rating-stars {
     display: flex;
     flex-direction: row;
-    gap: 8px;
+    /* gap: 8px; */
 }
 
 .icon-star {
+    padding-left: 8px;
     width: 48px;
     height: 48px;
     color: #393e41;
+    cursor: pointer;
 }
 
 .movie-review-form {
@@ -217,6 +224,10 @@ img {
     align-self: flex-end;
 }
 
+.movie-rating-input-submit:hover {
+    background-color: #e94f37;
+}
+
 .reviews-container {
     width: 100%;
 
@@ -246,6 +257,7 @@ img {
     flex-direction: row;
     gap: 16px;
     align-items: center;
+    justify-content: space-between;
 }
 
 .review-author-section {
@@ -277,5 +289,10 @@ img {
 
 .review-card-text {
     color: #d9d9d9;
-    text-align: left;
+    min-width: 0;
+}
+
+path {
+    cursor: pointer;
+    pointer-events: all;
 }
