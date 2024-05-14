@@ -4,11 +4,11 @@ const getReviews = (req, res) => {
     const query = `SELECT * FROM review WHERE MovieID = ?`;
     db.query(query, [req.body.movieId], (err, result) => {
         if (err) {
-            res.status(500).json(err);
+            res.status(500).json({ message: err });
         } else if (result.length === 0) {
-            res.status(404).json("No reviews found");
+            res.status(404).json({ message: "No reviews found" });
         } else {
-            res.status(200).json("Reviews...");
+            res.status(200).json(result);
         }
     });
 };
@@ -20,9 +20,9 @@ const createReview = (req, res) => {
 
     db.query(query, [userId, movieId, description, rating], (err, result) => {
         if (err) {
-            res.status(500).json(err);
+            res.status(500).json({ message: err });
         } else {
-            res.status(200).json("Review created successfully");
+            res.status(200).json({ message: "Review created successfully" });
         }
     });
 };

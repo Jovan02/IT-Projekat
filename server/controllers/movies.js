@@ -4,11 +4,11 @@ const getMovies = (req, res) => {
     const query = `SELECT * FROM movie`;
     db.query(query, [], (err, result) => {
         if (err) {
-            res.status(500).json(err);
+            res.status(500).json({ message: err });
         } else if (result.length === 0) {
-            res.status(404).json("No movies found");
+            res.status(404).json({ message: "No movies found" });
         } else {
-            res.status(200).json("Movies...");
+            res.status(200).json(result);
         }
     });
 };
@@ -17,11 +17,11 @@ const getMovie = (req, res) => {
     const query = `SELECT * FROM movie WHERE ID = ?`;
     db.query(query, [req.params.id], (err, result) => {
         if (err) {
-            res.status(500).json(err);
+            res.status(500).json({ message: err });
         } else if (result.length === 0) {
-            res.status(404).json("Movie not found");
+            res.status(404).json({ message: "Movie not found" });
         } else {
-            res.status(200).json("Movie");
+            res.status(200).json(result);
         }
     });
 };
@@ -89,9 +89,9 @@ const createMovie = async (req, res) => {
             genres
         );
 
-        res.status(200).json("Added successfully.");
+        res.status(200).json({ message: "Added successfully." });
     } catch (error) {
-        res.status(500).json(error);
+        res.status(500).json({ message: error });
     }
 };
 

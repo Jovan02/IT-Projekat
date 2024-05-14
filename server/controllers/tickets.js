@@ -22,7 +22,7 @@ const createTicket = (req, res) => {
         [userId, screeningId, seatRow, seatColumn, hallId],
         (err, result) => {
             if (err) {
-                res.status(500).json(err); //{message: "There was an error creating the ticket",}
+                res.status(500).json({ message: err });
             } else {
                 res.json({
                     message: "Ticket created successfully",
