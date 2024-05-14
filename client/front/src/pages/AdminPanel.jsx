@@ -1,7 +1,59 @@
 import React from "react";
 import "../styles/AdminPanel.css";
+import axios from "axios";
+import { useState } from "react";
 
 const AdminPanel = () => {
+    const URL = "http://localhost:8000";
+
+    const handleChooseTab = (e) => {
+        const buttons = document.querySelectorAll(".button");
+        const containers = document.querySelectorAll(".container");
+
+        buttons.forEach((button) => {
+            button.classList.remove("active");
+        });
+
+        containers.forEach((container) => {
+            container.style.display = "none";
+        });
+
+        e.target.classList.add("active");
+
+        if (e.target.innerHTML === "Manage Users") {
+            document.querySelector(".manage-users-container").style.display =
+                "flex";
+            loadUsers();
+        } else if (e.target.innerHTML === "Add movie") {
+            document.querySelector(".add-movie-container").style.display =
+                "flex";
+        } else if (e.target.innerHTML === "Add projection") {
+            document.querySelector(".add-screening").style.display = "flex";
+        }
+    };
+
+    const [users, setUsers] = useState([]);
+
+    const loadUsers = async () => {
+        try {
+            const response = await axios.get(`${URL}/api/users`);
+            setUsers(response.data);
+            console.log(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleDeleteUser = async (id) => {
+        try {
+            await axios.delete(`${URL}/api/users/${id}`);
+            console.log(id);
+            loadUsers();
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <div class="main">
             <div class="title">
@@ -10,59 +62,34 @@ const AdminPanel = () => {
 
             <div class="main-container">
                 <div class="choice-buttons">
-                    <button class="button">Manage Users</button>
-                    <button class="button">Add movie</button>
-                    <button class="button">Add projection</button>
+                    <button class="button" onClick={handleChooseTab}>
+                        Manage Users
+                    </button>
+                    <button class="button" onClick={handleChooseTab}>
+                        Add movie
+                    </button>
+                    <button class="button" onClick={handleChooseTab}>
+                        Add projection
+                    </button>
                 </div>
 
-                <div class="manage-users-container">
-                    <div class="manage-user-card">
-                        <p class="username">Username</p>
-                        <button class="button-delete">Delete</button>
-                    </div>
-                    <div class="manage-user-card">
-                        <p class="username">Username</p>
-                        <button class="button-delete">Delete</button>
-                    </div>
-                    <div class="manage-user-card">
-                        <p class="username">Username</p>
-                        <button class="button-delete">Delete</button>
-                    </div>
-                    <div class="manage-user-card">
-                        <p class="username">Username</p>
-                        <button class="button-delete">Delete</button>
-                    </div>
-                    <div class="manage-user-card">
-                        <p class="username">Username</p>
-                        <button class="button-delete">Delete</button>
-                    </div>
-                    <div class="manage-user-card">
-                        <p class="username">Username</p>
-                        <button class="button-delete">Delete</button>
-                    </div>
-                    <div class="manage-user-card">
-                        <p class="username">Username</p>
-                        <button class="button-delete">Delete</button>
-                    </div>
-                    <div class="manage-user-card">
-                        <p class="username">Username</p>
-                        <button class="button-delete">Delete</button>
-                    </div>
-                    <div class="manage-user-card">
-                        <p class="username">Username</p>
-                        <button class="button-delete">Delete</button>
-                    </div>
-                    <div class="manage-user-card">
-                        <p class="username">Username</p>
-                        <button class="button-delete">Delete</button>
-                    </div>
-                    <div class="manage-user-card">
-                        <p class="username">Username</p>
-                        <button class="button-delete">Delete</button>
-                    </div>
+                <div class="container manage-users-container">
+                    {users.map((user) => (
+                        <div class="manage-user-card">
+                            <p class="username">{user.Username}</p>
+                            <button
+                                class="button-delete"
+                                onClick={(e) => {
+                                    handleDeleteUser(user.ID);
+                                }}
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    ))}
                 </div>
 
-                <div class="add-movie-container">
+                <div class="container add-movie-container">
                     <form>
                         <label for="title">Title</label>
                         <input type="text" id="title" name="title" required />
@@ -89,7 +116,7 @@ const AdminPanel = () => {
                     <button class="button-movie">Add</button>
                 </div>
 
-                <div class="add-screening">
+                <div class="container add-screening">
                     <form>
                         <label for="movie">Movie</label>
                         <input type="text" id="movie" name="movie" required />
