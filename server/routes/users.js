@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.get("/", getUsers);
 router.put("/", updateUser);
-router.delete("/", deleteUser);
+router.delete("/:id", deleteUser);
 
 module.exports = router;

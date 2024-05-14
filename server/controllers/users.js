@@ -24,9 +24,9 @@ const updateUser = (req, res) => {
 };
 
 const deleteUser = (req, res) => {
-    const { userId } = req.body;
+    const { id } = req.params;
     const query = `DELETE FROM user WHERE ID = ?`;
-    db.query(query, [userId], (err, result) => {
+    db.query(query, [id], (err, result) => {
         if (err) {
             res.status(500).json({ message: err });
         } else {
