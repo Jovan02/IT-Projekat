@@ -1,8 +1,40 @@
 import React from "react";
 import "../styles/Login.css";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../AuthContext";
+import { useContext } from "react";
 
 const Login = () => {
+    const navigate = useNavigate();
+
+    const [inputs, setInputs] = useState({
+        username: "",
+        password: "",
+    });
+
+    const [error, setError] = useState(null);
+
+    const { login } = useContext(AuthContext);
+
+    const handleChange = (e) => {
+        setInputs({
+            ...inputs,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        try {
+            await login(inputs);
+            navigate("/home");
+        } catch (error) {
+            setError(error.response.data.message);
+        }
+    };
+
     return (
         <div class="main">
             <div class="title">
@@ -15,18 +47,26 @@ const Login = () => {
                     <label for="username">Username</label>
                     <input
                         class="input-field"
+                        id="username"
                         type="text"
                         name="username"
+                        onChange={handleChange}
                         required
                     />
                     <label for="password">Password</label>
                     <input
                         class="input-field"
                         type="password"
+                        id="password"
                         name="password"
+                        onChange={handleChange}
                         required
                     />
-                    <button class="login-button" type="submit">
+                    <button
+                        class="login-button"
+                        type="submit"
+                        onClick={handleLogin}
+                    >
                         Login
                     </button>
                     <p class="register-here-text">
@@ -35,6 +75,7 @@ const Login = () => {
                             Register here.
                         </Link>
                     </p>
+                    {error && <p class="error-message">{error}</p>}
                 </form>
             </div>
         </div>
