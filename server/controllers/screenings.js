@@ -38,4 +38,22 @@ const getScreeningsForNextDays = (req, res) => {
     });
 };
 
-module.exports = { getScreenings, createScreening, getScreeningsForNextDays };
+const getScreening = (req, res) => {
+    const query = `SELECT * FROM screening s INNER JOIN movie m ON s.MovieID = m.ID WHERE s.ID = ?`;
+    db.query(query, [req.params.id], (err, result) => {
+        if (err) {
+            res.status(500).json({ message: err });
+        } else if (result.length === 0) {
+            res.status(404).json({ message: "Screening not found" });
+        } else {
+            res.status(200).json(result);
+        }
+    });
+};
+
+module.exports = {
+    getScreenings,
+    createScreening,
+    getScreeningsForNextDays,
+    getScreening,
+};
