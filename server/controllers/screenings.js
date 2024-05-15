@@ -25,4 +25,17 @@ const createScreening = (req, res) => {
     });
 };
 
-module.exports = { getScreenings, createScreening };
+const getScreeningsForNextDays = (req, res) => {
+    const query = `SELECT * FROM screening WHERE MovieID = ? AND Date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 10 DAY) AND TIME(Time) > CURTIME()`;
+    db.query(query, [req.params.id], (err, result) => {
+        if (err) {
+            res.status(500).json({ message: err });
+        } else if (result.length === 0) {
+            res.status(404).json({ message: "No screenings found" });
+        } else {
+            res.status(200).json(result);
+        }
+    });
+};
+
+module.exports = { getScreenings, createScreening, getScreeningsForNextDays };
