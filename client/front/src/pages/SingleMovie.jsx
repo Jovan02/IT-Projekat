@@ -16,6 +16,9 @@ const SingleMovie = () => {
     const [rating, setRating] = useState(0);
     const [isStarClicked, setIsStarClicked] = useState(0);
     const [reviewText, setReviewText] = useState("");
+    const [screenings, setScreenings] = useState([]);
+    const [convertedScreenings, setConvertedScreenings] = useState([]);
+    const [nextDays, setNextDays] = useState([]);
 
     const starsRef = useRef(
         Array(5)
@@ -69,6 +72,33 @@ const SingleMovie = () => {
         setRating(sum / reviews.length || 0);
     };
 
+    const parseDates = () => {
+        const converted = screenings.map((screening) => {
+            const date = new Date(screening.Date);
+            console.log(date);
+            const day = date.getDay();
+            const days = [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday",
+            ];
+
+            const time = screening.Time.split(":");
+            const hours = time[0];
+            const minutes = time[1];
+            return {
+                ...screening,
+                Time: `${hours}:${minutes}`,
+                day: days[day - 1],
+            };
+        });
+        setConvertedScreenings(converted);
+    };
+
     const loadMovie = async () => {
         try {
             const response = await axios.get(`${URL}/api/movies/${id}`);
@@ -82,6 +112,16 @@ const SingleMovie = () => {
         try {
             const response = await axios.get(`${URL}/api/reviews/${id}`);
             setReviews(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const loadScreenings = async () => {
+        try {
+            const response = await axios.get(`${URL}/api/screenings/${id}`);
+            setScreenings(response.data);
+            console.log(response.data);
         } catch (error) {
             console.error(error);
         }
@@ -118,11 +158,31 @@ const SingleMovie = () => {
     useEffect(() => {
         loadMovie();
         loadReviews();
+        loadScreenings(); // Parsiraj datume da se prikazuju u sekcijama za odredjene dane u nedjelji
     }, []);
 
     useEffect(() => {
         calculateRating();
     }, [reviews]);
+
+    useEffect(() => {
+        parseDates();
+    }, [screenings]);
+
+    useEffect(() => {
+        const tmp = [];
+        convertedScreenings.forEach((screening) => {
+            console.log(screening);
+            if (!nextDays.includes(screening.day) && screening.day) {
+                tmp.push(screening.day);
+            }
+        });
+        setNextDays([...tmp]); //  FIX UCITAVANJE TIKETIA TREBA USEEFFECT
+    }, [convertedScreenings]);
+
+    useEffect(() => {
+        console.log(nextDays);
+    }, [nextDays]);
 
     return (
         <div class="main">
@@ -148,7 +208,24 @@ const SingleMovie = () => {
                     <div class="movie-tickets">
                         <p class="movie-buy-ticket">Buy a ticket</p>
 
-                        <div class="movie-day-projection">
+                        {nextDays.map((day) => (
+                            <div class="movie-day-projection">
+                                <p class="movie-day">{day}</p>
+                                <div class="movie-projections">
+                                    {convertedScreenings.map((screening) => {
+                                        if (screening.day === day)
+                                            return (
+                                                <div class="movie-projection">
+                                                    <p>{screening.Time}</p>
+                                                    <p>Hall {screening.Hall}</p>
+                                                </div>
+                                            );
+                                    })}
+                                </div>
+                            </div>
+                        ))}
+
+                        {/* <div class="movie-day-projection">
                             <p class="movie-day">Monday</p>
                             <div class="movie-projections">
                                 <div class="movie-projection">
@@ -292,7 +369,7 @@ const SingleMovie = () => {
                                     <p>Hall 6</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
 
                     <div class="movie-rating-container">
