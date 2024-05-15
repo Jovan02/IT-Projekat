@@ -72,10 +72,9 @@ const SingleMovie = () => {
         setRating(sum / reviews.length || 0);
     };
 
-    const parseDates = () => {
-        const converted = screenings.map((screening) => {
+    const parseDates = (screeningsData) => {
+        const arr = screeningsData.map((screening) => {
             const date = new Date(screening.Date);
-            console.log(date);
             const day = date.getDay();
             const days = [
                 "Monday",
@@ -96,7 +95,8 @@ const SingleMovie = () => {
                 day: days[day - 1],
             };
         });
-        setConvertedScreenings(converted);
+
+        setScreenings(arr);
     };
 
     const loadMovie = async () => {
@@ -121,7 +121,7 @@ const SingleMovie = () => {
         try {
             const response = await axios.get(`${URL}/api/screenings/${id}`);
             setScreenings(response.data);
-            console.log(response.data);
+            parseDates(response.data);
         } catch (error) {
             console.error(error);
         }
@@ -158,7 +158,7 @@ const SingleMovie = () => {
     useEffect(() => {
         loadMovie();
         loadReviews();
-        loadScreenings(); // Parsiraj datume da se prikazuju u sekcijama za odredjene dane u nedjelji
+        loadScreenings();
     }, []);
 
     useEffect(() => {
@@ -166,23 +166,15 @@ const SingleMovie = () => {
     }, [reviews]);
 
     useEffect(() => {
-        parseDates();
-    }, [screenings]);
-
-    useEffect(() => {
         const tmp = [];
-        convertedScreenings.forEach((screening) => {
-            console.log(screening);
-            if (!nextDays.includes(screening.day) && screening.day) {
+
+        screenings.forEach((screening) => {
+            if (!tmp.includes(screening.day) && screening.day) {
                 tmp.push(screening.day);
             }
         });
-        setNextDays([...tmp]); //  FIX UCITAVANJE TIKETIA TREBA USEEFFECT
-    }, [convertedScreenings]);
-
-    useEffect(() => {
-        console.log(nextDays);
-    }, [nextDays]);
+        setNextDays([...tmp]);
+    }, [screenings]);
 
     return (
         <div class="main">
@@ -212,15 +204,23 @@ const SingleMovie = () => {
                             <div class="movie-day-projection">
                                 <p class="movie-day">{day}</p>
                                 <div class="movie-projections">
-                                    {convertedScreenings.map((screening) => {
-                                        if (screening.day === day)
+                                    {screenings
+                                        .filter(
+                                            (screening) => screening.day === day
+                                        )
+                                        .map((screening) => {
                                             return (
-                                                <div class="movie-projection">
+                                                <div
+                                                    class="movie-projection"
+                                                    key={screening.ID}
+                                                >
                                                     <p>{screening.Time}</p>
-                                                    <p>Hall {screening.Hall}</p>
+                                                    <p>
+                                                        Hall {screening.HallID}
+                                                    </p>
                                                 </div>
                                             );
-                                    })}
+                                        })}
                                 </div>
                             </div>
                         ))}
