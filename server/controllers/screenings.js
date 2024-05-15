@@ -26,7 +26,7 @@ const createScreening = (req, res) => {
 };
 
 const getScreeningsForNextDays = (req, res) => {
-    const query = `SELECT * FROM screening WHERE MovieID = ? AND Date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 10 DAY) AND TIME(Time) > CURTIME()`;
+    const query = `SELECT * FROM screening WHERE MovieID = ? AND (Date > CURDATE() OR (Date = CURDATE() AND TIME(Time) > CURTIME())) AND Date <= DATE_ADD(CURDATE(), INTERVAL 10 DAY)`;
     db.query(query, [req.params.id], (err, result) => {
         if (err) {
             res.status(500).json({ message: err });
