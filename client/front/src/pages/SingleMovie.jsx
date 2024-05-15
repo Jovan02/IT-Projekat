@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "../styles/SingleMovie.css";
 import axios from "axios";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ReviewCard from "../components/ReviewCard";
 import { useRef } from "react";
 
@@ -10,6 +10,8 @@ const SingleMovie = () => {
     const URL = "http://localhost:8000";
 
     const id = useParams().id;
+
+    const navigate = useNavigate();
 
     const [movie, setMovie] = useState({});
     const [reviews, setReviews] = useState([]);
@@ -155,6 +157,10 @@ const SingleMovie = () => {
         setReviewText(e.target.value);
     };
 
+    const handleScreeningClick = (id) => {
+        navigate(`/ticket/${id}`);
+    };
+
     useEffect(() => {
         loadMovie();
         loadReviews();
@@ -174,6 +180,7 @@ const SingleMovie = () => {
             }
         });
         setNextDays([...tmp]);
+        console.log(screenings);
     }, [screenings]);
 
     return (
@@ -212,7 +219,11 @@ const SingleMovie = () => {
                                             return (
                                                 <div
                                                     class="movie-projection"
-                                                    key={screening.ID}
+                                                    onClick={(e) =>
+                                                        handleScreeningClick(
+                                                            screening.ID
+                                                        )
+                                                    }
                                                 >
                                                     <p>{screening.Time}</p>
                                                     <p>
@@ -224,152 +235,6 @@ const SingleMovie = () => {
                                 </div>
                             </div>
                         ))}
-
-                        {/* <div class="movie-day-projection">
-                            <p class="movie-day">Monday</p>
-                            <div class="movie-projections">
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="movie-day-projection">
-                            <p class="movie-day">Tuesday</p>
-                            <div class="movie-projections">
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="movie-day-projection">
-                            <p class="movie-day">Wednesday</p>
-                            <div class="movie-projections">
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="movie-day-projection">
-                            <p class="movie-day">Thursday</p>
-                            <div class="movie-projections">
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="movie-day-projection">
-                            <p class="movie-day">Friday</p>
-                            <div class="movie-projections">
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                                <div class="movie-projection">
-                                    <p>16:30</p>
-                                    <p>Hall 6</p>
-                                </div>
-                            </div>
-                        </div> */}
                     </div>
 
                     <div class="movie-rating-container">
