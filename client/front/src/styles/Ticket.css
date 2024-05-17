@@ -90,6 +90,7 @@ h1 {
 .movie-title {
     font-size: 4em;
     font-weight: 500;
+    align-self: center;
 }
 
 .date-text,
@@ -111,9 +112,25 @@ h1 {
     font-size: 1.5em;
 }
 
-.icon-seat:hover {
+/* .icon-seat:hover {
     color: #e94f37;
-    /* fill: #e94f37; */
+    fill: #e94f37;
+}  */
+
+.unselected {
+    fill: #d9d9d9;
+}
+
+.unselected:hover {
+    stroke: #e94f37;
+}
+
+.selected {
+    fill: #e94f37;
+}
+
+.selected:hover {
+    stroke: #393e41;
 }
 
 .icon-seat {
@@ -121,7 +138,7 @@ h1 {
     height: 32px;
 }
 
-.seat-taken .icon-seat {
+.seat-taken {
     fill: #393e41;
 }
 
