@@ -1,6 +1,8 @@
 const db = require("../db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const path = require("path");
+require("dotenv").config({ path: ".env" });
 
 function checkUserExistsPromise(username) {
     return new Promise((resolve, reject) => {
@@ -76,13 +78,13 @@ const login = (req, res) => {
                         .status(401)
                         .json({ message: "Password incorrect" });
                 }
-
                 const token = jwt.sign(
                     {
                         id: result[0].ID,
                         isAdmin: result[0].isAdmin,
                     },
-                    "bfa987fa5008f1e25bc851f95792ffe972d666c73f4bea50f81a3235c234b3fd"
+                    process.env.JWT_SECRET,
+                    { expiresIn: "1h" }
                 );
 
                 const { ID, Password, ...other } = result[0];
