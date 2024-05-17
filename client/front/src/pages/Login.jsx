@@ -69,13 +69,13 @@ const Login = () => {
                     >
                         Login
                     </button>
+                    {error && <p class="error-message">{error}</p>}
                     <p class="register-here-text">
                         Don't have an account yet?
                         <Link class="register-link" to="/register">
                             Register here.
                         </Link>
                     </p>
-                    {error && <p class="error-message">{error}</p>}
                 </form>
             </div>
         </div>
