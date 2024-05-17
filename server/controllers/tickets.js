@@ -38,7 +38,6 @@ const createTicket = (req, res) => {
 
 const getTicketsByUserId = (req, res) => {
     const { id } = req.params;
-    console.log("id", id);
     const query = `SELECT * FROM ticket t INNER JOIN screening s ON t.ScreeningID = s.ID INNER JOIN movie m ON s.MovieID = m.ID WHERE UserID = ?`;
     db.query(query, [id], (err, result) => {
         if (err) {
