@@ -142,7 +142,6 @@ const AdminPanel = () => {
             </div>
 
             <div class="main-container">
-                <img src={imgFile} alt="logo" class="logo" />
                 <div class="choice-buttons">
                     <button class="button" onClick={handleChooseTab}>
                         Manage Users
