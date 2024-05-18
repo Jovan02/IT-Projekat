@@ -13,9 +13,9 @@ const MovieCard = ({ imagePath, title, id }) => {
 
     return (
         <div class="card" key={id} onClick={handleCardClick}>
-            <img src={imagePath} alt="movie" />
+            <img class="card-img" src={imagePath} alt="movie" />
             <div class="card-content">
-                <h3>{title}</h3>
+                <h3 class="card-title">{title}</h3>
             </div>
         </div>
     );
