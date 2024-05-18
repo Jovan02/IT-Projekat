@@ -167,133 +167,127 @@ const AdminPanel = () => {
     }, [movieGenres]);
 
     return (
-        <div class="main">
-            <div class="title">
-                <h1>CINEMAXX</h1>
+        <>
+            <div class="choice-buttons">
+                <button class="button" onClick={handleChooseTab}>
+                    Manage Users
+                </button>
+                <button class="button" onClick={handleChooseTab}>
+                    Add movie
+                </button>
+                <button class="button" onClick={handleChooseTab}>
+                    Add projection
+                </button>
             </div>
 
-            <div class="main-container">
-                <div class="choice-buttons">
-                    <button class="button" onClick={handleChooseTab}>
-                        Manage Users
-                    </button>
-                    <button class="button" onClick={handleChooseTab}>
-                        Add movie
-                    </button>
-                    <button class="button" onClick={handleChooseTab}>
-                        Add projection
-                    </button>
-                </div>
-
-                <div class="container manage-users-container">
-                    {users.map((user) => (
-                        <div class="manage-user-card">
-                            <p class="username">{user.Username}</p>
-                            <button
-                                class="button-delete"
-                                onClick={(e) => {
-                                    handleDeleteUser(user.ID);
-                                }}
-                            >
-                                Delete
-                            </button>
-                        </div>
-                    ))}
-                </div>
-
-                <div class="container add-movie-container">
-                    <form>
-                        <label for="title">Title</label>
-                        <input
-                            type="text"
-                            id="title"
-                            name="title"
-                            required
-                            onChange={handleTitleChange}
-                        />
-                        <label for="image">Image</label>
-                        <input
-                            type="file"
-                            id="image"
-                            name="image"
-                            required
-                            multiple={false}
-                            onChange={handleFileChange}
-                        />
-                        <label for="genre">Genre</label>
-                        <div class="genre-checkbox-container">
-                            {genres.map((genre) => (
-                                <label class="checkbox-box">
-                                    {genre.Name}
-                                    <input
-                                        type="checkbox"
-                                        name={genre.Name}
-                                        onChange={handleGenreCheckbox}
-                                    />
-                                    <span class="checkmark"></span>
-                                </label>
-                            ))}
-                        </div>
-                        <label for="duration">Duration</label>
-                        <input
-                            type="text"
-                            id="duration"
-                            name="duration"
-                            required
-                            onChange={handleDurationChange}
-                        />
-                        <label for="description">Description</label>
-                        <textarea
-                            class="description"
-                            id="description"
-                            name="description"
-                            contenteditable=""
-                            required
-                            onChange={handleDescriptionChange}
-                        ></textarea>
-                    </form>
-
-                    <button class="button-movie" onClick={handleAddMovie}>
-                        Add
-                    </button>
-                </div>
-
-                <div class="container add-screening">
-                    <form>
-                        <label for="movie">Movie</label>
-                        <SearchBar
-                            type="movies"
-                            reference={(e) => (movieRef.current = e)}
-                        />
-                        <label for="date">Date</label>
-                        <input
-                            type="date"
-                            id="date"
-                            name="date"
-                            required
-                            ref={(e) => (dateRef.current = e)}
-                        />
-                        <label for="time">Time</label>
-                        <input
-                            type="time"
-                            id="time"
-                            name="time"
-                            required
-                            ref={(e) => (timeRef.current = e)}
-                        />
-                        <label for="hall">Hall</label>
-                        <SearchBar
-                            type="halls"
-                            reference={(e) => (hallRef.current = e)}
-                        />
-                    </form>
-
-                    <button class="button-movie" onClick={handleAddProjection}>
-                        Add
-                    </button>
-                </div>
+            <div class="container manage-users-container">
+                {users.map((user) => (
+                    <div class="manage-user-card">
+                        <p class="username">{user.Username}</p>
+                        <button
+                            class="button-delete"
+                            onClick={(e) => {
+                                handleDeleteUser(user.ID);
+                            }}
+                        >
+                            Delete
+                        </button>
+                    </div>
+                ))}
             </div>
-        </div>
+
+            <div class="container add-movie-container">
+                <form>
+                    <label for="title">Title</label>
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        required
+                        onChange={handleTitleChange}
+                    />
+                    <label for="image">Image</label>
+                    <input
+                        type="file"
+                        id="image"
+                        name="image"
+                        required
+                        multiple={false}
+                        onChange={handleFileChange}
+                    />
+                    <label for="genre">Genre</label>
+                    <div class="genre-checkbox-container">
+                        {genres.map((genre) => (
+                            <label class="checkbox-box">
+                                {genre.Name}
+                                <input
+                                    type="checkbox"
+                                    name={genre.Name}
+                                    onChange={handleGenreCheckbox}
+                                />
+                                <span class="checkmark"></span>
+                            </label>
+                        ))}
+                    </div>
+                    <label for="duration">Duration</label>
+                    <input
+                        type="text"
+                        id="duration"
+                        name="duration"
+                        required
+                        onChange={handleDurationChange}
+                    />
+                    <label for="description">Description</label>
+                    <textarea
+                        class="description"
+                        id="description"
+                        name="description"
+                        contenteditable=""
+                        required
+                        onChange={handleDescriptionChange}
+                    ></textarea>
+                </form>
+
+                <button class="button-movie" onClick={handleAddMovie}>
+                    Add
+                </button>
+            </div>
+
+            <div class="container add-screening">
+                <form>
+                    <label for="movie">Movie</label>
+                    <SearchBar
+                        type="movies"
+                        reference={(e) => (movieRef.current = e)}
+                    />
+                    <label for="date">Date</label>
+                    <input
+                        type="date"
+                        id="date"
+                        name="date"
+                        required
+                        ref={(e) => (dateRef.current = e)}
+                    />
+                    <label for="time">Time</label>
+                    <input
+                        type="time"
+                        id="time"
+                        name="time"
+                        required
+                        ref={(e) => (timeRef.current = e)}
+                    />
+                    <label for="hall">Hall</label>
+                    <SearchBar
+                        type="halls"
+                        reference={(e) => (hallRef.current = e)}
+                    />
+                </form>
+
+                <button class="button-movie" onClick={handleAddProjection}>
+                    Add
+                </button>
+            </div>
+        </>
     );
 };
 

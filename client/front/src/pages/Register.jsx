@@ -33,57 +33,51 @@ function Register() {
     };
 
     return (
-        <div class="main">
-            <div class="title">
-                <h1>CINEMAXX</h1>
-            </div>
-
-            <div class="main-container">
-                <form class="register-form">
-                    <h2 class="register-text">Register</h2>
-                    <label for="email">Email</label>
-                    <input
-                        class="input-field"
-                        type="email"
-                        name="email"
-                        id="email"
-                        required
-                        onChange={handleChange}
-                    />
-                    <label for="username">Username</label>
-                    <input
-                        class="input-field"
-                        type="text"
-                        name="username"
-                        id="username"
-                        required
-                        onChange={handleChange}
-                    />
-                    <label for="password">Password</label>
-                    <input
-                        class="input-field"
-                        type="password"
-                        name="password"
-                        id="password"
-                        required
-                        onChange={handleChange}
-                    />
-                    <button
-                        class="register-button"
-                        type="submit"
-                        onClick={handleRegister}
-                    >
-                        Register
-                    </button>
-                    <p class="login-here-text">
-                        Already have an acount?{" "}
-                        <Link class="login-link" to="/login">
-                            Log in here.
-                        </Link>
-                    </p>
-                </form>
-            </div>
-        </div>
+        <>
+            <form class="register-form">
+                <h2 class="register-text">Register</h2>
+                <label for="email">Email</label>
+                <input
+                    class="input-field"
+                    type="email"
+                    name="email"
+                    id="email"
+                    required
+                    onChange={handleChange}
+                />
+                <label for="username">Username</label>
+                <input
+                    class="input-field"
+                    type="text"
+                    name="username"
+                    id="username"
+                    required
+                    onChange={handleChange}
+                />
+                <label for="password">Password</label>
+                <input
+                    class="input-field"
+                    type="password"
+                    name="password"
+                    id="password"
+                    required
+                    onChange={handleChange}
+                />
+                <button
+                    class="register-button"
+                    type="submit"
+                    onClick={handleRegister}
+                >
+                    Register
+                </button>
+                <p class="login-here-text">
+                    Already have an acount?{" "}
+                    <Link class="login-link" to="/login">
+                        Log in here.
+                    </Link>
+                </p>
+            </form>
+        </>
     );
 }
 

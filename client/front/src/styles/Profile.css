@@ -1,16 +1,3 @@
-h1 {
-    color: #d9d9d9;
-    font-weight: 500;
-    font-size: 6em;
-}
-
-.title {
-    text-align: center;
-    background-color: #393e41;
-}
-
-/* MAIN STYLE */
-
 .profile-container {
     margin: 100px auto;
     width: 80%;
@@ -36,7 +23,7 @@ h1 {
     font-size: 1.5em;
 }
 
-.ticket-container {
+.profile-ticket-container {
     background-color: #393e41;
     border-radius: 24px;
     padding: 24px;
@@ -50,7 +37,7 @@ h1 {
     align-items: center;
 }
 
-.ticket {
+.profile-ticket {
     background-color: #d9d9d9;
     border-radius: 24px;
     padding: 16px;

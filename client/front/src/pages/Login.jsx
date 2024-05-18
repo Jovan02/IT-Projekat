@@ -36,49 +36,43 @@ const Login = () => {
     };
 
     return (
-        <div class="main">
-            <div class="title">
-                <h1>CINEMAXX</h1>
-            </div>
-
-            <div class="main-container">
-                <form class="login-form">
-                    <h2 class="login-text">Login</h2>
-                    <label for="username">Username</label>
-                    <input
-                        class="input-field"
-                        id="username"
-                        type="text"
-                        name="username"
-                        onChange={handleChange}
-                        required
-                    />
-                    <label for="password">Password</label>
-                    <input
-                        class="input-field"
-                        type="password"
-                        id="password"
-                        name="password"
-                        onChange={handleChange}
-                        required
-                    />
-                    <button
-                        class="login-button"
-                        type="submit"
-                        onClick={handleLogin}
-                    >
-                        Login
-                    </button>
-                    {error && <p class="error-message">{error}</p>}
-                    <p class="register-here-text">
-                        Don't have an account yet?
-                        <Link class="register-link" to="/register">
-                            Register here.
-                        </Link>
-                    </p>
-                </form>
-            </div>
-        </div>
+        <>
+            <form class="login-form">
+                <h2 class="login-text">Login</h2>
+                <label for="username">Username</label>
+                <input
+                    class="input-field"
+                    id="username"
+                    type="text"
+                    name="username"
+                    onChange={handleChange}
+                    required
+                />
+                <label for="password">Password</label>
+                <input
+                    class="input-field"
+                    type="password"
+                    id="password"
+                    name="password"
+                    onChange={handleChange}
+                    required
+                />
+                <button
+                    class="login-button"
+                    type="submit"
+                    onClick={handleLogin}
+                >
+                    Login
+                </button>
+                {error && <p class="error-message">{error}</p>}
+                <p class="register-here-text">
+                    Don't have an account yet?
+                    <Link class="register-link" to="/register">
+                        Register here.
+                    </Link>
+                </p>
+            </form>
+        </>
     );
 };
 

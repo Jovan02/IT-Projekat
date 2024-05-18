@@ -24,11 +24,7 @@ const Home = () => {
     }, []);
 
     return (
-        <div class="main">
-            <div class="title">
-                <h1>CINEMAXX</h1>
-            </div>
-
+        <>
             <div class="card-container">
                 {movies.map((movie) => (
                     <MovieCard
@@ -38,7 +34,7 @@ const Home = () => {
                     />
                 ))}
             </div>
-        </div>
+        </>
     );
 };
 export default Home;

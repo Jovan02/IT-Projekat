@@ -21,7 +21,14 @@ const Layout = () => {
     return (
         <div>
             <Navbar />
-            <Outlet />
+            <div class="main">
+                <div class="title">
+                    <h1>CINEMAXX</h1>
+                </div>
+                <div class="main-container">
+                    <Outlet />
+                </div>
+            </div>
         </div>
     );
 };
@@ -67,11 +74,29 @@ const router = createBrowserRouter([
     },
     {
         path: "/register",
-        element: <Register />,
+        element: (
+            <div class="main">
+                <div class="title">
+                    <h1>CINEMAXX</h1>
+                </div>
+                <div class="main-container">
+                    <Register />
+                </div>
+            </div>
+        ),
     },
     {
         path: "/login",
-        element: <Login />,
+        element: (
+            <div class="main">
+                <div class="title">
+                    <h1>CINEMAXX</h1>
+                </div>
+                <div class="main-container">
+                    <Login />
+                </div>
+            </div>
+        ),
     },
 ]);
 
