@@ -74,7 +74,7 @@ h1 {
 
 /* MAIN STYLE */
 
-.main-container {
+.ticket-container {
     margin: 100px auto;
     width: 80%;
     padding: 40px;
@@ -149,10 +149,19 @@ h1 {
 
 .button-buy {
     padding: 24px 40px;
-    background-color: #e94f37;
-    color: #393e41;
+    background-color: #393e41;
+    color: #d9d9d9;
     border: none;
     border-radius: 50px;
     font-size: 1.5em;
     font-weight: 600;
+    scale: 1;
+    transition: scale 0.4s ease;
+}
+
+.button-buy:hover {
+    background-color: #e94f37;
+    color: #393e41;
+    scale: 1.1;
+    transition: scale 0.4s ease;
 }
