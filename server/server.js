@@ -7,6 +7,7 @@ const ticketsRoutes = require("./routes/tickets");
 const usersRoutes = require("./routes/users");
 const genresRoutes = require("./routes/genres");
 const imagesRoutes = require("./routes/images");
+const hallsRoutes = require("./routes/halls");
 const cors = require("cors");
 
 const app = express();
@@ -24,6 +25,7 @@ app.use("/api/tickets", ticketsRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/genres", genresRoutes);
 app.use("/api/images", imagesRoutes);
+app.use("/api/halls", hallsRoutes);
 
 app.listen(8000, () => {
     console.log("Server is running on port 8000");
