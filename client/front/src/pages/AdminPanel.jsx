@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import "../styles/AdminPanel.css";
 import axios from "axios";
 import { useState } from "react";
+import SearchBar from "../components/SearchBar";
 
 const AdminPanel = () => {
     const URL = "http://localhost:8000";
@@ -14,6 +15,11 @@ const AdminPanel = () => {
     const [movieDescription, setMovieDescription] = useState("");
     const [movieDuration, setMovieDuration] = useState("");
     const [movieGenres, setMovieGenres] = useState([]);
+
+    const movieRef = useRef();
+    const hallRef = useRef();
+    const dateRef = useRef();
+    const timeRef = useRef();
 
     const handleChooseTab = (e) => {
         const buttons = document.querySelectorAll(".button");
@@ -80,8 +86,9 @@ const AdminPanel = () => {
         data.append("file", file);
         try {
             const response = await axios.post(`${URL}/api/images`, data);
-            console.log(response.data.filename);
+            // console.log("OVO JE FAJL UPLOADOVAN: ", response.data.filename);
             setImgFile(`${URL}/public/images/${response.data.filename}`);
+            // console.log("ovo je imgfajl: ", imgFile);
         } catch (error) {
             console.log(error);
         }
@@ -92,7 +99,7 @@ const AdminPanel = () => {
             await handleAddImage();
             const movieData = {
                 name: movieName,
-                image: imgFile,
+                image: `${URL}/public/images/${file.name}`,
                 description: movieDescription,
                 duration: movieDuration,
                 genres: movieGenres,
@@ -123,6 +130,30 @@ const AdminPanel = () => {
             setMovieGenres(
                 movieGenres.filter((genre) => genre !== e.target.name)
             );
+        }
+    };
+
+    const handleAddProjection = async () => {
+        const movie = movieRef.current.dataset.selectedid;
+        const hall = hallRef.current.dataset.selectedid;
+        const date = dateRef.current.value;
+        const time = timeRef.current.value;
+
+        const projectionData = {
+            movieId: movie,
+            hallId: hall,
+            date: date,
+            time: time,
+        };
+
+        try {
+            const response = await axios.post(
+                `${URL}/api/screenings`,
+                projectionData
+            );
+            console.log(response);
+        } catch (error) {
+            console.log(error);
         }
     };
 
@@ -230,16 +261,36 @@ const AdminPanel = () => {
                 <div class="container add-screening">
                     <form>
                         <label for="movie">Movie</label>
-                        <input type="text" id="movie" name="movie" required />
+                        <SearchBar
+                            type="movies"
+                            reference={(e) => (movieRef.current = e)}
+                        />
                         <label for="date">Date</label>
-                        <input type="date" id="date" name="date" required />
+                        <input
+                            type="date"
+                            id="date"
+                            name="date"
+                            required
+                            ref={(e) => (dateRef.current = e)}
+                        />
                         <label for="time">Time</label>
-                        <input type="time" id="time" name="time" required />
+                        <input
+                            type="time"
+                            id="time"
+                            name="time"
+                            required
+                            ref={(e) => (timeRef.current = e)}
+                        />
                         <label for="hall">Hall</label>
-                        <input type="text" id="hall" name="hall" required />
+                        <SearchBar
+                            type="halls"
+                            reference={(e) => (hallRef.current = e)}
+                        />
                     </form>
 
-                    <button class="button-movie">Add</button>
+                    <button class="button-movie" onClick={handleAddProjection}>
+                        Add
+                    </button>
                 </div>
             </div>
         </div>
