@@ -73,7 +73,6 @@ function addGenresPromise(movieId, genres) {
 
 const createMovie = async (req, res) => {
     const { name, image, description, duration, genres } = req.body;
-
     try {
         const addMovie = await addMoviePromise(
             name,
