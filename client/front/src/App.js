@@ -15,6 +15,7 @@ import Profile from "./pages/Profile";
 import SingleMovie from "./pages/SingleMovie";
 import Ticket from "./pages/Ticket";
 import AdminPanel from "./pages/AdminPanel";
+import Contact from "./pages/Contact";
 
 const Layout = () => {
     return (
@@ -55,8 +56,12 @@ const router = createBrowserRouter([
                 element: <Ticket />,
             },
             {
-                path: "/admin-panel/",
+                path: "/admin-panel",
                 element: <AdminPanel />,
+            },
+            {
+                path: "/contact",
+                element: <Contact />,
             },
         ],
     },
