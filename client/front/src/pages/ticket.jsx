@@ -1,14 +1,16 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import "../styles/Ticket.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import Seat from "../components/Seat";
+import AuthContext from "../AuthContext";
 
 const Ticket = () => {
     const URL = "http://localhost:8000";
     const id = useParams().id;
     const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
 
     const [screeningMovie, setScreeningMovie] = useState({});
     const [boughtTickets, setBoughtTickets] = useState([]);
@@ -85,7 +87,6 @@ const Ticket = () => {
 
         try {
             const response = await axios.post(`${URL}/api/tickets`, {
-                userId: 14, // hardcoded for now
                 screeningId: id,
                 seatRow: selectedSeat.row,
                 seatColumn: selectedSeat.col,
