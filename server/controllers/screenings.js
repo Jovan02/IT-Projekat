@@ -1,4 +1,6 @@
 const db = require("../db");
+const jwt = require("jsonwebtoken");
+require("dotenv").config({ path: ".env" });
 
 const getScreenings = (req, res) => {
     const query = `SELECT * FROM screening WHERE MovieID = ?`;
@@ -14,6 +16,15 @@ const getScreenings = (req, res) => {
 };
 
 const createScreening = (req, res) => {
+    const token = req.headers.authorization.split(" ")[1];
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        if (decoded.isAdmin != 1) {
+            return res.status(403).json({ message: "Forbidden" });
+        }
+    } catch (err) {
+        return res.status(401).json({ message: "Unauthorized" });
+    }
     const { date, time, movieId, hallId } = req.body;
     const query = `INSERT INTO screening (Date, Time, MovieID, HallID) VALUES (?, ?, ?, ?)`;
     db.query(query, [date, time, movieId, hallId], (err, result) => {

@@ -80,14 +80,14 @@ const login = (req, res) => {
                 }
                 const token = jwt.sign(
                     {
-                        id: result[0].ID,
-                        isAdmin: result[0].isAdmin,
+                        username: result[0].Username,
+                        isAdmin: result[0].IsAdmin,
                     },
                     process.env.JWT_SECRET,
                     { expiresIn: "1h" }
                 );
 
-                const { ID, Password, ...other } = result[0];
+                const { Password, ...other } = result[0];
 
                 return res.status(200).json({ token, ...other });
             }

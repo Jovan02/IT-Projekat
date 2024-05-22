@@ -1,4 +1,6 @@
 const db = require("../db");
+const jwt = require("jsonwebtoken");
+require("dotenv").config({ path: ".env" });
 
 const getMovies = (req, res) => {
     const query = `SELECT * FROM movie`;
@@ -72,6 +74,16 @@ function addGenresPromise(movieId, genres) {
 }
 
 const createMovie = async (req, res) => {
+    const token = req.headers.authorization.split(" ")[1];
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        if (decoded.isAdmin != 1) {
+            return res.status(403).json({ message: "Forbidden" });
+        }
+    } catch (error) {
+        return res.status(401).json({ message: "Unauthorized" });
+    }
+
     const { name, image, description, duration, genres } = req.body;
     try {
         const addMovie = await addMoviePromise(
@@ -88,9 +100,9 @@ const createMovie = async (req, res) => {
             genres
         );
 
-        res.status(200).json({ message: "Added successfully." });
+        return res.status(200).json({ message: "Added successfully." });
     } catch (error) {
-        res.status(500).json({ message: error });
+        return res.status(500).json({ message: error });
     }
 };
 
