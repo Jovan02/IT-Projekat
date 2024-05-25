@@ -103,7 +103,7 @@ const SingleMovie = () => {
 
     const loadMovie = async () => {
         try {
-            const response = await axios.get(`${URL}/api/movies/${id}`);
+            const response = await axios.get(`${URL}/api/movies/movie/${id}`);
             setMovie(response.data[0]);
         } catch (error) {
             console.error(error);
