@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../styles/Navbar.css";
 import { useState, useContext } from "react";
@@ -10,6 +10,12 @@ const Navbar = () => {
 
     const { user } = useContext(AuthContext);
     const { logout } = useContext(AuthContext);
+
+    useEffect(() => {
+        if (!user) {
+            navigate("/login");
+        }
+    }, []);
 
     const handleLogout = () => {
         logout();
@@ -29,7 +35,7 @@ const Navbar = () => {
                     <li class="nav-element">
                         <Link to="/contact">Contact</Link>
                     </li>
-                    {user.IsAdmin == 1 && (
+                    {user && user.IsAdmin == 1 && (
                         <li class="nav-element">
                             <Link to="/admin-panel">Admin Panel</Link>
                         </li>
@@ -49,6 +55,11 @@ const Navbar = () => {
                             <Link to="/welcome" onClick={handleLogout}>
                                 Logout
                             </Link>
+                        </li>
+                    )}
+                    {user && (
+                        <li class="nav-element nav-right">
+                            <Link to="/profile">{user.Username}</Link>
                         </li>
                     )}
                 </ul>
