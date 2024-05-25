@@ -148,44 +148,6 @@ h1 {
     color: #d9d9d9;
 }
 
-.button-page {
-    width: 34px;
-    height: 34px;
-    padding: 8px;
-    background-color: #393e41;
-    color: #d9d9d9;
-    border: none;
-    border-radius: 50px;
-
-    font-size: 1.1em;
-}
-
-.button-page:hover {
-    background-color: #d9d9d9;
-    color: #393e41;
-}
-
-.button-page--active {
-    background-color: #e94f37;
-    color: #d9d9d9;
-}
-
-.icon-page {
-    width: 19px;
-    height: 19px;
-    padding: 8px;
-    stroke: #d9d9d9;
-    stroke-width: 2px;
-
-    border-radius: 50px;
-    background-color: #393e41;
-}
-
-.icon-page:hover {
-    background-color: #d9d9d9;
-    stroke: #393e41;
-}
-
 .manage-user-card .button-delete {
     background-color: transparent;
     border: none;
