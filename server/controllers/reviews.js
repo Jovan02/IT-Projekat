@@ -1,4 +1,6 @@
 const db = require("../db");
+const jwt = require("jsonwebtoken");
+require("dotenv").config({ path: ".env" });
 
 const getReviews = (req, res) => {
     const query = `SELECT * FROM review r INNER JOIN user u ON r.Username=u.Username WHERE MovieID = ?`;
@@ -14,16 +16,30 @@ const getReviews = (req, res) => {
 };
 
 const createReview = (req, res) => {
-    const { userId, movieId, description, rating } = req.body;
-    const query = `INSERT INTO review(Username, MovieID, Description, Rating) VALUES (?, ?, ?, ?)`;
+    const token = req.headers.authorization.split(" ")[1];
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const username = decoded.username;
 
-    db.query(query, [userId, movieId, description, rating], (err, result) => {
-        if (err) {
-            res.status(500).json({ message: err });
-        } else {
-            res.status(200).json({ message: "Review created successfully" });
-        }
-    });
+        const { movieId, description, rating } = req.body;
+        const query = `INSERT INTO review(Username, MovieID, Description, Rating) VALUES (?, ?, ?, ?)`;
+
+        db.query(
+            query,
+            [username, movieId, description, rating],
+            (err, result) => {
+                if (err) {
+                    res.status(500).json({ message: err });
+                } else {
+                    res.status(200).json({
+                        message: "Review created successfully",
+                    });
+                }
+            }
+        );
+    } catch (err) {
+        return res.status(401).json({ message: "Unauthorized" });
+    }
 };
 
 module.exports = { getReviews, createReview };
