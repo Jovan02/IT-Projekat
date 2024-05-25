@@ -12,7 +12,9 @@ export default function setupInterceptors() {
             if (error.response.status === 401) {
                 localStorage.removeItem("token");
                 localStorage.removeItem("user");
-                // navigate("/login");
+                window.location.href = "/login";
+            } else if (error.response.status === 403) {
+                window.location.href = "/home";
             }
             return Promise.reject(error);
         }
