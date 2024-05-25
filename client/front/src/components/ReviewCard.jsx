@@ -9,7 +9,7 @@ const ReviewCard = ({ author, description, rating }) => {
     );
 
     const colorStars = (rating) => {
-        for (let i = 0; i < rating % 5; i++) {
+        for (let i = 0; i < rating; i++) {
             ref.current[i].style.stroke = "#e94f37";
             ref.current[i].style.fill = "#e94f37";
         }
