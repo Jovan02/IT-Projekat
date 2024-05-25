@@ -2,16 +2,42 @@ const db = require("../db");
 const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: ".env" });
 
+function countMovies() {
+    return new Promise((resolve, reject) => {
+        const query = `SELECT COUNT(*) NumOfMovies FROM movie`;
+        db.query(query, [], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
 const getMovies = (req, res) => {
-    const query = `SELECT * FROM movie`;
-    db.query(query, [], (err, result) => {
-        if (err) {
-            res.status(500).json({ message: err });
-        } else if (result.length === 0) {
-            res.status(404).json({ message: "No movies found" });
-        } else {
-            res.status(200).json(result);
-        }
+    countMovies().then((result) => {
+        const numOfMovies = result[0].NumOfMovies;
+        const { id } = req.params;
+
+        const limit = 6;
+        const pages = Math.ceil(numOfMovies / limit);
+        const offset = (id - 1) * limit;
+
+        const query = `SELECT * FROM movie ORDER BY ID LIMIT ?, ?`;
+        db.query(query, [offset, limit], (err, result) => {
+            if (err) {
+                res.status(500).json({ message: err });
+            } else if (result.length === 0) {
+                res.status(404).json({ message: "No movies found" });
+            } else {
+                res.status(200).json({
+                    result: result,
+                    page: id,
+                    pages: pages,
+                });
+            }
+        });
     });
 };
 
