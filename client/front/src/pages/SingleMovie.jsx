@@ -138,7 +138,6 @@ const SingleMovie = () => {
 
         try {
             const response = await axios.post(`${URL}/api/reviews`, {
-                userId,
                 movieId,
                 description: review,
                 rating,
