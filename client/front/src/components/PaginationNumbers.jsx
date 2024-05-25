@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/AdminPanel.css";
+import "../styles/PaginationNumbers.css";
 
 const PaginationNumbers = ({ selectedPageId, numberOfPages, setPageId }) => {
     const handlePageClick = (e) => {
@@ -73,15 +73,20 @@ const PaginationNumbers = ({ selectedPageId, numberOfPages, setPageId }) => {
                 />
             </svg>
 
-            {Array.from({ length: 3 }, (_, i) => {
-                if (selectedPageId == 1) {
-                    return selectedPageId + i;
-                } else if (selectedPageId < numberOfPages) {
-                    return selectedPageId + i - 1;
-                } else if (selectedPageId == numberOfPages) {
-                    return selectedPageId + i - 2;
+            {Array.from(
+                { length: numberOfPages >= 3 ? 3 : numberOfPages },
+                (_, i) => {
+                    if (selectedPageId == 1) {
+                        return selectedPageId + i;
+                    } else if (selectedPageId < numberOfPages) {
+                        return selectedPageId + i - 1;
+                    } else if (numberOfPages == 2 && selectedPageId == 2) {
+                        return selectedPageId + i - 1;
+                    } else if (selectedPageId == numberOfPages) {
+                        return selectedPageId + i - 2;
+                    }
                 }
-            }).map((i) => (
+            ).map((i) => (
                 <button
                     key={i}
                     className={
