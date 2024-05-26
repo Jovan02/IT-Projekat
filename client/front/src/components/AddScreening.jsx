@@ -4,7 +4,7 @@ import "../styles/AdminPanel.css";
 import axios from "axios";
 import SearchBar from "../components/SearchBar";
 
-const AddScreening = () => {
+const AddScreening = ({ setModal }) => {
     const URL = "http://localhost:8000";
 
     const movieRef = useRef();
@@ -31,8 +31,16 @@ const AddScreening = () => {
                 projectionData
             );
             console.log(response);
+            setModal({
+                title: "Add screening",
+                message: `Screening has been successfully added`,
+            });
         } catch (error) {
             console.log(error);
+            setModal({
+                title: "Error",
+                message: `${error.response.data}`,
+            });
         }
     };
     return (

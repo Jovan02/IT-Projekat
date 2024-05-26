@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/AdminPanel.css";
 
-const AddMovie = () => {
+const AddMovie = ({ setModal }) => {
     const URL = "http://localhost:8000";
 
     const [genres, setGenres] = useState([]);
@@ -49,8 +49,16 @@ const AddMovie = () => {
             };
             const response = await axios.post(`${URL}/api/movies`, movieData);
             console.log(response);
+            setModal({
+                title: "Add movie",
+                message: `${movieData.name} has been successfully added`,
+            });
         } catch (error) {
             console.log(error);
+            setModal({
+                title: "Error",
+                message: `${error.response.data}`,
+            });
         }
     };
 

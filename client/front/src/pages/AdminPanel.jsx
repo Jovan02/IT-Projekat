@@ -4,9 +4,15 @@ import { useState } from "react";
 import ManageUsers from "../components/ManageUsers";
 import AddMovie from "../components/AddMovie";
 import AddScreening from "../components/AddScreening";
+import Modal from "../components/Modal";
+import { useNavigate } from "react-router-dom";
 
 const AdminPanel = () => {
+    const navigate = useNavigate();
     const [selectedTab, setSelectedTab] = useState(1);
+    const [modal, setModal] = useState(null);
+    const [response, setResponse] = useState(false);
+    const [userToDelete, setUserToDelete] = useState("");
 
     const handleChooseTab = (e) => {
         if (e.target.innerHTML === "Manage Users") {
@@ -16,6 +22,26 @@ const AdminPanel = () => {
         } else if (e.target.innerHTML === "Add projection") {
             setSelectedTab(3);
         }
+    };
+
+    const handleDeleteUser = (username) => {
+        setModal({
+            title: "Delete user",
+            message: `Are you sure you want to delete ${username}?`,
+            type: "Delete",
+        });
+        setUserToDelete(username);
+    };
+
+    const handleModalClose = (resp) => {
+        setResponse(resp);
+        setModal(null);
+        navigate("/admin-panel");
+    };
+
+    const onExit = () => {
+        setModal(null);
+        navigate("/admin-panel");
     };
 
     return (
@@ -49,12 +75,30 @@ const AdminPanel = () => {
                     Add projection
                 </button>
             </div>
+            {modal && (
+                <Modal
+                    title={modal.title}
+                    message={modal.message}
+                    onExit={onExit}
+                    onClose={handleModalClose}
+                    isDelete={modal.type === "Delete"}
+                />
+            )}
 
-            {selectedTab == 1 && <ManageUsers />}
+            {selectedTab == 1 && (
+                <ManageUsers
+                    setModal={setModal}
+                    response={response}
+                    setResponse={setResponse}
+                    handleDeleteUser={handleDeleteUser}
+                    userToDelete={userToDelete}
+                    setUserToDelete={setUserToDelete}
+                />
+            )}
 
-            {selectedTab == 2 && <AddMovie />}
+            {selectedTab == 2 && <AddMovie setModal={setModal} />}
 
-            {selectedTab == 3 && <AddScreening />}
+            {selectedTab == 3 && <AddScreening setModal={setModal} />}
         </>
     );
 };

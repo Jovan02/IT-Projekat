@@ -4,7 +4,13 @@ import { useState, useEffect } from "react";
 import PaginationNumbers from "./PaginationNumbers";
 import axios from "axios";
 
-const ManageUsers = () => {
+const ManageUsers = ({
+    handleDeleteUser,
+    response,
+    setResponse,
+    userToDelete,
+    setUserToDelete,
+}) => {
     const URL = "http://localhost:8000";
 
     const [users, setUsers] = useState([]);
@@ -23,15 +29,25 @@ const ManageUsers = () => {
         }
     };
 
-    const handleDeleteUser = async (username) => {
+    const deleteUser = async () => {
+        if (userToDelete === "") return;
         try {
-            await axios.delete(`${URL}/api/users/${username}`);
-            console.log(username);
+            await axios.delete(`${URL}/api/users/${userToDelete}`);
+            console.log(userToDelete);
             loadUsers();
         } catch (error) {
             console.log(error);
         }
     };
+
+    useEffect(() => {
+        console.log("WOWOWMMMPP WOMMPMP AGSAGAGASGSFSA");
+        if (response) {
+            deleteUser(response);
+            setResponse(false);
+            setUserToDelete("");
+        }
+    }, [response]);
 
     useEffect(() => {
         loadUsers();
