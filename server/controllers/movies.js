@@ -15,6 +15,21 @@ function countMovies() {
     });
 }
 
+const getMoviesList = (req, res) => {
+    const query = `SELECT * FROM movie`;
+    db.query(query, [], (err, result) => {
+        if (err) {
+            return res.status(500).json({ message: err });
+        } else if (result.length === 0) {
+            return res
+                .status(404)
+                .json({ message: "No movies found", error: err });
+        } else {
+            return res.status(200).json(result);
+        }
+    });
+};
+
 const getMovies = (req, res) => {
     countMovies().then((result) => {
         const numOfMovies = result[0].NumOfMovies;
@@ -132,4 +147,4 @@ const createMovie = async (req, res) => {
     }
 };
 
-module.exports = { getMovies, getMovie, createMovie };
+module.exports = { getMovies, getMovie, createMovie, getMoviesList };
