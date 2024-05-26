@@ -6,6 +6,7 @@
     color: #d9d9d9;
     border: none;
     border-radius: 50px;
+    cursor: pointer;
 
     font-size: 1.1em;
 }
@@ -26,6 +27,7 @@
     padding: 8px;
     stroke: #d9d9d9;
     stroke-width: 2px;
+    cursor: pointer;
 
     border-radius: 50px;
     background-color: #393e41;
