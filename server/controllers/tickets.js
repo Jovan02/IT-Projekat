@@ -47,17 +47,23 @@ const createTicket = (req, res) => {
 };
 
 const getTicketsByUserId = (req, res) => {
-    const { id } = req.params;
-    const query = `SELECT * FROM ticket t INNER JOIN screening s ON t.ScreeningID = s.ID INNER JOIN movie m ON s.MovieID = m.ID WHERE Username = ?`;
-    db.query(query, [id], (err, result) => {
-        if (err) {
-            res.status(500).json({
-                message: "There was an error getting the tickets",
-            });
-        } else {
-            res.json(result);
-        }
-    });
+    const token = req.headers.authorization.split(" ")[1];
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const username = decoded.username;
+        const query = `SELECT * FROM ticket t INNER JOIN screening s ON t.ScreeningID = s.ID INNER JOIN movie m ON s.MovieID = m.ID WHERE Username = ?`;
+        db.query(query, [username], (err, result) => {
+            if (err) {
+                res.status(500).json({
+                    message: "There was an error getting the tickets",
+                });
+            } else {
+                res.json(result);
+            }
+        });
+    } catch (err) {
+        return res.status(401).json({ message: "Unauthorized" });
+    }
 };
 
 module.exports = { getTicketsById, createTicket, getTicketsByUserId };
