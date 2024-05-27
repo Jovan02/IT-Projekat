@@ -1,21 +1,30 @@
 import React from "react";
 import "../styles/Register.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import Modal from "../components/Modal";
 
 function Register() {
+    const navigate = useNavigate();
     const [inputs, setInputs] = useState({
         email: "",
         username: "",
         password: "",
     });
+    const [error, setError] = useState(null);
+    const [modal, setModal] = useState(null);
 
     const handleChange = (e) => {
         setInputs({
             ...inputs,
             [e.target.name]: e.target.value,
         });
+    };
+
+    const onExitModal = () => {
+        setModal(null);
+        navigate("/login");
     };
 
     const handleRegister = async (e) => {
@@ -26,9 +35,14 @@ function Register() {
                 "http://localhost:8000/api/auth/register",
                 inputs
             );
+            setModal({
+                title: "Registration successful",
+                message: response.data.message,
+            });
             console.log(response.data);
         } catch (error) {
             console.log(error);
+            setError(error.response.data.message);
         }
     };
 
@@ -70,6 +84,7 @@ function Register() {
                 >
                     Register
                 </button>
+                {error && <p class="error-message">{error}</p>}
                 <p class="login-here-text">
                     Already have an acount?{" "}
                     <Link class="login-link" to="/login">
@@ -77,6 +92,14 @@ function Register() {
                     </Link>
                 </p>
             </form>
+
+            {modal && (
+                <Modal
+                    title={modal.title}
+                    message={modal.message}
+                    onExit={onExitModal}
+                />
+            )}
         </>
     );
 }
