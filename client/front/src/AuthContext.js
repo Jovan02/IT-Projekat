@@ -6,7 +6,7 @@ const AuthContext = createContext({});
 export const AuthContextProvider = ({ children }) => {
     const URL = "http://localhost:8000";
 
-    const [user, setuser] = useState(
+    const [user, setUser] = useState(
         JSON.parse(localStorage.getItem("user")) || null
     );
 
@@ -17,13 +17,13 @@ export const AuthContextProvider = ({ children }) => {
     const login = async (inputs) => {
         const response = await axios.post(`${URL}/api/auth/login`, inputs);
         const { token, ...other } = response.data;
-        setuser(other);
+        setUser(other);
         setUserToken(token);
         console.log(response.data.username);
     };
 
     const logout = () => {
-        setuser(null);
+        setUser(null);
         setUserToken("");
     };
 
@@ -36,7 +36,7 @@ export const AuthContextProvider = ({ children }) => {
     }, [userToken]);
 
     return (
-        <AuthContext.Provider value={{ user, login, logout }}>
+        <AuthContext.Provider value={{ user, setUser, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

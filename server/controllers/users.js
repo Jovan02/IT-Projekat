@@ -48,15 +48,22 @@ const getUsers = (req, res) => {
 };
 
 const updateUser = (req, res) => {
-    const { username, email, userId } = req.body;
-    const query = `UPDATE user SET Username = ?, Email = ? WHERE Username = ?`;
-    db.query(query, [username, email, userId], (err, result) => {
-        if (err) {
-            return res.status(500).json({ message: err });
-        } else {
-            return res.status(200).json({ message: "User updated" });
-        }
-    });
+    const { image } = req.body;
+    console.log(image);
+    const token = req.headers.authorization.split(" ")[1];
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const query = `UPDATE user SET Image = ? WHERE Username = ?`;
+        db.query(query, [image, decoded.username], (err, result) => {
+            if (err) {
+                return res.status(500).json({ message: err });
+            } else {
+                return res.status(200).json({ message: "User updated" });
+            }
+        });
+    } catch (err) {
+        return res.status(401).json({ message: "Unauthorized" });
+    }
 };
 
 const deleteUser = (req, res) => {

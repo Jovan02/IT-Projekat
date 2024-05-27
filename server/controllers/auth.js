@@ -19,15 +19,20 @@ function checkUserExistsPromise(username) {
 
 function registerUserPromise(email, username, password) {
     return new Promise((resolve, reject) => {
-        const registerQuery = `INSERT INTO user (Email, Username, Password) VALUES (?, ?, ?)`;
-
-        db.query(registerQuery, [email, username, password], (err, result) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(result);
+        const registerQuery = `INSERT INTO user (Email, Username, Password, Image) VALUES (?, ?, ?, ?)`;
+        const image =
+            "http://localhost:8000/public/images/profile-placeholder.jfif";
+        db.query(
+            registerQuery,
+            [email, username, password, image],
+            (err, result) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result);
+                }
             }
-        });
+        );
     });
 }
 

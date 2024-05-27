@@ -6,21 +6,46 @@ import axios from "axios";
 
 const Profile = () => {
     const URL = "http://localhost:8000";
-    const { user } = useContext(AuthContext);
+    const { user, setUser } = useContext(AuthContext);
 
     const [tickets, setTickets] = useState([]);
+    const [image, setImage] = useState("images/joker.jfif");
 
     const loadTickets = async () => {
-        user["ID"] = 14;
         try {
-            const response = await axios.get(
-                `${URL}/api/tickets/user/${user.ID}`
-            );
+            const response = await axios.get(`${URL}/api/tickets/user`);
             setTickets(response.data);
             console.log(response.data);
         } catch (error) {
             console.error(error);
         }
+    };
+
+    const handleChangeImage = async () => {
+        const data = new FormData();
+        data.append("file", image);
+        try {
+            await axios.post(`${URL}/api/images`, data);
+            console.log(image.name);
+            await axios.put(`${URL}/api/users`, {
+                image: `${URL}/public/images/${image.name}`,
+            });
+            setUser({
+                ...user,
+                Image: `${URL}/public/images/${image.name}`,
+            });
+            console.log({
+                ...user,
+                Image: `${URL}/public/images/${image.name}`,
+            });
+            localStorage.setItem("user", JSON.stringify(user));
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleImageChange = (e) => {
+        setImage(e.target.files[0]);
     };
 
     useEffect(() => {
@@ -30,15 +55,26 @@ const Profile = () => {
     return (
         <>
             <div class="profile-container">
+                <h2 class="profile-username">{user.Username}</h2>
+
                 <img
                     class="img-profile"
-                    src="images/joker.jfif"
+                    src={user.Image}
                     alt="Profile Picture"
                 />
 
-                <p class="change-picture-text">Change profile picture</p>
-
-                <h2 class="profile-username">{user.Username}</h2>
+                <input
+                    type="file"
+                    id="change-picture"
+                    name="change-picture"
+                    required
+                    multiple={false}
+                    class="change-picture-text"
+                    onChange={handleImageChange}
+                />
+                <p class="change-picture-button" onClick={handleChangeImage}>
+                    Change Picture
+                </p>
 
                 <h2 class="profile-ticket-text">My tickets</h2>
 
