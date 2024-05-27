@@ -9,6 +9,6 @@ const router = express.Router();
 
 router.get("/:id", getTicketsById);
 router.post("/", createTicket);
-router.get("/user/:id", getTicketsByUserId);
+router.get("/user/", getTicketsByUserId);
 
 module.exports = router;
