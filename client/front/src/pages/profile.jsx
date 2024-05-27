@@ -34,10 +34,6 @@ const Profile = () => {
                 ...user,
                 Image: `${URL}/public/images/${image.name}`,
             });
-            console.log({
-                ...user,
-                Image: `${URL}/public/images/${image.name}`,
-            });
             localStorage.setItem("user", JSON.stringify(user));
         } catch (error) {
             console.error(error);
