@@ -49,7 +49,6 @@ const getUsers = (req, res) => {
 
 const updateUserImage = (req, res) => {
     const { image } = req.body;
-    console.log(image);
     const token = req.headers.authorization.split(" ")[1];
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
