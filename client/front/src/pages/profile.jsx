@@ -3,20 +3,25 @@ import "../styles/Profile.css";
 import AuthContext from "../AuthContext";
 import { useContext, useState } from "react";
 import axios from "axios";
+import PaginationNumbers from "../components/PaginationNumbers";
 
 const Profile = () => {
-    const URL = "http://localhost:8000";
     const { user, setUser } = useContext(AuthContext);
-
     const [tickets, setTickets] = useState([]);
     const [image, setImage] = useState("images/profile-placeholder.jfif");
     const [toggleEdit, setToggleEdit] = useState(false);
     const [email, setEmail] = useState(user.Email);
+    const [selectedPageId, setSelectedPageId] = useState(1);
+    const [numberOfPages, setNumberOfPages] = useState(1);
 
     const loadTickets = async () => {
         try {
-            const response = await axios.get(`/api/api/tickets/user`);
-            setTickets(response.data);
+            const response = await axios.get(
+                `/api/api/tickets/user/${selectedPageId}`
+            );
+            setTickets(response.data.result);
+            setNumberOfPages(response.data.pages);
+            console.log("BROJ TIKETA", response.data.pages);
         } catch (error) {
             console.error(error);
         }
@@ -29,11 +34,11 @@ const Profile = () => {
             await axios.post(`/api/api/images`, data);
             console.log(image.name);
             await axios.put(`/api/api/users/image`, {
-                image: `/api/public/images/${image.name}`,
+                image: `http://localhost:8000/public/images/${image.name}`,
             });
             setUser({
                 ...user,
-                Image: `/api/public/images/${image.name}`,
+                Image: `http://localhost:8000/public/images/${image.name}`,
             });
             localStorage.setItem("user", JSON.stringify(user));
         } catch (error) {
@@ -66,6 +71,10 @@ const Profile = () => {
     useEffect(() => {
         loadTickets();
     }, []);
+
+    useEffect(() => {
+        loadTickets();
+    }, [selectedPageId]);
 
     return (
         <>
@@ -134,6 +143,13 @@ const Profile = () => {
                             </p>
                         </div>
                     ))}
+                </div>
+                <div class="ticket-pagination-numbers">
+                    <PaginationNumbers
+                        selectedPageId={selectedPageId}
+                        numberOfPages={numberOfPages}
+                        setPageId={setSelectedPageId}
+                    />
                 </div>
             </div>
         </>

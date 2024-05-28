@@ -2,6 +2,19 @@ const db = require("../db");
 const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: ".env" });
 
+function countTickets(username) {
+    return new Promise((resolve, reject) => {
+        const query = `SELECT COUNT(*) NumOfTickets FROM ticket WHERE Username = ?`;
+        db.query(query, [username], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
 const getTicketsById = (req, res) => {
     const { id } = req.params;
     const query = `SELECT * FROM ticket WHERE ScreeningID = ?`;
@@ -51,15 +64,25 @@ const getTicketsByUserId = (req, res) => {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const username = decoded.username;
-        const query = `SELECT * FROM ticket t INNER JOIN screening s ON t.ScreeningID = s.ID INNER JOIN movie m ON s.MovieID = m.ID WHERE Username = ?`;
-        db.query(query, [username], (err, result) => {
-            if (err) {
-                res.status(500).json({
-                    message: "There was an error getting the tickets",
-                });
-            } else {
-                res.json(result);
-            }
+        countTickets(username).then((result) => {
+            const numOfTickets = result[0].NumOfTickets;
+            const pages = Math.ceil(numOfTickets / 6);
+            const { id } = req.params;
+            const limit = 6;
+            const offset = (id - 1) * limit;
+
+            const query = `SELECT * FROM ticket t INNER JOIN screening s ON t.ScreeningID = s.ID INNER JOIN movie m ON s.MovieID = m.ID WHERE Username = ? ORDER BY s.Date LIMIT ?, ?`;
+            db.query(query, [username, offset, limit], (err, result) => {
+                if (err) {
+                    return res.status(500).json({
+                        message: "There was an error getting the tickets",
+                    });
+                } else {
+                    return res
+                        .status(200)
+                        .json({ result: result, page: id, pages: pages });
+                }
+            });
         });
     } catch (err) {
         return res.status(401).json({ message: "Unauthorized" });

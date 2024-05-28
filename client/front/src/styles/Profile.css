@@ -40,6 +40,12 @@
     font-size: 1.1em;
 }
 
+.ticket-pagination-numbers {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
 input[type="file"]::file-selector-button {
     display: none;
 }
