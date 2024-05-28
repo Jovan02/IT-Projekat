@@ -4,8 +4,6 @@ import axios from "axios";
 import "../styles/AdminPanel.css";
 
 const AddMovie = ({ setModal }) => {
-    const URL = "http://localhost:8000";
-
     const [genres, setGenres] = useState([]);
     const [file, setFile] = useState(null);
     const [movieName, setMovieName] = useState("");
@@ -15,7 +13,7 @@ const AddMovie = ({ setModal }) => {
 
     const loadGenres = async () => {
         try {
-            const response = await axios.get(`${URL}/api/genres`);
+            const response = await axios.get(`/api/api/genres`);
             setGenres(response.data);
         } catch (error) {
             console.log(error);
@@ -31,7 +29,7 @@ const AddMovie = ({ setModal }) => {
         const data = new FormData();
         data.append("file", file);
         try {
-            await axios.post(`${URL}/api/images`, data);
+            await axios.post(`/api/api/images`, data);
         } catch (error) {
             console.log(error);
         }
@@ -42,12 +40,12 @@ const AddMovie = ({ setModal }) => {
             await handleAddImage();
             const movieData = {
                 name: movieName,
-                image: `${URL}/public/images/${file.name}`,
+                image: `/api/public/images/${file.name}`,
                 description: movieDescription,
                 duration: movieDuration,
                 genres: movieGenres,
             };
-            const response = await axios.post(`${URL}/api/movies`, movieData);
+            const response = await axios.post(`/api/api/movies`, movieData);
             console.log(response);
             setModal({
                 title: "Add movie",

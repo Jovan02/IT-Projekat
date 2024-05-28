@@ -11,8 +11,6 @@ const ManageUsers = ({
     userToDelete,
     setUserToDelete,
 }) => {
-    const URL = "http://localhost:8000";
-
     const [users, setUsers] = useState([]);
     const [userPageId, setUserPageId] = useState(1);
     const [userPages, setUserPages] = useState(1);
@@ -20,7 +18,7 @@ const ManageUsers = ({
     const loadUsers = async () => {
         try {
             console.log("UISAO ODJE U LOAD USERS MATER TI JEBEM U PICKU");
-            const response = await axios.get(`${URL}/api/users/${userPageId}`);
+            const response = await axios.get(`/api/api/users/${userPageId}`);
             setUsers(response.data.result);
             setUserPages(response.data.pages);
             console.log("respons: ", response.data);
@@ -32,7 +30,7 @@ const ManageUsers = ({
     const deleteUser = async () => {
         if (userToDelete === "") return;
         try {
-            await axios.delete(`${URL}/api/users/${userToDelete}`);
+            await axios.delete(`/api/api/users/${userToDelete}`);
             console.log(userToDelete);
             loadUsers();
         } catch (error) {

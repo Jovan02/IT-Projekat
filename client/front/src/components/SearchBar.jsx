@@ -4,8 +4,6 @@ import axios from "axios";
 import "../styles/SearchBar.css";
 
 const SearchBar = ({ type, reference }) => {
-    const URL = "http://localhost:8000";
-
     const [data, setData] = useState([]);
     const [selectedData, setSelectedData] = useState(null);
 
@@ -14,7 +12,7 @@ const SearchBar = ({ type, reference }) => {
 
     const loadData = async () => {
         try {
-            const response = await axios.get(`${URL}/api/${type}`);
+            const response = await axios.get(`/api/api/${type}`);
             setData(response.data);
         } catch (error) {
             console.log(error);

@@ -4,8 +4,6 @@ import axios from "axios";
 const AuthContext = createContext({});
 
 export const AuthContextProvider = ({ children }) => {
-    const URL = "http://localhost:8000";
-
     const [user, setUser] = useState(
         JSON.parse(localStorage.getItem("user")) || null
     );
@@ -15,7 +13,7 @@ export const AuthContextProvider = ({ children }) => {
     );
 
     const login = async (inputs) => {
-        const response = await axios.post(`${URL}/api/auth/login`, inputs);
+        const response = await axios.post(`/api/api/auth/login`, inputs);
         const { token, ...other } = response.data;
         setUser(other);
         setUserToken(token);

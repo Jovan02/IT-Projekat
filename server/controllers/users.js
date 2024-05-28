@@ -47,7 +47,7 @@ const getUsers = (req, res) => {
     });
 };
 
-const updateUser = (req, res) => {
+const updateUserImage = (req, res) => {
     const { image } = req.body;
     console.log(image);
     const token = req.headers.authorization.split(" ")[1];
@@ -55,6 +55,25 @@ const updateUser = (req, res) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const query = `UPDATE user SET Image = ? WHERE Username = ?`;
         db.query(query, [image, decoded.username], (err, result) => {
+            if (err) {
+                return res.status(500).json({ message: err });
+            } else {
+                return res.status(200).json({ message: "User updated" });
+            }
+        });
+    } catch (err) {
+        return res.status(401).json({ message: "Unauthorized" });
+    }
+};
+
+const updateUserEmail = (req, res) => {
+    const { email } = req.body;
+    const token = req.headers.authorization.split(" ")[1];
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const username = decoded.username;
+        const query = `UPDATE user SET Email = ? WHERE Username = ?`;
+        db.query(query, [email, username], (err, result) => {
             if (err) {
                 return res.status(500).json({ message: err });
             } else {
@@ -87,4 +106,4 @@ const deleteUser = (req, res) => {
     });
 };
 
-module.exports = { getUsers, updateUser, deleteUser };
+module.exports = { getUsers, updateUserImage, deleteUser, updateUserEmail };

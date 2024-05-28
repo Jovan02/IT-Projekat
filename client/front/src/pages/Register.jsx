@@ -31,10 +31,7 @@ function Register() {
         e.preventDefault();
 
         try {
-            const response = await axios.post(
-                "http://localhost:8000/api/auth/register",
-                inputs
-            );
+            const response = await axios.post("/api/api/auth/register", inputs);
             setModal({
                 title: "Registration successful",
                 message: response.data.message,

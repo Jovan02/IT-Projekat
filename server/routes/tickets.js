@@ -7,8 +7,8 @@ const {
 
 const router = express.Router();
 
-router.get("/:id", getTicketsById);
+router.get("/user", getTicketsByUserId);
+router.get("/ticket/:id", getTicketsById);
 router.post("/", createTicket);
-router.get("/user/", getTicketsByUserId);
 
 module.exports = router;

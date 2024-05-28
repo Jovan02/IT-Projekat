@@ -7,8 +7,6 @@ import ReviewCard from "../components/ReviewCard";
 import { useRef } from "react";
 
 const SingleMovie = () => {
-    const URL = "http://localhost:8000";
-
     const id = useParams().id;
 
     const navigate = useNavigate();
@@ -103,7 +101,7 @@ const SingleMovie = () => {
 
     const loadMovie = async () => {
         try {
-            const response = await axios.get(`${URL}/api/movies/movie/${id}`);
+            const response = await axios.get(`/api/api/movies/movie/${id}`);
             setMovie(response.data[0]);
         } catch (error) {
             console.error(error);
@@ -112,7 +110,7 @@ const SingleMovie = () => {
 
     const loadReviews = async () => {
         try {
-            const response = await axios.get(`${URL}/api/reviews/${id}`);
+            const response = await axios.get(`/api/api/reviews/${id}`);
             setReviews(response.data);
         } catch (error) {
             console.error(error);
@@ -121,7 +119,7 @@ const SingleMovie = () => {
 
     const loadScreenings = async () => {
         try {
-            const response = await axios.get(`${URL}/api/screenings/${id}`);
+            const response = await axios.get(`/api/api/screenings/${id}`);
             setScreenings(response.data);
             parseDates(response.data);
         } catch (error) {
@@ -137,7 +135,7 @@ const SingleMovie = () => {
         const userId = 14;
 
         try {
-            const response = await axios.post(`${URL}/api/reviews`, {
+            const response = await axios.post(`/api/api/reviews`, {
                 movieId,
                 description: review,
                 rating,

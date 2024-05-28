@@ -7,7 +7,6 @@ import Seat from "../components/Seat";
 import AuthContext from "../AuthContext";
 
 const Ticket = () => {
-    const URL = "http://localhost:8000";
     const id = useParams().id;
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
@@ -22,9 +21,7 @@ const Ticket = () => {
 
     const loadData = async () => {
         try {
-            const response = await axios.get(
-                `${URL}/api/screenings/movie/${id}`
-            );
+            const response = await axios.get(`/api/api/screenings/movie/${id}`);
             setScreeningMovie(response.data[0]);
             console.log(response.data[0]);
         } catch (error) {
@@ -34,7 +31,7 @@ const Ticket = () => {
 
     const loadTickets = async () => {
         try {
-            const response = await axios.get(`${URL}/api/tickets/${id}`);
+            const response = await axios.get(`/api/api/tickets/ticket/${id}`);
             setBoughtTickets(response.data);
         } catch (error) {
             console.log(error);
@@ -86,7 +83,7 @@ const Ticket = () => {
         }
 
         try {
-            const response = await axios.post(`${URL}/api/tickets`, {
+            const response = await axios.post(`/api/api/tickets`, {
                 screeningId: id,
                 seatRow: selectedSeat.row,
                 seatColumn: selectedSeat.col,

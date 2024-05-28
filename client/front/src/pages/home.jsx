@@ -6,17 +6,13 @@ import { useState } from "react";
 import PaginationNumbers from "../components/PaginationNumbers";
 
 const Home = () => {
-    const URL = "http://localhost:8000";
-
     const [movies, setMovies] = useState([]);
     const [moviePageId, setMoviePageId] = useState(1);
     const [moviePages, setMoviePages] = useState(1);
 
     const loadMovies = async () => {
         try {
-            const response = await axios.get(
-                `${URL}/api/movies/${moviePageId}`
-            );
+            const response = await axios.get(`/api/api/movies/${moviePageId}`);
             console.log(response.data);
             setMovies(response.data.result);
             setMoviePages(response.data.pages);

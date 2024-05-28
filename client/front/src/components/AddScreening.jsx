@@ -5,8 +5,6 @@ import axios from "axios";
 import SearchBar from "../components/SearchBar";
 
 const AddScreening = ({ setModal }) => {
-    const URL = "http://localhost:8000";
-
     const movieRef = useRef();
     const hallRef = useRef();
     const dateRef = useRef();
@@ -27,7 +25,7 @@ const AddScreening = ({ setModal }) => {
 
         try {
             const response = await axios.post(
-                `${URL}/api/screenings`,
+                `/api/api/screenings`,
                 projectionData
             );
             console.log(response);

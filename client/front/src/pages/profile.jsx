@@ -9,13 +9,14 @@ const Profile = () => {
     const { user, setUser } = useContext(AuthContext);
 
     const [tickets, setTickets] = useState([]);
-    const [image, setImage] = useState("images/joker.jfif");
+    const [image, setImage] = useState("images/profile-placeholder.jfif");
+    const [toggleEdit, setToggleEdit] = useState(false);
+    const [email, setEmail] = useState(user.Email);
 
     const loadTickets = async () => {
         try {
-            const response = await axios.get(`${URL}/api/tickets/user`);
+            const response = await axios.get(`/api/api/tickets/user`);
             setTickets(response.data);
-            console.log(response.data);
         } catch (error) {
             console.error(error);
         }
@@ -25,14 +26,14 @@ const Profile = () => {
         const data = new FormData();
         data.append("file", image);
         try {
-            await axios.post(`${URL}/api/images`, data);
+            await axios.post(`/api/api/images`, data);
             console.log(image.name);
-            await axios.put(`${URL}/api/users`, {
-                image: `${URL}/public/images/${image.name}`,
+            await axios.put(`/api/api/users/image`, {
+                image: `/api/public/images/${image.name}`,
             });
             setUser({
                 ...user,
-                Image: `${URL}/public/images/${image.name}`,
+                Image: `/api/public/images/${image.name}`,
             });
             localStorage.setItem("user", JSON.stringify(user));
         } catch (error) {
@@ -42,6 +43,24 @@ const Profile = () => {
 
     const handleImageChange = (e) => {
         setImage(e.target.files[0]);
+    };
+
+    const handleToggleEdit = () => {
+        setToggleEdit(!toggleEdit);
+    };
+
+    const handleChangeEmail = (e) => {
+        setEmail(e.target.value);
+    };
+
+    const handleEditEmail = async () => {
+        try {
+            await axios.put(`/api/api/users/email`, { email: email });
+            setUser({ ...user, Email: email });
+            localStorage.setItem("user", JSON.stringify(user));
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     useEffect(() => {
@@ -59,18 +78,47 @@ const Profile = () => {
                     alt="Profile Picture"
                 />
 
-                <input
-                    type="file"
-                    id="change-picture"
-                    name="change-picture"
-                    required
-                    multiple={false}
-                    class="change-picture-text"
-                    onChange={handleImageChange}
-                />
-                <p class="change-picture-button" onClick={handleChangeImage}>
-                    Change Picture
-                </p>
+                <button
+                    class="change-picture-button"
+                    onClick={handleToggleEdit}
+                >
+                    Edit profile
+                </button>
+
+                {toggleEdit && (
+                    <>
+                        <div class="edit-container">
+                            <input
+                                type="file"
+                                id="change-picture"
+                                name="change-picture"
+                                required
+                                multiple={false}
+                                class="change-picture-text"
+                                onChange={handleImageChange}
+                            />
+                            <button
+                                class="change-picture-button"
+                                onClick={handleChangeImage}
+                            >
+                                Change Picture
+                            </button>
+                        </div>
+                        <form class="edit-container">
+                            <input
+                                type="email"
+                                onChange={handleChangeEmail}
+                                placeholder={user.Email}
+                            />
+                            <button
+                                class="change-picture-button"
+                                onClick={handleEditEmail}
+                            >
+                                Change Email
+                            </button>
+                        </form>
+                    </>
+                )}
 
                 <h2 class="profile-ticket-text">My tickets</h2>
 
