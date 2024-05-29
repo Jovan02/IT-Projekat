@@ -4,8 +4,10 @@ import AuthContext from "../AuthContext";
 import { useContext, useState } from "react";
 import axios from "axios";
 import PaginationNumbers from "../components/PaginationNumbers";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
+    const navigate = useNavigate();
     const { user, setUser } = useContext(AuthContext);
     const [tickets, setTickets] = useState([]);
     const [image, setImage] = useState("images/profile-placeholder.jfif");
@@ -21,7 +23,6 @@ const Profile = () => {
             );
             setTickets(response.data.result);
             setNumberOfPages(response.data.pages);
-            console.log("BROJ TIKETA", response.data.pages);
         } catch (error) {
             console.error(error);
         }
@@ -34,11 +35,11 @@ const Profile = () => {
             await axios.post(`/api/api/images`, data);
             console.log(image.name);
             await axios.put(`/api/api/users/image`, {
-                image: `http://localhost:8000/public/images/${image.name}`,
+                image: `/api/public/images/${image.name}`,
             });
             setUser({
                 ...user,
-                Image: `http://localhost:8000/public/images/${image.name}`,
+                Image: `/api/public/images/${image.name}`,
             });
             localStorage.setItem("user", JSON.stringify(user));
         } catch (error) {
@@ -68,6 +69,9 @@ const Profile = () => {
         }
     };
 
+    const handleTicketClick = (e, id) => {
+        navigate(`/movie/${id}`);
+    };
     useEffect(() => {
         loadTickets();
     }, []);
@@ -133,7 +137,12 @@ const Profile = () => {
 
                 <div class="profile-ticket-container">
                     {tickets.map((ticket) => (
-                        <div class="profile-ticket">
+                        <div
+                            class="profile-ticket"
+                            onClick={(e) =>
+                                handleTicketClick(e, ticket.MovieID)
+                            }
+                        >
                             <p>{ticket.Name}</p>
                             <p>{new Date(ticket.Date).toDateString()}</p>
                             <p>{ticket.Time}</p>
