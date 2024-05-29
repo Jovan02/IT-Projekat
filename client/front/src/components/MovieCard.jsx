@@ -3,8 +3,6 @@ import "../styles/Home.css";
 import { useNavigate } from "react-router-dom";
 
 const MovieCard = ({ imagePath, title, id }) => {
-    const URL = "http://localhost:8000";
-
     const navigate = useNavigate();
 
     const handleCardClick = (e) => {
