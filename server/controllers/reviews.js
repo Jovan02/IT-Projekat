@@ -117,11 +117,9 @@ const deleteReview = (req, res) => {
         const isAdmin = decoded.isAdmin;
         const decodedUsername = decoded.username;
         const { movieId, username } = req.params;
-        console.log(isAdmin, decodedUsername, username);
         if (!isAdmin && decodedUsername != username) {
             return res.status(403).json({ message: "Forbidden" });
         }
-        console.log("here");
         const query = `DELETE FROM review WHERE MovieID = ? AND Username = ?`;
 
         db.query(query, [movieId, username], (err, result) => {
