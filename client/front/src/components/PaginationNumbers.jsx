@@ -21,11 +21,8 @@ const PaginationNumbers = ({ selectedPageId, numberOfPages, setPageId }) => {
             "userpages: ",
             numberOfPages
         );
-        if (numberOfPages <= 3) {
-            setPageId(numberOfPages);
-        } else if (selectedPageId == 1) {
-            setPageId(selectedPageId + 4);
-        } else if (selectedPageId < numberOfPages - 3) {
+
+        if (selectedPageId < numberOfPages - 3) {
             setPageId(selectedPageId + 3);
         } else {
             setPageId(numberOfPages);
