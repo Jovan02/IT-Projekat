@@ -78,7 +78,8 @@ h1 {
 }
 
 .manage-user-card {
-    width: 300px;
+    min-width: 300px;
+    min-height: 200px;
     padding: 24px;
     background-color: #393e41;
     border-radius: 24px;
@@ -87,6 +88,15 @@ h1 {
     flex-direction: column;
     gap: 16px;
     justify-content: center;
+}
+
+.user-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    align-self: center;
+    object-fit: cover;
+    border: #d9d9d9 2px solid;
 }
 
 .manage-user-card .username {

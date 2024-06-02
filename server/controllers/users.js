@@ -34,7 +34,7 @@ const getUsers = (req, res) => {
         const limit = 6;
         const offset = (id - 1) * limit;
 
-        const query = `SELECT Username FROM user ORDER BY Username LIMIT ?, ?`;
+        const query = `SELECT Username, Image FROM user ORDER BY Username LIMIT ?, ?`;
         db.query(query, [offset, limit], (err, result) => {
             if (err) {
                 return res.status(500).json({ message: err });

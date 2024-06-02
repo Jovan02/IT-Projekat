@@ -60,6 +60,7 @@ const ManageUsers = ({
             <div class="container manage-users-container">
                 {users.map((user) => (
                     <div class="manage-user-card">
+                        <img src={user.Image} class="user-image" />
                         <p class="username">{user.Username}</p>
                         <button
                             class="button-delete"
