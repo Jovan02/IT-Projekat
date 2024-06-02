@@ -17,7 +17,7 @@ const SingleMovie = () => {
     const [isStarClicked, setIsStarClicked] = useState(0);
     const [reviewText, setReviewText] = useState("");
     const [screenings, setScreenings] = useState([]);
-    const [convertedScreenings, setConvertedScreenings] = useState([]);
+    const [userReview, setUserReview] = useState(false);
     const [nextDays, setNextDays] = useState([]);
 
     const starsRef = useRef(
@@ -112,6 +112,24 @@ const SingleMovie = () => {
         try {
             const response = await axios.get(`/api/api/reviews/${id}`);
             setReviews(response.data);
+            const data = response.data;
+            const userReview = data.filter(
+                (review) =>
+                    review.Username ===
+                    JSON.parse(localStorage.getItem("user"))["Username"]
+            )[0];
+            const krstaTiSvetog = userReview;
+            console.log(krstaTiSvetog);
+            if (userReview) {
+                setUserReview(true);
+                setIsStarClicked(userReview.Rating);
+                console.log(userReview.Rating);
+                setReviewText(userReview.Description);
+                for (let i = 0; i < userReview.Rating; i++) {
+                    starsRef.current[i].style.stroke = "#e94f37";
+                    starsRef.current[i].style.fill = "#e94f37";
+                }
+            }
         } catch (error) {
             console.error(error);
         }
@@ -132,14 +150,21 @@ const SingleMovie = () => {
         const review = reviewText;
         const rating = isStarClicked;
         const movieId = Number(id);
-        const userId = 14;
 
         try {
-            const response = await axios.post(`/api/api/reviews`, {
-                movieId,
-                description: review,
-                rating,
-            });
+            if (!userReview) {
+                const response = await axios.post(`/api/api/reviews`, {
+                    movieId,
+                    description: review,
+                    rating,
+                });
+            } else {
+                const response = await axios.put(`/api/api/reviews`, {
+                    movieId,
+                    description: review,
+                    rating,
+                });
+            }
             loadReviews();
         } catch (error) {
             console.error(error);

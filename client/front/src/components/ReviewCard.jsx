@@ -8,7 +8,15 @@ const ReviewCard = ({ author, description, rating }) => {
             .map(() => React.createRef())
     );
 
+    const flushStars = () => {
+        for (let i = 0; i < 5; i++) {
+            ref.current[i].style.stroke = "#d9d9d9";
+            ref.current[i].style.fill = "#d9d9d9";
+        }
+    };
+
     const colorStars = (rating) => {
+        flushStars();
         for (let i = 0; i < rating; i++) {
             ref.current[i].style.stroke = "#e94f37";
             ref.current[i].style.fill = "#e94f37";
@@ -17,7 +25,7 @@ const ReviewCard = ({ author, description, rating }) => {
 
     useEffect(() => {
         colorStars(rating);
-    }, []);
+    }, [, rating]);
 
     return (
         <div class="review-card">

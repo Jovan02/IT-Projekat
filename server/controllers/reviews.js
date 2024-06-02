@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: ".env" });
 
 const getReviews = (req, res) => {
-    const query = `SELECT * FROM review r INNER JOIN user u ON r.Username=u.Username WHERE MovieID = ?`;
+    const query = `SELECT * FROM review WHERE MovieID = ?`;
     db.query(query, [req.params.id], (err, result) => {
         if (err) {
             res.status(500).json({ message: err });
@@ -42,4 +42,33 @@ const createReview = (req, res) => {
     }
 };
 
-module.exports = { getReviews, createReview };
+const updateReview = (req, res) => {
+    const token = req.headers.authorization.split(" ")[1];
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const username = decoded.username;
+
+        const { movieId, description, rating } = req.body;
+        const query = `UPDATE review SET Description = ?, Rating = ? WHERE MovieID = ? AND Username = ?`;
+
+        db.query(
+            query,
+            [description, rating, movieId, username],
+            (err, result) => {
+                if (err) {
+                    res.status(500).json({ message: err });
+                } else if (result.affectedRows === 0) {
+                    res.status(404).json({ message: "Review not found" });
+                } else {
+                    res.status(200).json({
+                        message: "Review updated successfully",
+                    });
+                }
+            }
+        );
+    } catch (err) {
+        return res.status(401).json({ message: "Unauthorized" });
+    }
+};
+
+module.exports = { getReviews, createReview, updateReview };
