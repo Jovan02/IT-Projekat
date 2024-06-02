@@ -118,12 +118,10 @@ const SingleMovie = () => {
                     review.Username ===
                     JSON.parse(localStorage.getItem("user"))["Username"]
             )[0];
-            const krstaTiSvetog = userReview;
-            console.log(krstaTiSvetog);
+
             if (userReview) {
                 setUserReview(true);
                 setIsStarClicked(userReview.Rating);
-                console.log(userReview.Rating);
                 setReviewText(userReview.Description);
                 for (let i = 0; i < userReview.Rating; i++) {
                     starsRef.current[i].style.stroke = "#e94f37";
