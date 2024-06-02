@@ -226,6 +226,13 @@ img {
     color: #d9d9d9;
 }
 
+.review-author-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 .review-card-text {
     color: #d9d9d9;
     min-width: 0;

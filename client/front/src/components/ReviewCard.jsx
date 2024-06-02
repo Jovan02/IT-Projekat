@@ -4,7 +4,7 @@ import AuthContext from "../AuthContext";
 import axios from "axios";
 import Modal from "../components/Modal";
 
-const ReviewCard = ({ movieId, author, description, rating }) => {
+const ReviewCard = ({ movieId, author, authorImage, description, rating }) => {
     const { user } = useContext(AuthContext);
 
     const [showModal, setShowModal] = useState(false);
@@ -59,6 +59,7 @@ const ReviewCard = ({ movieId, author, description, rating }) => {
     return (
         <div class="review-card">
             <div class="review-author-section">
+                <img src={authorImage} class="review-author-image" />
                 <p class="review-author">{author}</p>
 
                 <div class="review-author-stars">

@@ -400,6 +400,7 @@ const SingleMovie = () => {
                                 <ReviewCard
                                     movieId={review.MovieID}
                                     author={review.Username}
+                                    authorImage={review.Image}
                                     description={review.Description}
                                     rating={review.Rating}
                                 />
