@@ -227,6 +227,17 @@ img {
     min-width: 0;
 }
 
+.reviews-pages {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+.not-found-text {
+    font-size: 2.5em;
+    color: #393e41;
+}
+
 path {
     cursor: pointer;
     pointer-events: all;

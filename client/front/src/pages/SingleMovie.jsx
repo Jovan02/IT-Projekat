@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ReviewCard from "../components/ReviewCard";
 import { useRef } from "react";
+import PaginationNumbers from "../components/PaginationNumbers";
 
 const SingleMovie = () => {
     const id = useParams().id;
@@ -19,6 +20,8 @@ const SingleMovie = () => {
     const [screenings, setScreenings] = useState([]);
     const [userReview, setUserReview] = useState(false);
     const [nextDays, setNextDays] = useState([]);
+    const [selectedPageId, setSelectedPageId] = useState(1);
+    const [numberOfPages, setNumberOfPages] = useState(1);
 
     const starsRef = useRef(
         Array(5)
@@ -64,12 +67,12 @@ const SingleMovie = () => {
         }
     };
 
-    const calculateRating = () => {
+    const calculateRating = (data) => {
         let sum = 0;
-        reviews.forEach((review) => {
+        data.forEach((review) => {
             sum += review.Rating;
         });
-        setRating(sum / reviews.length || 0);
+        setRating(sum / data.length || 0);
     };
 
     const parseDates = (screeningsData) => {
@@ -108,11 +111,23 @@ const SingleMovie = () => {
         }
     };
 
+    const loadReviewsPage = async () => {
+        try {
+            const response = await axios.get(
+                `/api/api/reviews/page/${selectedPageId}/${id}`
+            );
+            setReviews(response.data.result);
+            setNumberOfPages(response.data.pages);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     const loadReviews = async () => {
         try {
             const response = await axios.get(`/api/api/reviews/${id}`);
-            setReviews(response.data);
             const data = response.data;
+            calculateRating(data);
             const userReview = data.filter(
                 (review) =>
                     review.Username ===
@@ -139,7 +154,12 @@ const SingleMovie = () => {
             setScreenings(response.data);
             parseDates(response.data);
         } catch (error) {
-            console.error(error);
+            if (error.response.status == 404) {
+                setScreenings([]);
+                setNextDays([]);
+            } else {
+                console.error(error);
+            }
         }
     };
 
@@ -164,6 +184,7 @@ const SingleMovie = () => {
                 });
             }
             loadReviews();
+            loadReviewsPage();
         } catch (error) {
             console.error(error);
         } finally {
@@ -184,14 +205,16 @@ const SingleMovie = () => {
     useEffect(() => {
         loadMovie();
         loadReviews();
+        loadReviewsPage();
         loadScreenings();
     }, []);
 
     useEffect(() => {
-        calculateRating();
+        // calculateRating();
     }, [reviews]);
 
     useEffect(() => {
+        if (screenings.length === 0) return;
         const tmp = [];
 
         screenings.forEach((screening) => {
@@ -200,7 +223,6 @@ const SingleMovie = () => {
             }
         });
         setNextDays([...tmp]);
-        console.log(screenings);
     }, [screenings]);
 
     return (
@@ -222,32 +244,40 @@ const SingleMovie = () => {
                 <div class="movie-tickets">
                     <p class="movie-buy-ticket">Buy a ticket</p>
 
-                    {nextDays.map((day) => (
-                        <div class="movie-day-projection">
-                            <p class="movie-day">{day}</p>
-                            <div class="movie-projections">
-                                {screenings
-                                    .filter(
-                                        (screening) => screening.day === day
-                                    )
-                                    .map((screening) => {
-                                        return (
-                                            <div
-                                                class="movie-projection"
-                                                onClick={(e) =>
-                                                    handleScreeningClick(
-                                                        screening.ID
-                                                    )
-                                                }
-                                            >
-                                                <p>{screening.Time}</p>
-                                                <p>Hall {screening.HallID}</p>
-                                            </div>
-                                        );
-                                    })}
+                    {screenings.length > 0 ? (
+                        nextDays.map((day) => (
+                            <div class="movie-day-projection">
+                                <p class="movie-day">{day}</p>
+                                <div class="movie-projections">
+                                    {screenings
+                                        .filter(
+                                            (screening) => screening.day === day
+                                        )
+                                        .map((screening) => {
+                                            return (
+                                                <div
+                                                    class="movie-projection"
+                                                    onClick={(e) =>
+                                                        handleScreeningClick(
+                                                            screening.ID
+                                                        )
+                                                    }
+                                                >
+                                                    <p>{screening.Time}</p>
+                                                    <p>
+                                                        Hall {screening.HallID}
+                                                    </p>
+                                                </div>
+                                            );
+                                        })}
+                                </div>
                             </div>
+                        ))
+                    ) : (
+                        <div class="not-found-text">
+                            No screenings available for the next 10 days.
                         </div>
-                    ))}
+                    )}
                 </div>
 
                 <div class="movie-rating-container">
@@ -373,6 +403,13 @@ const SingleMovie = () => {
                                     rating={review.Rating}
                                 />
                             ))}
+                        </div>
+                        <div class="reviews-pages">
+                            <PaginationNumbers
+                                selectedPageId={selectedPageId}
+                                numberOfPages={numberOfPages}
+                                setPageId={setSelectedPageId}
+                            />
                         </div>
                     </div>
                 </div>

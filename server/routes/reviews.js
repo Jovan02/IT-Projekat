@@ -1,13 +1,15 @@
 const express = require("express");
 const {
-    getReviews,
+    getAllReviews,
+    getReviewsPage,
     createReview,
     updateReview,
 } = require("../controllers/reviews.js");
 
 const router = express.Router();
 
-router.get("/:id", getReviews);
+router.get("/:id", getAllReviews);
+router.get("/page/:id/:movieId", getReviewsPage);
 router.post("/", createReview);
 router.put("/", updateReview);
 

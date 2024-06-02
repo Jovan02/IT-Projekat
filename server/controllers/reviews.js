@@ -2,7 +2,20 @@ const db = require("../db");
 const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: ".env" });
 
-const getReviews = (req, res) => {
+function countReviews(movieId) {
+    return new Promise((resolve, reject) => {
+        const query = `SELECT COUNT(*) NumOfReviews FROM review WHERE MovieID = ?`;
+        db.query(query, [movieId], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+const getAllReviews = (req, res) => {
     const query = `SELECT * FROM review WHERE MovieID = ?`;
     db.query(query, [req.params.id], (err, result) => {
         if (err) {
@@ -71,4 +84,30 @@ const updateReview = (req, res) => {
     }
 };
 
-module.exports = { getReviews, createReview, updateReview };
+const getReviewsPage = (req, res) => {
+    const { id, movieId } = req.params;
+
+    countReviews(movieId).then((result) => {
+        const numOfReviews = result[0].NumOfReviews;
+        const pages = Math.ceil(numOfReviews / 10);
+        const query = `SELECT * FROM review WHERE MovieID = ? ORDER BY Username LIMIT ?, ?`;
+        const limit = 10;
+        const offset = (id - 1) * limit;
+
+        db.query(query, [movieId, offset, limit], (err, result2) => {
+            if (err) {
+                res.status(500).json({ message: err });
+            } else if (result2.length === 0) {
+                res.status(404).json({ message: "No reviews found" });
+            } else {
+                res.status(200).json({
+                    result: result2,
+                    page: id,
+                    pages: pages,
+                });
+            }
+        });
+    });
+};
+
+module.exports = { getAllReviews, createReview, updateReview, getReviewsPage };
