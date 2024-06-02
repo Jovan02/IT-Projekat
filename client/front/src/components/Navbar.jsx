@@ -59,7 +59,12 @@ const Navbar = () => {
                     )}
                     {user && (
                         <li class="nav-element nav-right">
-                            <Link to="/profile">{user.Username}</Link>
+                            <Link to="/profile">
+                                <img
+                                    src={user.Image}
+                                    class="navbar-profile-img"
+                                ></img>
+                            </Link>
                         </li>
                     )}
                 </ul>
