@@ -186,13 +186,17 @@ img {
     background-color: #393e41;
     border-radius: 24px;
     padding: 32px;
-    height: 150px;
+    min-height: 150px;
 
     display: flex;
     flex-direction: row;
     gap: 16px;
     align-items: center;
     justify-content: space-between;
+}
+
+.review-card svg {
+    flex-shrink: 0;
 }
 
 .review-author-section {
