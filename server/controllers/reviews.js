@@ -90,7 +90,7 @@ const getReviewsPage = (req, res) => {
     countReviews(movieId).then((result) => {
         const numOfReviews = result[0].NumOfReviews;
         const pages = Math.ceil(numOfReviews / 10);
-        const query = `SELECT * FROM review WHERE MovieID = ? ORDER BY Username LIMIT ?, ?`;
+        const query = `SELECT r.Username, r.MovieID, r.Description, r.Rating, u.Image FROM review r INNER JOIN user u ON r.Username=u.Username WHERE MovieID = ? ORDER BY Username LIMIT ?, ?`;
         const limit = 10;
         const offset = (id - 1) * limit;
 
