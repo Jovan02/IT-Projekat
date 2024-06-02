@@ -8,7 +8,7 @@ import { useRef } from "react";
 import PaginationNumbers from "../components/PaginationNumbers";
 
 const SingleMovie = () => {
-    const id = useParams().id;
+    const { id } = useParams();
 
     const navigate = useNavigate();
 
@@ -111,6 +111,16 @@ const SingleMovie = () => {
         }
     };
 
+    const loadGenres = async () => {
+        try {
+            const response = await axios.get(`/api/api/genres/${id}`);
+            const genres = response.data.map((genre) => genre.GenreName);
+            setMovie((prev) => ({ ...prev, Genres: genres.join(", ") }));
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     const loadReviewsPage = async () => {
         try {
             const response = await axios.get(
@@ -207,6 +217,7 @@ const SingleMovie = () => {
         loadReviews();
         loadReviewsPage();
         loadScreenings();
+        loadGenres();
     }, []);
 
     useEffect(() => {
@@ -236,6 +247,7 @@ const SingleMovie = () => {
                     <div class="movie-text">
                         <h2 class="movie-title">{movie.Name}</h2>
                         <p class="movie-description">{movie.Description}</p>
+                        <p class="movie-genre">Genres: {movie.Genres}</p>
                     </div>
                 </div>
 

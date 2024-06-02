@@ -49,6 +49,12 @@ img {
     justify-self: center;
 }
 
+.movie-genre {
+    font-size: 1.2em;
+    text-align: left;
+    justify-self: center;
+}
+
 .movie-card-rating {
     align-self: flex-start;
     font-size: 3em;
