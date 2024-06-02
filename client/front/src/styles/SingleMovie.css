@@ -242,3 +242,13 @@ path {
     cursor: pointer;
     pointer-events: all;
 }
+
+.delete-review-icon {
+    width: 30px;
+    height: 30px;
+    color: #d9d9d9;
+}
+
+.delete-review-icon:hover {
+    stroke: #e94f37;
+}

@@ -398,6 +398,7 @@ const SingleMovie = () => {
                         <div class="review-card-container">
                             {reviews.map((review) => (
                                 <ReviewCard
+                                    movieId={review.MovieID}
                                     author={review.Username}
                                     description={review.Description}
                                     rating={review.Rating}

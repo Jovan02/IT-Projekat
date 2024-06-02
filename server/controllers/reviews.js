@@ -110,4 +110,38 @@ const getReviewsPage = (req, res) => {
     });
 };
 
-module.exports = { getAllReviews, createReview, updateReview, getReviewsPage };
+const deleteReview = (req, res) => {
+    const token = req.headers.authorization.split(" ")[1];
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const isAdmin = decoded.isAdmin;
+        if (!isAdmin) {
+            return res.status(403).json({ message: "Forbidden" });
+        }
+
+        const { movieId, username } = req.params;
+        const query = `DELETE FROM review WHERE MovieID = ? AND Username = ?`;
+
+        db.query(query, [movieId, username], (err, result) => {
+            if (err) {
+                return res.status(500).json({ message: err });
+            } else if (result.affectedRows === 0) {
+                return res.status(404).json({ message: "Review not found" });
+            } else {
+                return res.status(200).json({
+                    message: "Review deleted successfully",
+                });
+            }
+        });
+    } catch (err) {
+        return res.status(401).json({ message: "Unauthorized" });
+    }
+};
+
+module.exports = {
+    getAllReviews,
+    createReview,
+    updateReview,
+    getReviewsPage,
+    deleteReview,
+};
