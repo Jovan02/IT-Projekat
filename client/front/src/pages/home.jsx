@@ -26,19 +26,24 @@ const Home = () => {
     }, []);
 
     useEffect(() => {
+        setMovies(null);
         loadMovies();
     }, [moviePageId]);
 
     return (
         <div class="home-container">
             <div class="card-container">
-                {movies.map((movie) => (
-                    <MovieCard
-                        imagePath={movie.Image}
-                        title={movie.Name}
-                        id={movie.ID}
-                    />
-                ))}
+                {movies ? (
+                    movies.map((movie) => (
+                        <MovieCard
+                            imagePath={movie.Image}
+                            title={movie.Name}
+                            id={movie.ID}
+                        />
+                    ))
+                ) : (
+                    <div class="loading-text">Loading...</div>
+                )}
             </div>
             <div class="movies-pages">
                 <PaginationNumbers
