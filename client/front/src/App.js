@@ -16,6 +16,7 @@ import SingleMovie from "./pages/SingleMovie";
 import Ticket from "./pages/Ticket";
 import AdminPanel from "./pages/AdminPanel";
 import Contact from "./pages/Contact";
+import Browse from "./pages/Browse";
 
 const Layout = () => {
     return (
@@ -48,7 +49,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/browse",
-                element: <h1>Browse</h1>,
+                element: <Browse />,
             },
             {
                 path: "/profile",
