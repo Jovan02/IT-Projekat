@@ -142,7 +142,7 @@ const ReviewCard = ({ movieId, author, description, rating }) => {
 
             <p class="review-card-text">{description}</p>
 
-            {user.IsAdmin ? (
+            {user.IsAdmin || user.Username == author ? (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
