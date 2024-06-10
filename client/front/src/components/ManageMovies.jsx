@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "../styles/ManageMovies.css";
 import axios from "axios";
+import PaginationNumbers from "./PaginationNumbers";
 
 const ManageMovies = ({ setModal, setMovieData, setIsEdit }) => {
     const [movies, setMovies] = useState([]);
     const [movieToDelete, setMovieToDelete] = useState("");
     const [response, setResponse] = useState(false);
+    const [moviePageId, setMoviePageId] = useState(1);
+    const [moviePages, setMoviePages] = useState(1);
 
     const loadMovies = async () => {
         try {
-            const response = await axios.get("/api/api/movies");
-            setMovies(response.data);
+            const response = await axios.get(`/api/api/movies/${moviePageId}`);
+            setMovies(response.data.result);
+            setMoviePages(response.data.pages);
             console.log(response.data);
         } catch (error) {
             console.error(error);
@@ -27,6 +31,11 @@ const ManageMovies = ({ setModal, setMovieData, setIsEdit }) => {
     useEffect(() => {
         loadMovies();
     }, []);
+
+    useEffect(() => {
+        setMovies(null);
+        loadMovies();
+    }, [moviePageId]);
 
     return (
         <div className="manage-movies-container">
@@ -56,6 +65,13 @@ const ManageMovies = ({ setModal, setMovieData, setIsEdit }) => {
                 ) : (
                     <div class="loading-text">Loading...</div>
                 )}
+            </div>
+            <div class="movies-pages">
+                <PaginationNumbers
+                    selectedPageId={moviePageId}
+                    numberOfPages={moviePages}
+                    setPageId={setMoviePageId}
+                />
             </div>
         </div>
     );
