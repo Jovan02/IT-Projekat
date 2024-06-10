@@ -3,18 +3,29 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/AdminPanel.css";
 
-const AddMovie = ({ setModal }) => {
+const AddMovie = ({ setModal, movieData, isEdit }) => {
+    // isEdit - ako je true, onda se prikazuju podaci o filmu koji se edituje i klik na dugme Add se vrsi update, a ne add
     const [genres, setGenres] = useState([]);
     const [file, setFile] = useState(null);
     const [movieName, setMovieName] = useState("");
     const [movieDescription, setMovieDescription] = useState("");
     const [movieDuration, setMovieDuration] = useState("");
     const [movieGenres, setMovieGenres] = useState([]);
+    const [selectedGenres, setSelectedGenres] = useState([]);
 
     const loadGenres = async () => {
         try {
             const response = await axios.get(`/api/api/genres`);
             setGenres(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const loadMovieGenres = async () => {
+        try {
+            const response = await axios.get(`/api/api/genres/${movieData.ID}`);
+            setSelectedGenres(response.data.map((genre) => genre.GenreName));
         } catch (error) {
             console.log(error);
         }
@@ -36,6 +47,40 @@ const AddMovie = ({ setModal }) => {
     };
 
     const handleAddMovie = async () => {
+        if (!movieName || !movieDescription || !movieDuration || !movieGenres) {
+            setModal({
+                title: "Error",
+                message: "All fields are required",
+            });
+            return;
+        }
+
+        if (isEdit) {
+            try {
+                const movieDataToSend = {
+                    name: movieName,
+                    description: movieDescription,
+                    duration: movieDuration,
+                    genres: movieGenres,
+                };
+                const response = await axios.put(
+                    `/api/api/movies/${movieData.ID}`,
+                    movieDataToSend
+                );
+                console.log(response);
+                setModal({
+                    title: "Edit movie",
+                    message: `${movieName} has been successfully edited`,
+                });
+            } catch (error) {
+                console.log(error);
+                setModal({
+                    title: "Error",
+                    message: `${error.response.data}`,
+                });
+            }
+            return;
+        }
         try {
             await handleAddImage();
             const movieData = {
@@ -86,6 +131,25 @@ const AddMovie = ({ setModal }) => {
         loadGenres();
     }, []);
 
+    useEffect(() => {
+        setMovieName(movieData.Name);
+        setMovieDescription(movieData.Description);
+        setMovieDuration(movieData.Duration);
+        console.log("muvi dejta: ", movieData);
+        setMovieGenres(genres); // UNDEFINED!!!
+        loadMovieGenres();
+    }, [movieData]);
+
+    useEffect(() => {
+        console.log(
+            "SELEKTOVANI ZANROVI: ",
+            selectedGenres,
+            " ",
+            selectedGenres.includes("Action")
+        );
+        setMovieGenres(selectedGenres);
+    }, [selectedGenres]);
+
     return (
         <div class="container add-movie-container">
             <form>
@@ -96,6 +160,7 @@ const AddMovie = ({ setModal }) => {
                     name="title"
                     required
                     onChange={handleTitleChange}
+                    value={movieName}
                 />
                 <label for="image">Image</label>
                 <input
@@ -115,6 +180,7 @@ const AddMovie = ({ setModal }) => {
                                 type="checkbox"
                                 name={genre.Name}
                                 onChange={handleGenreCheckbox}
+                                checked={movieGenres.includes(genre.Name)}
                             />
                             <span class="checkmark"></span>
                         </label>
@@ -127,6 +193,7 @@ const AddMovie = ({ setModal }) => {
                     name="duration"
                     required
                     onChange={handleDurationChange}
+                    value={movieDuration}
                 />
                 <label for="description">Description</label>
                 <textarea
@@ -136,6 +203,7 @@ const AddMovie = ({ setModal }) => {
                     contenteditable=""
                     required
                     onChange={handleDescriptionChange}
+                    value={movieDescription}
                 ></textarea>
             </form>
 

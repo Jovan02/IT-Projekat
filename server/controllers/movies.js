@@ -147,4 +147,29 @@ const createMovie = async (req, res) => {
     }
 };
 
-module.exports = { getMovies, getMovie, createMovie, getMoviesList };
+const editMovie = async (req, res) => {
+    const token = req.headers.authorization.split(" ")[1];
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        if (decoded.isAdmin != 1) {
+            return res.status(403).json({ message: "Forbidden" });
+        }
+    } catch (error) {
+        return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const { name, description, duration, genres } = req.body;
+    const { id } = req.params;
+
+    const query = `UPDATE movie SET Name = ?, Description = ?, Duration = ? WHERE ID = ?`;
+    db.query(query, [name, description, duration, id], (err, result) => {
+        if (err) {
+            res.status(500).json({ message: err });
+        } else {
+            addGenresPromise(id, genres);
+            res.status(200).json({ message: "Updated successfully." });
+        }
+    });
+};
+
+module.exports = { getMovies, getMovie, createMovie, getMoviesList, editMovie };

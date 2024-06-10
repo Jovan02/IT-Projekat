@@ -4,6 +4,7 @@ import { useState } from "react";
 import ManageUsers from "../components/ManageUsers";
 import AddMovie from "../components/AddMovie";
 import AddScreening from "../components/AddScreening";
+import ManageMovies from "../components/ManageMovies";
 import Modal from "../components/Modal";
 import { useNavigate } from "react-router-dom";
 
@@ -13,11 +14,14 @@ const AdminPanel = () => {
     const [modal, setModal] = useState(null);
     const [response, setResponse] = useState(false);
     const [userToDelete, setUserToDelete] = useState("");
+    const [isEdit, setIsEdit] = useState(false);
+
+    const [movieData, setMovieData] = useState({});
 
     const handleChooseTab = (e) => {
         if (e.target.innerHTML === "Manage Users") {
             setSelectedTab(1);
-        } else if (e.target.innerHTML === "Add movie") {
+        } else if (e.target.innerHTML === "Manage Movies") {
             setSelectedTab(2);
         } else if (e.target.innerHTML === "Add projection") {
             setSelectedTab(3);
@@ -44,6 +48,8 @@ const AdminPanel = () => {
         navigate("/admin-panel");
     };
 
+    useEffect(() => {}, [movieData]);
+
     return (
         <>
             <div class="choice-buttons">
@@ -63,7 +69,7 @@ const AdminPanel = () => {
                     }
                     onClick={handleChooseTab}
                 >
-                    Add movie
+                    Manage Movies
                 </button>
                 <button
                     class={
@@ -75,15 +81,6 @@ const AdminPanel = () => {
                     Add projection
                 </button>
             </div>
-            {modal && (
-                <Modal
-                    title={modal.title}
-                    message={modal.message}
-                    onExit={onExit}
-                    onClose={handleModalClose}
-                    isDelete={modal.type === "Delete"}
-                />
-            )}
 
             {selectedTab == 1 && (
                 <ManageUsers
@@ -96,9 +93,32 @@ const AdminPanel = () => {
                 />
             )}
 
-            {selectedTab == 2 && <AddMovie setModal={setModal} />}
+            {selectedTab == 2 && (
+                <>
+                    <AddMovie
+                        setModal={setModal}
+                        movieData={movieData}
+                        isEdit={isEdit}
+                    />
+                    <ManageMovies
+                        setModal={setModal}
+                        setMovieData={setMovieData}
+                        setIsEdit={setIsEdit}
+                    />
+                </>
+            )}
 
             {selectedTab == 3 && <AddScreening setModal={setModal} />}
+
+            {modal && (
+                <Modal
+                    title={modal.title}
+                    message={modal.message}
+                    onExit={onExit}
+                    onClose={handleModalClose}
+                    isDelete={modal.type === "Delete"}
+                />
+            )}
         </>
     );
 };
