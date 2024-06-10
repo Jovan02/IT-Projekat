@@ -172,4 +172,32 @@ const editMovie = async (req, res) => {
     });
 };
 
-module.exports = { getMovies, getMovie, createMovie, getMoviesList, editMovie };
+const deleteMovie = (req, res) => {
+    const token = req.headers.authorization.split(" ")[1];
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        if (decoded.isAdmin != 1) {
+            return res.status(403).json({ message: "Forbidden" });
+        }
+    } catch (error) {
+        return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const query = `DELETE FROM movie WHERE ID = ?`;
+    db.query(query, [req.params.id], (err, result) => {
+        if (err) {
+            res.status(500).json({ message: err });
+        } else {
+            res.status(200).json({ message: "Deleted successfully." });
+        }
+    });
+};
+
+module.exports = {
+    getMovies,
+    getMovie,
+    createMovie,
+    getMoviesList,
+    editMovie,
+    deleteMovie,
+};

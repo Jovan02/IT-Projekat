@@ -3,10 +3,16 @@ import "../styles/ManageMovies.css";
 import axios from "axios";
 import PaginationNumbers from "./PaginationNumbers";
 
-const ManageMovies = ({ setModal, setMovieData, setIsEdit }) => {
+const ManageMovies = ({
+    setMovieData,
+    setIsEdit,
+    response,
+    setResponse,
+    movieToDelete,
+    setMovieToDelete,
+    handleDeleteClick,
+}) => {
     const [movies, setMovies] = useState([]);
-    const [movieToDelete, setMovieToDelete] = useState("");
-    const [response, setResponse] = useState(false);
     const [moviePageId, setMoviePageId] = useState(1);
     const [moviePages, setMoviePages] = useState(1);
 
@@ -16,6 +22,16 @@ const ManageMovies = ({ setModal, setMovieData, setIsEdit }) => {
             setMovies(response.data.result);
             setMoviePages(response.data.pages);
             console.log(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const deleteMovie = async () => {
+        if (movieToDelete === "") return;
+        try {
+            await axios.delete(`/api/api/movies/${movieToDelete}`);
+            loadMovies();
         } catch (error) {
             console.error(error);
         }
@@ -37,6 +53,15 @@ const ManageMovies = ({ setModal, setMovieData, setIsEdit }) => {
         loadMovies();
     }, [moviePageId]);
 
+    useEffect(() => {
+        console.log("AGSAGAGASGSFSA");
+        if (response) {
+            deleteMovie(response);
+            setResponse(false);
+            setMovieToDelete("");
+        }
+    }, [response]);
+
     return (
         <div className="manage-movies-container">
             <div className="movies-list">
@@ -56,7 +81,10 @@ const ManageMovies = ({ setModal, setMovieData, setIsEdit }) => {
                                 >
                                     Edit
                                 </button>
-                                <button class="card-button card-button--delete">
+                                <button
+                                    class="card-button card-button--delete"
+                                    onClick={(e) => handleDeleteClick(movie.ID)}
+                                >
                                     Delete
                                 </button>
                             </div>

@@ -14,6 +14,7 @@ const AdminPanel = () => {
     const [modal, setModal] = useState(null);
     const [response, setResponse] = useState(false);
     const [userToDelete, setUserToDelete] = useState("");
+    const [movieToDelete, setMovieToDelete] = useState("");
     const [isEdit, setIsEdit] = useState(false);
 
     const [movieData, setMovieData] = useState({});
@@ -35,6 +36,15 @@ const AdminPanel = () => {
             type: "Delete",
         });
         setUserToDelete(username);
+    };
+
+    const handleDeleteMovie = (movieId) => {
+        setModal({
+            title: "Delete movie",
+            message: `Are you sure you want to delete the movie?`,
+            type: "Delete",
+        });
+        setMovieToDelete(movieId);
     };
 
     const handleModalClose = (resp) => {
@@ -104,6 +114,11 @@ const AdminPanel = () => {
                         setModal={setModal}
                         setMovieData={setMovieData}
                         setIsEdit={setIsEdit}
+                        handleDeleteClick={handleDeleteMovie}
+                        response={response}
+                        setResponse={setResponse}
+                        movieToDelete={movieToDelete}
+                        setMovieToDelete={setMovieToDelete}
                     />
                 </>
             )}
