@@ -4,21 +4,36 @@ import MovieCard from "../components/MovieCard";
 import axios from "axios";
 import { useState } from "react";
 import PaginationNumbers from "../components/PaginationNumbers";
+import SearchBar from "../components/SearchBar";
 
 const Home = () => {
     const [movies, setMovies] = useState([]);
     const [moviePageId, setMoviePageId] = useState(1);
     const [moviePages, setMoviePages] = useState(1);
+    const [filterText, setFilterText] = useState("");
+    const [error, setError] = useState("");
 
     const loadMovies = async () => {
         try {
-            const response = await axios.get(`/api/api/movies/${moviePageId}`);
+            const response = await axios.get(
+                `/api/api/movies/${moviePageId}?search=${filterText}`
+            );
             console.log(response.data);
             setMovies(response.data.result);
             setMoviePages(response.data.pages);
+            setError("");
         } catch (error) {
             console.error(error);
+            if (error.response.status === 404) {
+                setMovies([]);
+                setMoviePages(0);
+                setError(error.response.data.message);
+            }
         }
+    };
+
+    const handleSearchClick = (e) => {
+        loadMovies();
     };
 
     useEffect(() => {
@@ -32,19 +47,29 @@ const Home = () => {
 
     return (
         <div class="home-container">
-            <div class="card-container">
-                {movies ? (
-                    movies.map((movie) => (
-                        <MovieCard
-                            imagePath={movie.Image}
-                            title={movie.Name}
-                            id={movie.ID}
-                        />
-                    ))
-                ) : (
-                    <div class="loading-text">Loading...</div>
-                )}
-            </div>
+            <SearchBar
+                type="movies"
+                setFilterText={setFilterText}
+                onClickSearch={handleSearchClick}
+            />
+
+            {error ? (
+                <div class="loading-text">{error}</div>
+            ) : (
+                <div class="card-container">
+                    {movies ? (
+                        movies.map((movie) => (
+                            <MovieCard
+                                imagePath={movie.Image}
+                                title={movie.Name}
+                                id={movie.ID}
+                            />
+                        ))
+                    ) : (
+                        <div class="loading-text">Loading...</div>
+                    )}
+                </div>
+            )}
             <div class="movies-pages">
                 <PaginationNumbers
                     selectedPageId={moviePageId}
