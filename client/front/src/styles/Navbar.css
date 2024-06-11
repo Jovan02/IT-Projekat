@@ -43,3 +43,53 @@ header {
     transform: translate(-100%, -30%);
     position: absolute;
 }
+
+.mobile-navbar {
+    display: none;
+}
+
+.dropdown-list {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .desktop-navbar {
+        display: none;
+    }
+
+    .mobile-navbar {
+        display: block;
+        height: 65px;
+    }
+    /* 
+    .nav-elements {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        align-items: center;
+        justify-content: center;
+    } */
+
+    .dropdown-navbar {
+        background-color: #d9d9d9;
+        width: 150px;
+        height: 100vh;
+        position: absolute;
+        display: block;
+        top: 50;
+        left: 0px;
+    }
+
+    .dropdown-list {
+        display: none;
+        flex-direction: column;
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .burger-icon {
+        float: left;
+        width: 25px;
+        height: 25px;
+    }
+}
