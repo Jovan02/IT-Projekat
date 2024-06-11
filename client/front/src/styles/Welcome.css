@@ -32,7 +32,7 @@
 .main-title {
     color: #d9d9d9;
     font-weight: 500;
-    font-size: 8em;
+    font-size: calc(3em + 4vw);
     margin: auto;
     text-align: center;
     margin-top: 35vh;

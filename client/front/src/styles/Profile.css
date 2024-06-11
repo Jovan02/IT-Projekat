@@ -107,3 +107,13 @@ input[type="file"]:hover {
     justify-content: center;
     align-items: center;
 }
+
+@media (max-width: 768px) {
+    .profile-container input {
+        width: 90%;
+    }
+    .profile-container img {
+        width: 200px;
+        height: 200px;
+    }
+}

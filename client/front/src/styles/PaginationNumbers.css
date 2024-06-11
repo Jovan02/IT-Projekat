@@ -37,3 +37,18 @@
     background-color: #d9d9d9;
     stroke: #393e41;
 }
+
+@media screen and (max-width: 768px) {
+    .button-page {
+        width: 24px;
+        height: 24px;
+        padding: 4px;
+        font-size: 1em;
+    }
+
+    .icon-page {
+        width: 14px;
+        height: 14px;
+        padding: 4px;
+    }
+}

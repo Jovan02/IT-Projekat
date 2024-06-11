@@ -63,3 +63,30 @@
 .login-link:hover {
     text-decoration: underline;
 }
+
+@media screen and (max-width: 768px) {
+    .register-form {
+        width: 300px;
+        height: 400px;
+    }
+
+    .register-text {
+        font-size: 36px;
+    }
+
+    .register-button {
+        height: 48px;
+        width: 96px;
+        font-size: 14px;
+    }
+
+    .input-field {
+        height: 32px;
+        padding: 8px 16px;
+        font-size: 20px;
+    }
+
+    .login-here-text {
+        font-size: 14px;
+    }
+}

@@ -26,7 +26,6 @@
     position: absolute;
     min-width: 230px;
     overflow: auto;
-    border: 1px solid #d9d9d9;
     z-index: 1;
 }
 
@@ -55,4 +54,14 @@
 
 .show {
     display: block;
+}
+
+@media screen and (max-width: 768px) {
+    #myInput {
+        width: 200px;
+    }
+
+    .dropdown {
+        width: 200px;
+    }
 }

@@ -178,7 +178,7 @@ img {
 }
 
 .reviews-text {
-    font-size: 2.5em;
+    font-size: calc(1em + 1vw);
     text-align: left;
 }
 
@@ -251,7 +251,7 @@ img {
 }
 
 .not-found-text {
-    font-size: 2.5em;
+    font-size: calc(1em + 1vw);
     color: #393e41;
 }
 
@@ -268,4 +268,53 @@ path {
 
 .delete-review-icon:hover {
     stroke: #e94f37;
+}
+
+@media (max-width: 768px) {
+    .movie-card {
+        padding: 16px;
+    }
+
+    .movie-card-first {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    .movie-card-rating {
+        align-self: center;
+    }
+
+    .movie-projections {
+        width: inherit;
+    }
+
+    .movie-rating-container {
+        align-items: center;
+    }
+
+    .movie-rating-input-submit {
+        align-self: center;
+    }
+
+    .review-card {
+        padding: 16px;
+        flex-direction: column;
+    }
+
+    .review-author-section {
+        flex-direction: column;
+    }
+
+    .review-author-image {
+        width: 50px;
+        height: 50px;
+    }
+
+    .review-card-text {
+        font-size: 1em;
+    }
 }
