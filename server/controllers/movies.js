@@ -2,10 +2,10 @@ const db = require("../db");
 const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: ".env" });
 
-function countMovies() {
+function countMovies(search) {
     return new Promise((resolve, reject) => {
-        const query = `SELECT COUNT(*) NumOfMovies FROM movie`;
-        db.query(query, [], (err, result) => {
+        const query = `SELECT COUNT(*) NumOfMovies FROM movie WHERE Name LIKE ?`;
+        db.query(query, [search], (err, result) => {
             if (err) {
                 reject(err);
             } else {
@@ -31,7 +31,12 @@ const getMoviesList = (req, res) => {
 };
 
 const getMovies = (req, res) => {
-    countMovies().then((result) => {
+    const { search } = req.query;
+    let searchText = "%";
+    if (search) {
+        searchText = `%${search}%`;
+    }
+    countMovies(searchText).then((result) => {
         const numOfMovies = result[0].NumOfMovies;
         const { id } = req.params;
 
@@ -39,8 +44,8 @@ const getMovies = (req, res) => {
         const pages = Math.ceil(numOfMovies / limit);
         const offset = (id - 1) * limit;
 
-        const query = `SELECT * FROM movie ORDER BY ID LIMIT ?, ?`;
-        db.query(query, [offset, limit], (err, result) => {
+        const query = `SELECT * FROM movie WHERE Name LIKE ? ORDER BY ID LIMIT ?, ?`;
+        db.query(query, [searchText, offset, limit], (err, result) => {
             if (err) {
                 res.status(500).json({ message: err });
             } else if (result.length === 0) {

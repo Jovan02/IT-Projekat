@@ -3,7 +3,7 @@ import axios from "axios";
 
 import "../styles/SearchBar.css";
 
-const SearchBar = ({ type, reference }) => {
+const SearchBar = ({ type, reference, setFilterText, onClickSearch }) => {
     const [data, setData] = useState([]);
     const [selectedData, setSelectedData] = useState(null);
 
@@ -20,19 +20,26 @@ const SearchBar = ({ type, reference }) => {
     };
 
     const handleFilter = (e) => {
-        const filter = e.target.value.toUpperCase();
-        itemRef.current.forEach((item) => {
-            if (item) {
-                const txtValue = item.textContent || item.innerText;
-                if (filter == "") {
-                    item.style.display = "none";
-                } else if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    item.style.display = "block";
-                } else {
-                    item.style.display = "none";
-                }
+        if (setFilterText) {
+            setFilterText(e.target.value.toLowerCase());
+            if (e.code === "Enter") {
+                onClickSearch(e);
             }
-        });
+        } else {
+            const filter = e.target.value.toUpperCase();
+            itemRef.current.forEach((item) => {
+                if (item) {
+                    const txtValue = item.textContent || item.innerText;
+                    if (filter == "") {
+                        item.style.display = "none";
+                    } else if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        item.style.display = "block";
+                    } else {
+                        item.style.display = "none";
+                    }
+                }
+            });
+        }
     };
 
     const handleFilterMovieClick = (e) => {
@@ -46,7 +53,9 @@ const SearchBar = ({ type, reference }) => {
     };
 
     useEffect(() => {
-        loadData();
+        if (!setFilterText) {
+            loadData();
+        }
     }, []);
 
     useEffect(() => {
@@ -67,6 +76,7 @@ const SearchBar = ({ type, reference }) => {
                     stroke-width="1.5"
                     stroke="currentColor"
                     class="search-icon"
+                    onClick={onClickSearch}
                 >
                     <path
                         stroke-linecap="round"

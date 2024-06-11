@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../styles/ManageMovies.css";
 import axios from "axios";
 import PaginationNumbers from "./PaginationNumbers";
+import SearchBar from "./SearchBar";
 
 const ManageMovies = ({
     setMovieData,
@@ -15,15 +16,25 @@ const ManageMovies = ({
     const [movies, setMovies] = useState([]);
     const [moviePageId, setMoviePageId] = useState(1);
     const [moviePages, setMoviePages] = useState(1);
+    const [filterText, setFilterText] = useState("");
+    const [error, setError] = useState("");
 
     const loadMovies = async () => {
         try {
-            const response = await axios.get(`/api/api/movies/${moviePageId}`);
+            const response = await axios.get(
+                `/api/api/movies/${moviePageId}?search=${filterText}`
+            );
             setMovies(response.data.result);
             setMoviePages(response.data.pages);
             console.log(response.data);
+            setError("");
         } catch (error) {
             console.error(error);
+            if (error.response.status === 404) {
+                setMovies([]);
+                setMoviePages(0);
+                setError(error.response.data.message);
+            }
         }
     };
 
@@ -42,6 +53,10 @@ const ManageMovies = ({
         const movie = movies.find((movie) => movie.ID === movieId);
         setMovieData(movie);
         setIsEdit(true);
+    };
+
+    const handleSearchClick = (e) => {
+        loadMovies();
     };
 
     useEffect(() => {
@@ -64,36 +79,49 @@ const ManageMovies = ({
 
     return (
         <div className="manage-movies-container">
-            <div className="movies-list">
-                {movies ? (
-                    movies.map((movie) => (
-                        <div className="movie" id={movie.ID}>
-                            <img
-                                class="card-img"
-                                src={movie.Image}
-                                alt="movie"
-                            />
-                            <div class="card-content">
-                                <h3 class="card-title">{movie.Name}</h3>
-                                <button
-                                    class="card-button card-button--edit"
-                                    onClick={(e) => handleEditClick(movie.ID)}
-                                >
-                                    Edit
-                                </button>
-                                <button
-                                    class="card-button card-button--delete"
-                                    onClick={(e) => handleDeleteClick(movie.ID)}
-                                >
-                                    Delete
-                                </button>
+            <SearchBar
+                type="movies"
+                setFilterText={setFilterText}
+                onClickSearch={handleSearchClick}
+            />
+            {error ? (
+                <div class="loading-text">{error}</div>
+            ) : (
+                <div className="movies-list">
+                    {movies ? (
+                        movies.map((movie) => (
+                            <div className="movie" id={movie.ID}>
+                                <img
+                                    class="card-img"
+                                    src={movie.Image}
+                                    alt="movie"
+                                />
+                                <div class="card-content">
+                                    <h3 class="card-title">{movie.Name}</h3>
+                                    <button
+                                        class="card-button card-button--edit"
+                                        onClick={(e) =>
+                                            handleEditClick(movie.ID)
+                                        }
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        class="card-button card-button--delete"
+                                        onClick={(e) =>
+                                            handleDeleteClick(movie.ID)
+                                        }
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    ))
-                ) : (
-                    <div class="loading-text">Loading...</div>
-                )}
-            </div>
+                        ))
+                    ) : (
+                        <div class="loading-text">Loading...</div>
+                    )}
+                </div>
+            )}
             <div class="movies-pages">
                 <PaginationNumbers
                     selectedPageId={moviePageId}
