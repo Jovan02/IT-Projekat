@@ -46,10 +46,11 @@ h1 {
 .choice-buttons .button:hover {
     background-color: #393e41;
     color: #d9d9d9;
+    cursor: pointer;
 }
 
 .choice-buttons .choice-buttons--selected {
-    background-color: #393e41;
+    background-color: #e94f37;
     color: #d9d9d9;
 }
 
