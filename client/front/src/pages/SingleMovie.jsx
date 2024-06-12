@@ -29,7 +29,7 @@ const SingleMovie = () => {
         data.forEach((review) => {
             sum += review.Rating;
         });
-        setRating(sum / data.length || 0);
+        setRating((sum / data.length).toFixed(2) || 0);
     };
 
     const parseDates = (screeningsData) => {
