@@ -118,6 +118,12 @@ h1 {
 }
 
 .add-movie-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+
     width: 300px;
     padding: 24px;
     background-color: #d9d9d9;
@@ -125,13 +131,13 @@ h1 {
 
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 8px;
 }
 
 .add-movie-container form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 8px;
     justify-content: center;
     align-items: center;
 }

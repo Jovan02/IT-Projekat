@@ -91,3 +91,32 @@
     scale: 1.1;
     transition: scale 0.4s ease;
 }
+
+@media (max-width: 768px) {
+    .ticket-container {
+        flex-direction: column;
+        justify-content: center;
+        padding: 16px;
+        gap: 18px;
+    }
+    .seat-container {
+        column-gap: 4px;
+    }
+    .seat {
+        font-size: 1em;
+    }
+
+    .icon-seat {
+        width: 1em;
+        height: 1em;
+    }
+
+    .screen {
+        width: 200px;
+    }
+
+    .button-buy {
+        padding: 16px 32px;
+        font-size: 1em;
+    }
+}
