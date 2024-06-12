@@ -62,9 +62,58 @@ const getScreening = (req, res) => {
     });
 };
 
+const getMoviesScreenings = (req, res) => {
+    const { dateFrom, dateTo, genres } = req.query;
+
+    console.log(dateFrom, dateTo, genres);
+    let genresList = "";
+    if (genres) {
+        const query = `
+            SELECT DISTINCT s.ID, s.Date, s.Time, m.Duration, s.MovieID, m.Name, m.Image, s.HallID
+            FROM screening s
+            INNER JOIN movie m
+            ON s.MovieID = m.ID
+            INNER JOIN moviegenre mg
+            ON s.MovieID = mg.MovieID
+            WHERE s.Date >= ? AND s.Date <= ? AND mg.GenreName IN (?)`;
+        genres.forEach((genre) => {
+            genresList += `'${genre}',`;
+        });
+        db.query(query, [dateFrom, dateTo, genresList], (err, result) => {
+            if (err) {
+                res.status(500).json({ message: err });
+            } else if (result.length === 0) {
+                res.status(404).json({ message: "No screenings found" });
+            } else {
+                res.status(200).json(result);
+            }
+        });
+    } else {
+        const query = `
+            SELECT DISTINCT s.ID, s.Date, s.Time, m.Duration, s.MovieID, m.Name, m.Image, s.HallID
+            FROM screening s
+            INNER JOIN movie m
+            ON s.MovieID = m.ID
+            INNER JOIN moviegenre mg
+            ON s.MovieID = mg.MovieID
+            WHERE s.Date >= ? AND s.Date <= ?`;
+        db.query(query, [dateFrom, dateTo], (err, result) => {
+            if (err) {
+                res.status(500).json({ message: err });
+            } else if (result.length === 0) {
+                res.status(404).json({ message: "No screenings found" });
+            } else {
+                console.log(result);
+                res.status(200).json(result);
+            }
+        });
+    }
+};
+
 module.exports = {
     getScreenings,
     createScreening,
     getScreeningsForNextDays,
     getScreening,
+    getMoviesScreenings,
 };
