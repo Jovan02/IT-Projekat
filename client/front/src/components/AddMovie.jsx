@@ -2,8 +2,16 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/AdminPanel.css";
+import DropDownCheckbox from "./DropDownCheckbox";
 
-const AddMovie = ({ setModal, movieData, isEdit, setIsEdit }) => {
+const AddMovie = ({
+    setModal,
+    movieData,
+    isEdit,
+    setIsEdit,
+    isOpen,
+    setIsOpen,
+}) => {
     // isEdit - ako je true, onda se prikazuju podaci o filmu koji se edituje i klik na dugme Add se vrsi update, a ne add
     const [genres, setGenres] = useState([]);
     const [file, setFile] = useState(null);
@@ -116,6 +124,7 @@ const AddMovie = ({ setModal, movieData, isEdit, setIsEdit }) => {
         setMovieDuration("");
         setMovieGenres([]);
         setFile(null);
+        setIsOpen(false);
     };
 
     const handleTitleChange = (e) => {
@@ -164,28 +173,35 @@ const AddMovie = ({ setModal, movieData, isEdit, setIsEdit }) => {
     }, [selectedGenres]);
 
     return (
-        <div class="container add-movie-container">
-            <form>
-                <label for="title">Title</label>
-                <input
-                    type="text"
-                    id="title"
-                    name="title"
-                    required
-                    onChange={handleTitleChange}
-                    value={movieName}
-                />
-                <label for="image">Image</label>
-                <input
-                    type="file"
-                    id="image"
-                    name="image"
-                    required
-                    multiple={false}
-                    onChange={handleFileChange}
-                />
-                <label for="genre">Genre</label>
-                <div class="genre-checkbox-container">
+        <>
+            {isOpen && (
+                <div class="container add-movie-container hidden">
+                    <form>
+                        <label for="title">Title</label>
+                        <input
+                            type="text"
+                            id="title"
+                            name="title"
+                            required
+                            onChange={handleTitleChange}
+                            value={movieName}
+                        />
+                        <label for="image">Image</label>
+                        <input
+                            type="file"
+                            id="image"
+                            name="image"
+                            required
+                            multiple={false}
+                            onChange={handleFileChange}
+                        />
+                        <label for="genre">Genre</label>
+                        <DropDownCheckbox
+                            filterGenres={movieGenres}
+                            setFilterGenres={setMovieGenres}
+                            darkMode={true}
+                        />
+                        {/* <div class="genre-checkbox-container">
                     {genres.map((genre) => (
                         <label class="checkbox-box">
                             {genre.Name}
@@ -198,32 +214,37 @@ const AddMovie = ({ setModal, movieData, isEdit, setIsEdit }) => {
                             <span class="checkmark"></span>
                         </label>
                     ))}
-                </div>
-                <label for="duration">Duration</label>
-                <input
-                    type="text"
-                    id="duration"
-                    name="duration"
-                    required
-                    onChange={handleDurationChange}
-                    value={movieDuration}
-                />
-                <label for="description">Description</label>
-                <textarea
-                    class="description"
-                    id="description"
-                    name="description"
-                    contenteditable=""
-                    required
-                    onChange={handleDescriptionChange}
-                    value={movieDescription}
-                ></textarea>
-            </form>
+                </div> */}
+                        <label for="duration">Duration</label>
+                        <input
+                            type="text"
+                            id="duration"
+                            name="duration"
+                            required
+                            onChange={handleDurationChange}
+                            value={movieDuration}
+                        />
+                        <label for="description">Description</label>
+                        <textarea
+                            class="description"
+                            id="description"
+                            name="description"
+                            contenteditable=""
+                            required
+                            onChange={handleDescriptionChange}
+                            value={movieDescription}
+                        ></textarea>
+                    </form>
 
-            <button class="button-movie" onClick={handleAddMovie}>
-                Add
-            </button>
-        </div>
+                    <button class="button-movie" onClick={handleAddMovie}>
+                        Add
+                    </button>
+                </div>
+            )}
+            {isOpen && (
+                <div class="overlay" onClick={(e) => setIsOpen(false)}></div>
+            )}
+        </>
     );
 };
 

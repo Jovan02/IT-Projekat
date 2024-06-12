@@ -12,6 +12,7 @@ const ManageMovies = ({
     movieToDelete,
     setMovieToDelete,
     handleDeleteClick,
+    setIsOpen,
 }) => {
     const [movies, setMovies] = useState([]);
     const [moviePageId, setMoviePageId] = useState(1);
@@ -53,6 +54,7 @@ const ManageMovies = ({
         const movie = movies.find((movie) => movie.ID === movieId);
         setMovieData(movie);
         setIsEdit(true);
+        setIsOpen(true);
     };
 
     const handleSearchClick = (e) => {

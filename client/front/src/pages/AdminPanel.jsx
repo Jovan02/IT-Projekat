@@ -16,6 +16,7 @@ const AdminPanel = () => {
     const [userToDelete, setUserToDelete] = useState("");
     const [movieToDelete, setMovieToDelete] = useState("");
     const [isEdit, setIsEdit] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     const [movieData, setMovieData] = useState({});
 
@@ -51,6 +52,10 @@ const AdminPanel = () => {
         setResponse(resp);
         setModal(null);
         navigate("/admin-panel");
+    };
+
+    const handleAddMovieClick = () => {
+        setIsOpen(true);
     };
 
     const onExit = () => {
@@ -105,11 +110,16 @@ const AdminPanel = () => {
 
             {selectedTab == 2 && (
                 <>
+                    <button class="button" onClick={handleAddMovieClick}>
+                        Add New Movie
+                    </button>
                     <AddMovie
                         setModal={setModal}
                         movieData={movieData}
                         isEdit={isEdit}
                         setIsEdit={setIsEdit}
+                        isOpen={isOpen}
+                        setIsOpen={setIsOpen}
                     />
                     <ManageMovies
                         setModal={setModal}
@@ -120,6 +130,7 @@ const AdminPanel = () => {
                         setResponse={setResponse}
                         movieToDelete={movieToDelete}
                         setMovieToDelete={setMovieToDelete}
+                        setIsOpen={setIsOpen}
                     />
                 </>
             )}
