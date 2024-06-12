@@ -1,0 +1,90 @@
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.dropdows-genres {
+    position: relative;
+    display: inline-block;
+}
+
+.genre-filter-button {
+    background-color: #d9d9d9;
+    color: #393e41;
+    width: 200px;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 24px;
+}
+
+.genre-filter-button--dark {
+    background-color: #393e41;
+    color: #d9d9d9;
+    width: 200px;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 24px;
+}
+
+.genres {
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+}
+.genres::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+}
+
+.genres {
+    color: #393e41;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    border-radius: 24px;
+    width: 200px;
+    z-index: 10;
+    transform: translate(-50%, 100%);
+}
+
+.genre-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.genre-item:hover {
+    background-color: #f2f2f2;
+}
+
+.genres:focus {
+    outline: none;
+}
+
+/* .genre-item:active,
+.genre-item:focus,
+.genre-item:checked,
+.genre-item::selection,
+.genre-item:visited
+.genre-item:focus-visible {
+    -webkit-tap-highlight-color: transparent;
+    background-color: #d9d9d9;
+} */
+
+.selected-genre {
+    background-color: #e94f37;
+    color: #d9d9d9;
+}
+
+.date-filter {
+    width: 300px;
+    padding: 16px;
+    border: none;
+    border-radius: 24px;
+    background-color: #d9d9d9;
+    color: #393e41;
+
+    font-size: 1.1em;
+}
