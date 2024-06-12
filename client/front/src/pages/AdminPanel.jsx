@@ -24,7 +24,7 @@ const AdminPanel = () => {
             setSelectedTab(1);
         } else if (e.target.innerHTML === "Manage Movies") {
             setSelectedTab(2);
-        } else if (e.target.innerHTML === "Add projection") {
+        } else if (e.target.innerHTML === "Add screening") {
             setSelectedTab(3);
         }
     };
@@ -88,7 +88,7 @@ const AdminPanel = () => {
                     }
                     onClick={handleChooseTab}
                 >
-                    Add projection
+                    Add screening
                 </button>
             </div>
 
@@ -109,6 +109,7 @@ const AdminPanel = () => {
                         setModal={setModal}
                         movieData={movieData}
                         isEdit={isEdit}
+                        setIsEdit={setIsEdit}
                     />
                     <ManageMovies
                         setModal={setModal}

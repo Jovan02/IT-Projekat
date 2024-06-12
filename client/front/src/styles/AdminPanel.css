@@ -110,6 +110,7 @@ h1 {
     border: none;
     color: #e94f37;
     font-size: 1.1em;
+    cursor: pointer;
 }
 
 .manage-user-card .button-delete:hover {
@@ -168,6 +169,7 @@ input[type="file"]:hover {
     border: none;
     border-radius: 50px;
     align-self: center;
+    cursor: pointer;
 
     font-size: 1.1em;
     font-weight: 600;
@@ -177,7 +179,7 @@ input[type="file"]:hover {
 
 .button-movie:hover {
     background-color: #e94f37;
-    color: #393e41;
+    color: #d9d9d9;
     scale: 1.1;
     transition: scale 0.4s ease;
 }

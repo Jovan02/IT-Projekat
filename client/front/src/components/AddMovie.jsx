@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles/AdminPanel.css";
 
-const AddMovie = ({ setModal, movieData, isEdit }) => {
+const AddMovie = ({ setModal, movieData, isEdit, setIsEdit }) => {
     // isEdit - ako je true, onda se prikazuju podaci o filmu koji se edituje i klik na dugme Add se vrsi update, a ne add
     const [genres, setGenres] = useState([]);
     const [file, setFile] = useState(null);
@@ -79,30 +79,43 @@ const AddMovie = ({ setModal, movieData, isEdit }) => {
                     message: `${error.response.data}`,
                 });
             }
-            return;
+            setIsEdit(false);
+        } else {
+            try {
+                await handleAddImage();
+                const movieData = {
+                    name: movieName,
+                    image: `/api/public/images/${file.name}`,
+                    description: movieDescription,
+                    duration: movieDuration,
+                    genres: movieGenres,
+                };
+                const response = await axios.post(`/api/api/movies`, movieData);
+                console.log(response);
+                setModal({
+                    title: "Add movie",
+                    message: `${movieData.name} has been successfully added`,
+                });
+            } catch (error) {
+                console.log(error);
+                setModal({
+                    title: "Error",
+                    message: `${error.response.data.message}`,
+                });
+                setIsEdit(false);
+                setMovieName("");
+                setMovieDescription("");
+                setMovieDuration("");
+                setMovieGenres([]);
+                setFile(null);
+            }
         }
-        try {
-            await handleAddImage();
-            const movieData = {
-                name: movieName,
-                image: `/api/public/images/${file.name}`,
-                description: movieDescription,
-                duration: movieDuration,
-                genres: movieGenres,
-            };
-            const response = await axios.post(`/api/api/movies`, movieData);
-            console.log(response);
-            setModal({
-                title: "Add movie",
-                message: `${movieData.name} has been successfully added`,
-            });
-        } catch (error) {
-            console.log(error);
-            setModal({
-                title: "Error",
-                message: `${error.response.data}`,
-            });
-        }
+        setIsEdit(false);
+        setMovieName("");
+        setMovieDescription("");
+        setMovieDuration("");
+        setMovieGenres([]);
+        setFile(null);
     };
 
     const handleTitleChange = (e) => {

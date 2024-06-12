@@ -22,6 +22,13 @@ const AddScreening = ({ setModal }) => {
             date: date,
             time: time,
         };
+        if (!movie || !hall || !date || !time) {
+            setModal({
+                title: "Error",
+                message: "All fields are required",
+            });
+            return;
+        }
 
         try {
             const response = await axios.post(
@@ -37,7 +44,7 @@ const AddScreening = ({ setModal }) => {
             console.log(error);
             setModal({
                 title: "Error",
-                message: `${error.response.data}`,
+                message: `${error.response.data.message}`,
             });
         }
     };
