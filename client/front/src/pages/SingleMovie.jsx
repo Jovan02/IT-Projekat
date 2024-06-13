@@ -127,7 +127,9 @@ const SingleMovie = () => {
     };
 
     const handleReviewSubmit = async (e) => {
-        e.preventDefault();
+        if (e) {
+            e.preventDefault();
+        }
         const review = reviewText;
         const rating = isStarClicked;
         const movieId = Number(id);
@@ -152,7 +154,6 @@ const SingleMovie = () => {
             console.error(error);
         } finally {
             setReviewText("");
-            setIsStarClicked(0);
         }
     };
 
@@ -175,6 +176,14 @@ const SingleMovie = () => {
     useEffect(() => {
         // calculateRating();
     }, [reviews]);
+
+    useEffect(() => {
+        if (isStarClicked > 0) {
+            setUserReview(true);
+            handleReviewSubmit();
+        }
+        console.log(isStarClicked);
+    }, [isStarClicked]);
 
     useEffect(() => {
         if (screenings.length === 0) return;
