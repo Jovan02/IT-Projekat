@@ -55,6 +55,13 @@ const AdminPanel = () => {
     };
 
     const handleAddMovieClick = () => {
+        setIsEdit(false);
+        setMovieData({
+            Name: "",
+            Description: "",
+            Duration: "",
+            Genres: [],
+        });
         setIsOpen(true);
     };
 

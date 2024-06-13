@@ -243,6 +243,16 @@ input[type="file"]:hover {
     font-size: 1.1em;
 }
 
+.exit-icon {
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    padding: 8px;
+    cursor: pointer;
+}
+
 /* CUSTOM GENRE CHECKBOX */
 
 .genre-checkbox-container {
@@ -406,5 +416,10 @@ input[type="file"]:hover {
 
     .checkbox-box {
         margin-bottom: 8px;
+    }
+
+    .exit-icon {
+        top: 4px;
+        right: 12px;
     }
 }

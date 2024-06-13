@@ -33,7 +33,11 @@ const AddMovie = ({
     const loadMovieGenres = async () => {
         try {
             const response = await axios.get(`/api/api/genres/${movieData.ID}`);
-            setSelectedGenres(response.data.map((genre) => genre.GenreName));
+            if (isEdit) {
+                setSelectedGenres(
+                    response.data.map((genre) => genre.GenreName)
+                );
+            }
         } catch (error) {
             console.log(error);
         }
@@ -149,6 +153,11 @@ const AddMovie = ({
         }
     };
 
+    const handleCloseModal = (e) => {
+        setIsOpen(false);
+        setIsEdit(false);
+    };
+
     useEffect(() => {
         loadGenres();
     }, []);
@@ -239,11 +248,24 @@ const AddMovie = ({
                     <button class="button-movie" onClick={handleAddMovie}>
                         Add
                     </button>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="exit-icon"
+                        onClick={handleCloseModal}
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M6 18 18 6M6 6l12 12"
+                        />
+                    </svg>
                 </div>
             )}
-            {isOpen && (
-                <div class="overlay" onClick={(e) => setIsOpen(false)}></div>
-            )}
+            {isOpen && <div class="overlay" onClick={handleCloseModal}></div>}
         </>
     );
 };
