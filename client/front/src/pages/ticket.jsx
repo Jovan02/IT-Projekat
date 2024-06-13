@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import Seat from "../components/Seat";
+import Modal from "../components/Modal";
 import AuthContext from "../AuthContext";
 
 const Ticket = () => {
@@ -14,6 +15,7 @@ const Ticket = () => {
     const [screeningMovie, setScreeningMovie] = useState({});
     const [boughtTickets, setBoughtTickets] = useState([]);
     const [selectedSeat, setSelectedSeat] = useState({ row: "", col: "" });
+    const [modal, setModal] = useState(null);
 
     const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"];
 
@@ -78,6 +80,10 @@ const Ticket = () => {
 
     const handleBuyTicket = async () => {
         if (selectedSeat.row == "" || selectedSeat.col == "") {
+            setModal({
+                title: "Error",
+                message: "All fields are required",
+            });
             alert("Please select a seat.");
             return;
         }
@@ -89,10 +95,18 @@ const Ticket = () => {
                 seatColumn: selectedSeat.col,
                 hallId: screeningMovie.HallID,
             });
-            navigate(`/movie/${screeningMovie.MovieID}`);
+            setModal({
+                title: "Buy ticket",
+                message: `Ticket has been successfully bought`,
+            });
         } catch (error) {
             console.log(error);
         }
+    };
+
+    const handleModalExit = () => {
+        setModal(null);
+        navigate(`/movie/${screeningMovie.MovieID}`);
     };
 
     useEffect(() => {
@@ -255,6 +269,15 @@ const Ticket = () => {
                     Buy Ticket
                 </button>
             </div>
+            {modal && (
+                <Modal
+                    title={modal.title}
+                    message={modal.message}
+                    isDelete={false}
+                    onExit={handleModalExit}
+                    onClose={handleModalExit}
+                />
+            )}
         </>
     );
 };
