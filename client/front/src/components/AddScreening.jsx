@@ -5,6 +5,8 @@ import axios from "axios";
 import SearchBar from "../components/SearchBar";
 
 const AddScreening = ({ setModal }) => {
+    const [refresh, setRefresh] = useState(true);
+
     const movieRef = useRef();
     const hallRef = useRef();
     const dateRef = useRef();
@@ -47,42 +49,54 @@ const AddScreening = ({ setModal }) => {
                 message: `${error.response.data.message}`,
             });
         }
+        setRefresh(false);
     };
-    return (
-        <div class="container add-screening">
-            <form>
-                <label for="movie">Movie</label>
-                <SearchBar
-                    type="movies"
-                    reference={(e) => (movieRef.current = e)}
-                />
-                <label for="date">Date</label>
-                <input
-                    type="date"
-                    id="date"
-                    name="date"
-                    required
-                    ref={(e) => (dateRef.current = e)}
-                />
-                <label for="time">Time</label>
-                <input
-                    type="time"
-                    id="time"
-                    name="time"
-                    required
-                    ref={(e) => (timeRef.current = e)}
-                />
-                <label for="hall">Hall</label>
-                <SearchBar
-                    type="halls"
-                    reference={(e) => (hallRef.current = e)}
-                />
-            </form>
 
-            <button class="button-movie" onClick={handleAddProjection}>
-                Add
-            </button>
-        </div>
+    useEffect(() => {
+        if (!refresh) {
+            setRefresh(true);
+        }
+    }, [refresh]);
+
+    return (
+        <>
+            {refresh && (
+                <div class="container add-screening">
+                    <form>
+                        <label for="movie">Movie</label>
+                        <SearchBar
+                            type="movies"
+                            reference={(e) => (movieRef.current = e)}
+                        />
+                        <label for="date">Date</label>
+                        <input
+                            type="date"
+                            id="date"
+                            name="date"
+                            required
+                            ref={(e) => (dateRef.current = e)}
+                        />
+                        <label for="time">Time</label>
+                        <input
+                            type="time"
+                            id="time"
+                            name="time"
+                            required
+                            ref={(e) => (timeRef.current = e)}
+                        />
+                        <label for="hall">Hall</label>
+                        <SearchBar
+                            type="halls"
+                            reference={(e) => (hallRef.current = e)}
+                        />
+                    </form>
+
+                    <button class="button-movie" onClick={handleAddProjection}>
+                        Add
+                    </button>
+                </div>
+            )}
+        </>
     );
 };
 
