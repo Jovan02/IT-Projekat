@@ -63,11 +63,17 @@ const getScreening = (req, res) => {
 };
 
 const getMoviesScreenings = (req, res) => {
-    const { dateFrom, dateTo, genres } = req.query;
+    const { genres, dateFrom, dateTo } = req.query;
 
     console.log(dateFrom, dateTo, genres);
+    const genresArray = genres.split(",");
     let genresList = "";
     if (genres) {
+        genresArray.forEach((genre) => {
+            genresList += `'${genre}',`;
+        });
+        genresList = `(${genresList.slice(0, -1)})`;
+        console.log(genresList);
         const query = `
             SELECT DISTINCT s.ID, s.Date, s.Time, m.Duration, s.MovieID, m.Name, m.Image, s.HallID
             FROM screening s
@@ -75,10 +81,7 @@ const getMoviesScreenings = (req, res) => {
             ON s.MovieID = m.ID
             INNER JOIN moviegenre mg
             ON s.MovieID = mg.MovieID
-            WHERE s.Date >= ? AND s.Date <= ? AND mg.GenreName IN (?)`;
-        genres.forEach((genre) => {
-            genresList += `'${genre}',`;
-        });
+            WHERE s.Date >= ? AND s.Date <= ? AND mg.GenreName IN ${genresList}`;
         db.query(query, [dateFrom, dateTo, genresList], (err, result) => {
             if (err) {
                 res.status(500).json({ message: err });

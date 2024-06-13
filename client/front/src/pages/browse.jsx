@@ -39,11 +39,14 @@ const Browse = () => {
     const loadData = async () => {
         try {
             const response = await axios.get(
-                `/api/api/screenings/movies?genre=${filterGenres.toString()}&dateFrom=${dateFrom}&dateTo=${dateTo}`
+                `/api/api/screenings/movies?genres=${filterGenres.toString()}&dateFrom=${dateFrom}&dateTo=${dateTo}`
             );
             setAllScreenings(response.data);
             console.log(response.data);
         } catch (error) {
+            if (error.response.status === 404) {
+                setAllScreenings([]);
+            }
             console.log(error);
         }
     };
@@ -78,13 +81,7 @@ const Browse = () => {
                     filterGenres={filterGenres}
                     setFilterGenres={setFilterGenres}
                 />
-                <input
-                    type="date"
-                    class="date-filter date-from-filter"
-                    placeholder="From"
-                    value={dateFrom}
-                    onChange={handleDateChange}
-                />
+
                 <input
                     type="date"
                     class="date-filter date-to-filter"
