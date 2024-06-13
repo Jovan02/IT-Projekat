@@ -16,7 +16,8 @@ const DropDownCheckbox = ({ filterGenres, setFilterGenres, darkMode }) => {
         }
     };
 
-    const handleExpandGenres = () => {
+    const handleExpandGenres = (e) => {
+        e.preventDefault();
         console.log(expanded);
         setExpanded(!expanded);
     };
