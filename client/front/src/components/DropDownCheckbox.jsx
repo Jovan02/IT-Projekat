@@ -1,10 +1,12 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../styles/DropDownCheckbox.css";
 
 const DropDownCheckbox = ({ filterGenres, setFilterGenres, darkMode }) => {
     const [genres, setGenres] = useState([]);
     const [expanded, setExpanded] = useState(false);
+
+    const dropDownRef = useRef(null);
 
     const loadData = async () => {
         try {
@@ -34,6 +36,14 @@ const DropDownCheckbox = ({ filterGenres, setFilterGenres, darkMode }) => {
 
     useEffect(() => {
         loadData();
+        document.addEventListener("click", (e) => {
+            if (
+                dropDownRef.current &&
+                !dropDownRef.current.contains(e.target)
+            ) {
+                setExpanded(false);
+            }
+        });
     }, []);
 
     useEffect(() => {
@@ -41,7 +51,7 @@ const DropDownCheckbox = ({ filterGenres, setFilterGenres, darkMode }) => {
     }, [filterGenres]);
 
     return (
-        <div class="dropdows-genres">
+        <div ref={dropDownRef} class="dropdows-genres">
             <button
                 class={
                     darkMode
