@@ -22,3 +22,7 @@ a:visited {
     text-decoration: none;
     color: #393e41;
 }
+
+.main > .title > h1 {
+    text-shadow: 4px 4px 8px #e9452b99;
+}
