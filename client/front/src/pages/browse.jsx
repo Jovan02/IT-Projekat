@@ -128,43 +128,49 @@ const Browse = () => {
                 </button>
             </div>
             <div class="browse-movies">
-                {movies.map((movie) => (
-                    <div class="browse-movie">
-                        <img
-                            src={movie.image}
-                            alt="movie"
-                            class="browse-movie-img"
-                            onClick={(e) => handleMovieClick(e, movie.id)}
-                        />
-                        <div class="browse-movie-info">
-                            <h3>{movie.name}</h3>
-                            {/* <p>Genres: Thriller, Drama, Mystery</p> */}
-                            <p>Duration: {movie.duration}</p>
+                {screenings ? (
+                    movies.map((movie) => (
+                        <div class="browse-movie">
+                            <img
+                                src={movie.image}
+                                alt="movie"
+                                class="browse-movie-img"
+                                onClick={(e) => handleMovieClick(e, movie.id)}
+                            />
+                            <div class="browse-movie-info">
+                                <h3>{movie.name}</h3>
+                                {/* <p>Genres: Thriller, Drama, Mystery</p> */}
+                                <p>Duration: {movie.duration}</p>
+                            </div>
+                            <div class="browse-movie-screenings">
+                                {allScreenings
+                                    .filter(
+                                        (screening) =>
+                                            movie.id === screening.MovieID
+                                    )
+                                    .map((screening) => (
+                                        <div
+                                            class="browse-movie-screening"
+                                            onClick={(e) =>
+                                                handleScreeningClick(
+                                                    e,
+                                                    screening.ID
+                                                )
+                                            }
+                                        >
+                                            <p>
+                                                {screening.Date.split("T")[0]}
+                                            </p>
+                                            <p>{screening.Time.slice(0, 5)}</p>
+                                            <p>Hall: {screening.HallID}</p>
+                                        </div>
+                                    ))}
+                            </div>
                         </div>
-                        <div class="browse-movie-screenings">
-                            {allScreenings
-                                .filter(
-                                    (screening) =>
-                                        movie.id === screening.MovieID
-                                )
-                                .map((screening) => (
-                                    <div
-                                        class="browse-movie-screening"
-                                        onClick={(e) =>
-                                            handleScreeningClick(
-                                                e,
-                                                screening.ID
-                                            )
-                                        }
-                                    >
-                                        <p>{screening.Date.split("T")[0]}</p>
-                                        <p>{screening.Time.slice(0, 5)}</p>
-                                        <p>Hall: {screening.HallID}</p>
-                                    </div>
-                                ))}
-                        </div>
-                    </div>
-                ))}
+                    ))
+                ) : (
+                    <p class="loading-text">No Movies Found</p>
+                )}
             </div>
         </div>
     );
