@@ -39,7 +39,10 @@ function Register() {
                 title: "Registration successful",
                 message: "You have registered successfully.",
             });
-            navigate("/home");
+            setTimeout(() => {
+                setModal(null);
+                navigate("/home");
+            }, 1000);
         } catch (error) {
             console.log(error);
             setError(error.response.data.message);
