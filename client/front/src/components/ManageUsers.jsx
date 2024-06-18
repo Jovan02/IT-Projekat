@@ -17,7 +17,6 @@ const ManageUsers = ({
 
     const loadUsers = async () => {
         try {
-            console.log("UISAO ODJE U LOAD USERS MATER TI JEBEM U PICKU");
             const response = await axios.get(`/api/api/users/${userPageId}`);
             setUsers(response.data.result);
             setUserPages(response.data.pages);
@@ -39,7 +38,6 @@ const ManageUsers = ({
     };
 
     useEffect(() => {
-        console.log("WOWOWMMMPP WOMMPMP AGSAGAGASGSFSA");
         if (response) {
             deleteUser(response);
             setResponse(false);

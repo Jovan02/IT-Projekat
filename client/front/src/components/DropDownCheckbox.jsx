@@ -37,7 +37,6 @@ const DropDownCheckbox = ({
         } else {
             setFilterGenres([...filterGenres, genre]);
         }
-        console.log("filterisanji: ", filterGenres);
     };
 
     useEffect(() => {

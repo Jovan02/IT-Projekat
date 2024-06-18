@@ -71,7 +71,6 @@ const ManageMovies = ({
     }, [moviePageId]);
 
     useEffect(() => {
-        console.log("AGSAGAGASGSFSA");
         if (response) {
             deleteMovie(response);
             setResponse(false);

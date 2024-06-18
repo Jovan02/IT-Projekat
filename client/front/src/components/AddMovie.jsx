@@ -58,9 +58,7 @@ const AddMovie = ({
         }
     };
 
-    useEffect(() => {
-        console.log("abbabababbababbababb", selectedGenres);
-    }, [selectedGenres]);
+    useEffect(() => {}, [selectedGenres]);
 
     const handleAddMovie = async () => {
         if (!movieName || !movieDescription || !movieDuration || !movieGenres) {
@@ -180,21 +178,13 @@ const AddMovie = ({
         setMovieName(movieData.Name);
         setMovieDescription(movieData.Description);
         setMovieDuration(movieData.Duration);
-        console.log("muvi dejta: ", movieData);
         setMovieGenres(genres);
         setMovieTrailer(movieData.Trailer);
         loadMovieGenres();
     }, [movieData]);
 
     useEffect(() => {
-        console.log(
-            "SELEKTOVANI ZANROVI: ",
-            selectedGenres,
-            " ",
-            selectedGenres.includes("Action")
-        );
         setMovieGenres(selectedGenres);
-        console.log("selektovani zanrovi: ", selectedGenres);
     }, [selectedGenres]);
 
     useEffect(() => {
