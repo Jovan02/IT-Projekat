@@ -38,24 +38,26 @@ const createTicket = (req, res) => {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const username = decoded.username;
-        const { screeningId, seatRow, seatColumn, hallId } = req.body;
+        const { seats } = req.body;
         const query = `INSERT INTO ticket (Username, ScreeningID, SeatRow, SeatColumn, HallID) VALUES (?, ?, ?, ?, ?)`;
-        db.query(
-            query,
-            [username, screeningId, seatRow, seatColumn, hallId],
-            (err, result) => {
-                if (err) {
-                    res.status(500).json({ message: err });
-                } else {
-                    res.json({
-                        message: "Ticket created successfully",
-                    });
+
+        for (let i = 0; i < seats.length; i++) {
+            const { screeningId, seatRow, seatColumn, hallId } = seats[i];
+            db.query(
+                query,
+                [username, screeningId, seatRow, seatColumn, hallId],
+                (err, result) => {
+                    if (err) {
+                        return res.status(500).json({ message: err });
+                    }
                 }
-            }
-        );
+            );
+        }
+        return res.status(200).json({
+            message: "Tickets created successfully",
+        });
     } catch (err) {
-        res.status(401).json({ message: "Unauthorized" });
-        return;
+        return res.status(401).json({ message: "Unauthorized" });
     }
 };
 

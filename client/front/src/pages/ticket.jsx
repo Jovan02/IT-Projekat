@@ -15,6 +15,7 @@ const Ticket = () => {
     const [screeningMovie, setScreeningMovie] = useState({});
     const [boughtTickets, setBoughtTickets] = useState([]);
     const [selectedSeat, setSelectedSeat] = useState({ row: "", col: "" });
+    const [selectedSeats, setSelectedSeats] = useState([]);
     const [modal, setModal] = useState(null);
 
     const rows = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"];
@@ -60,14 +61,18 @@ const Ticket = () => {
         console.log("DA LI JE ZAUZETO: ", e.target.parentElement.dataset.taken);
         if (e.target.parentElement.dataset.taken == "true") {
             return;
-        } else if (selectedSeat.row == row && selectedSeat.col == col) {
-            setSelectedSeat({ row: "", col: "" });
+        } else if (
+            selectedSeats.find((seat) => seat.row == row && seat.col == col)
+        ) {
+            setSelectedSeats(
+                selectedSeats.filter(
+                    (seat) => seat.row != row || seat.col != col
+                )
+            );
             e.target.classList.remove("selected");
             e.target.classList.add("unselected");
-        } else if (selectedSeat.row != "" && selectedSeat.col != "") {
-            return;
         } else {
-            setSelectedSeat({ row: row, col: col });
+            setSelectedSeats([...selectedSeats, { row: row, col: col }]);
             if (e.target.classList.contains("selected")) {
                 e.target.classList.remove("selected");
                 e.target.classList.add("unselected");
@@ -79,22 +84,29 @@ const Ticket = () => {
     };
 
     const handleBuyTicket = async () => {
-        if (selectedSeat.row == "" || selectedSeat.col == "") {
+        if (selectedSeats.length == 0) {
             setModal({
-                title: "Error",
-                message: "All fields are required",
+                title: "No seats selected",
+                message: "Please select a seat.",
             });
-            alert("Please select a seat.");
             return;
         }
 
+        const seatsToBuy = {
+            seats: selectedSeats.map((seat) => {
+                return {
+                    screeningId: id,
+                    seatRow: seat.row,
+                    seatColumn: seat.col,
+                    hallId: screeningMovie.HallID,
+                };
+            }),
+        };
+
+        console.log(seatsToBuy);
+
         try {
-            const response = await axios.post(`/api/api/tickets`, {
-                screeningId: id,
-                seatRow: selectedSeat.row,
-                seatColumn: selectedSeat.col,
-                hallId: screeningMovie.HallID,
-            });
+            const response = await axios.post(`/api/api/tickets`, seatsToBuy);
             setModal({
                 title: "Buy ticket",
                 message: `Ticket has been successfully bought`,
@@ -119,8 +131,8 @@ const Ticket = () => {
     }, [boughtTickets]);
 
     useEffect(() => {
-        console.log(selectedSeat);
-    }, [selectedSeat]);
+        console.log(selectedSeats);
+    }, [selectedSeats]);
 
     useEffect(() => {
         // console.log(seatsRef.current);
