@@ -61,7 +61,7 @@ const AddScreening = ({ setModal }) => {
     return (
         <>
             {refresh && (
-                <div class="container add-screening">
+                <div className="container add-screening">
                     <form>
                         <label for="movie">Movie</label>
                         <SearchBar
@@ -91,7 +91,10 @@ const AddScreening = ({ setModal }) => {
                         />
                     </form>
 
-                    <button class="button-movie" onClick={handleAddProjection}>
+                    <button
+                        className="button-movie"
+                        onClick={handleAddProjection}
+                    >
                         Add
                     </button>
                 </div>

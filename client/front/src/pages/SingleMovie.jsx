@@ -209,38 +209,38 @@ const SingleMovie = () => {
 
     return (
         <>
-            <div class="movie-card">
-                <div class="movie-card-first">
-                    <div class="movie-card-image">
+            <div className="movie-card">
+                <div className="movie-card-first">
+                    <div className="movie-card-image">
                         <img src={movie.Image} alt="movie1" />
                     </div>
 
-                    <div class="movie-text">
-                        <h2 class="movie-title">{movie.Name}</h2>
-                        <p class="movie-description">{movie.Description}</p>
-                        <p class="movie-genre">Genres: {movie.Genres}</p>
+                    <div className="movie-text">
+                        <h2 className="movie-title">{movie.Name}</h2>
+                        <p className="movie-description">{movie.Description}</p>
+                        <p className="movie-genre">Genres: {movie.Genres}</p>
                     </div>
                 </div>
 
-                <p class="movie-card-rating">Rating: {rating}</p>
+                <p className="movie-card-rating">Rating: {rating}</p>
 
                 {movie.Trailer && (
                     <button
-                        class="movie-trailer-button"
+                        className="movie-trailer-button"
                         onClick={handleTrailerClick}
                     >
                         Watch Trailer
                     </button>
                 )}
 
-                <div class="movie-tickets">
-                    <p class="movie-buy-ticket">Buy a ticket</p>
+                <div className="movie-tickets">
+                    <p className="movie-buy-ticket">Buy a ticket</p>
 
                     {screenings.length > 0 ? (
                         nextDays.map((day) => (
-                            <div class="movie-day-projection">
-                                <p class="movie-day">{day}</p>
-                                <div class="movie-projections">
+                            <div className="movie-day-projection">
+                                <p className="movie-day">{day}</p>
+                                <div className="movie-projections">
                                     {screenings
                                         .filter(
                                             (screening) => screening.day === day
@@ -248,7 +248,7 @@ const SingleMovie = () => {
                                         .map((screening) => {
                                             return (
                                                 <div
-                                                    class="movie-projection"
+                                                    className="movie-projection"
                                                     onClick={(e) =>
                                                         handleScreeningClick(
                                                             screening.ID
@@ -266,22 +266,22 @@ const SingleMovie = () => {
                             </div>
                         ))
                     ) : (
-                        <div class="not-found-text">
+                        <div className="not-found-text">
                             No screenings available for the next 10 days.
                         </div>
                     )}
                 </div>
 
-                <div class="movie-rating-container">
+                <div className="movie-rating-container">
                     <ReviewStars
                         selected={isStarClicked}
                         setSelected={setIsStarClicked}
                         userReview={userReview}
                     />
 
-                    <form class="movie-review-form">
+                    <form className="movie-review-form">
                         <textarea
-                            class="movie-rating-input-textarea"
+                            className="movie-rating-input-textarea"
                             name="rating"
                             id="rating"
                             placeholder="Write a review"
@@ -290,17 +290,17 @@ const SingleMovie = () => {
                         ></textarea>
 
                         <input
-                            class="movie-rating-input-submit"
+                            className="movie-rating-input-submit"
                             type="submit"
                             value="Submit"
                             onClick={(e) => handleReviewSubmit(e)}
                         />
                     </form>
 
-                    <div class="reviews-container">
-                        <h2 class="reviews-text">Reviews</h2>
+                    <div className="reviews-container">
+                        <h2 className="reviews-text">Reviews</h2>
 
-                        <div class="review-card-container">
+                        <div className="review-card-container">
                             {reviews.map((review) => (
                                 <ReviewCard
                                     movieId={review.MovieID}
@@ -311,7 +311,7 @@ const SingleMovie = () => {
                                 />
                             ))}
                         </div>
-                        <div class="reviews-pages">
+                        <div className="reviews-pages">
                             <PaginationNumbers
                                 selectedPageId={selectedPageId}
                                 numberOfPages={numberOfPages}
@@ -328,7 +328,7 @@ const SingleMovie = () => {
                         videoId={movie.Trailer}
                         opts={{ width: "100%", height: "100%" }}
                     />
-                    <div class="overlay" onClick={handleOverlayClick}></div>
+                    <div className="overlay" onClick={handleOverlayClick}></div>
                 </>
             )}
         </>

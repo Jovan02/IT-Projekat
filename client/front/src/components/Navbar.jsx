@@ -36,45 +36,43 @@ const Navbar = () => {
 
     return (
         <header>
-            <nav class="desktop-navbar">
-                <ul class="nav-elements">
-                    <li class="nav-element">
+            <nav className="desktop-navbar">
+                <ul className="nav-elements">
+                    <li className="nav-element">
                         <Link to="/home">Home</Link>
                     </li>
-                    <li class="nav-element">
+                    <li className="nav-element">
                         <Link to="/browse">Browse</Link>
                     </li>
-                    <li class="nav-element">
-                        <Link to="/contact">Contact</Link>
-                    </li>
+
                     {user && user.IsAdmin == 1 && (
-                        <li class="nav-element">
+                        <li className="nav-element">
                             <Link to="/admin-panel">Admin Panel</Link>
                         </li>
                     )}
                     {!user && (
-                        <li class="nav-element nav-right nav-last-element">
+                        <li className="nav-element nav-right nav-last-element">
                             <Link to="/register">Register</Link>
                         </li>
                     )}
                     {!user && (
-                        <li class="nav-element nav-right">
+                        <li className="nav-element nav-right">
                             <Link to="/login">Login</Link>
                         </li>
                     )}
                     {user && (
-                        <li class="nav-element nav-right nav-last-element">
+                        <li className="nav-element nav-right nav-last-element">
                             <Link to="/welcome" onClick={handleLogout}>
                                 Logout
                             </Link>
                         </li>
                     )}
                     {user && (
-                        <li class="nav-element nav-right">
+                        <li className="nav-element nav-right">
                             <Link to="/profile">
                                 <img
                                     src={user.Image}
-                                    class="navbar-profile-img"
+                                    className="navbar-profile-img"
                                 ></img>
                             </Link>
                         </li>
@@ -82,8 +80,8 @@ const Navbar = () => {
                 </ul>
             </nav>
 
-            <nav class="mobile-navbar">
-                <ul class="nav-elements">
+            <nav className="mobile-navbar">
+                <ul className="nav-elements">
                     <div onClick={handleMenuClick}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +89,7 @@ const Navbar = () => {
                             viewBox="0 0 24 24"
                             stroke-width="1.5"
                             stroke="currentColor"
-                            class="burger-icon"
+                            className="burger-icon"
                         >
                             <path
                                 stroke-linecap="round"
@@ -102,18 +100,18 @@ const Navbar = () => {
                     </div>
 
                     {user && (
-                        <li class="nav-element nav-right nav-last-element">
+                        <li className="nav-element nav-right nav-last-element">
                             <Link to="/welcome" onClick={handleLogout}>
                                 Logout
                             </Link>
                         </li>
                     )}
                     {user && (
-                        <li class="nav-element nav-right">
+                        <li className="nav-element nav-right">
                             <Link to="/profile">
                                 <img
                                     src={user.Image}
-                                    class="navbar-profile-img"
+                                    className="navbar-profile-img"
                                 ></img>
                             </Link>
                         </li>
@@ -122,18 +120,18 @@ const Navbar = () => {
             </nav>
 
             <nav>
-                <ul class="dropdown-list">
-                    <li class="nav-element">
+                <ul className="dropdown-list">
+                    <li className="nav-element">
                         <Link to="/home">Home</Link>
                     </li>
-                    <li class="nav-element">
+                    <li className="nav-element">
                         <Link to="/browse">Browse</Link>
                     </li>
-                    <li class="nav-element">
+                    <li className="nav-element">
                         <Link to="/contact">Contact</Link>
                     </li>
                     {user && user.IsAdmin == 1 && (
-                        <li class="nav-element">
+                        <li className="nav-element">
                             <Link to="/admin-panel">Admin Panel</Link>
                         </li>
                     )}

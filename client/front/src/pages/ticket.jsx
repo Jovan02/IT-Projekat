@@ -111,6 +111,10 @@ const Ticket = () => {
                 title: "Buy ticket",
                 message: `Ticket has been successfully bought`,
             });
+            setTimeout(() => {
+                setModal(null);
+                navigate(`/movie/${screeningMovie.MovieID}`);
+            }, 1000);
         } catch (error) {
             console.log(error);
         }

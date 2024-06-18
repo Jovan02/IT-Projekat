@@ -45,7 +45,7 @@ const PaginationNumbers = ({ selectedPageId, numberOfPages, setPageId }) => {
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                class="icon-page icon-page--left"
+                className="icon-page icon-page--left"
                 onClick={handleClickMaxLeft}
             >
                 <path
@@ -60,7 +60,7 @@ const PaginationNumbers = ({ selectedPageId, numberOfPages, setPageId }) => {
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                class="icon-page icon-page--left"
+                className="icon-page icon-page--left"
                 onClick={handleClickLeft}
             >
                 <path
@@ -101,7 +101,7 @@ const PaginationNumbers = ({ selectedPageId, numberOfPages, setPageId }) => {
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                class="icon-page icon-page--right"
+                className="icon-page icon-page--right"
                 onClick={handleClickRight}
             >
                 <path
@@ -116,7 +116,7 @@ const PaginationNumbers = ({ selectedPageId, numberOfPages, setPageId }) => {
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                class="icon-page icon-page--right"
+                className="icon-page icon-page--right"
                 onClick={handleClickMaxRight}
             >
                 <path

@@ -56,14 +56,14 @@ const ManageUsers = ({
     }, [userPageId]);
 
     return (
-        <div class="container manage-users-main-container">
-            <div class="container manage-users-container">
+        <div className="container manage-users-main-container">
+            <div className="container manage-users-container">
                 {users.map((user) => (
-                    <div class="manage-user-card">
-                        <img src={user.Image} class="user-image" />
-                        <p class="username">{user.Username}</p>
+                    <div className="manage-user-card">
+                        <img src={user.Image} className="user-image" />
+                        <p className="username">{user.Username}</p>
                         <button
-                            class="button-delete"
+                            className="button-delete"
                             onClick={(e) => {
                                 handleDeleteUser(user.Username);
                             }}
@@ -73,7 +73,7 @@ const ManageUsers = ({
                     </div>
                 ))}
             </div>
-            <div class="manage-users-pages">
+            <div className="manage-users-pages">
                 <PaginationNumbers
                     selectedPageId={userPageId}
                     numberOfPages={userPages}

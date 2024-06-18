@@ -51,11 +51,11 @@ function Register() {
 
     return (
         <>
-            <form class="register-form">
-                <h2 class="register-text">Register</h2>
+            <form className="register-form">
+                <h2 className="register-text">Register</h2>
                 <label for="email">Email</label>
                 <input
-                    class="input-field"
+                    className="input-field"
                     type="email"
                     name="email"
                     id="email"
@@ -64,7 +64,7 @@ function Register() {
                 />
                 <label for="username">Username</label>
                 <input
-                    class="input-field"
+                    className="input-field"
                     type="text"
                     name="username"
                     id="username"
@@ -73,7 +73,7 @@ function Register() {
                 />
                 <label for="password">Password</label>
                 <input
-                    class="input-field"
+                    className="input-field"
                     type="password"
                     name="password"
                     id="password"
@@ -81,16 +81,16 @@ function Register() {
                     onChange={handleChange}
                 />
                 <button
-                    class="register-button"
+                    className="register-button"
                     type="submit"
                     onClick={handleRegister}
                 >
                     Register
                 </button>
-                {error && <p class="error-message">{error}</p>}
-                <p class="login-here-text">
+                {error && <p className="error-message">{error}</p>}
+                <p className="login-here-text">
                     Already have an acount?{" "}
-                    <Link class="login-link" to="/login">
+                    <Link className="login-link" to="/login">
                         Log in here.
                     </Link>
                 </p>

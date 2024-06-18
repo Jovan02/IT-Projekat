@@ -204,7 +204,7 @@ const AddMovie = ({
     return (
         <>
             {isOpen && (
-                <div class="container add-movie-container hidden">
+                <div className="container add-movie-container hidden">
                     <form>
                         <label for="title">Title</label>
                         <input
@@ -252,7 +252,7 @@ const AddMovie = ({
                         />
                         <label for="description">Description</label>
                         <textarea
-                            class="description"
+                            className="description"
                             id="description"
                             name="description"
                             contenteditable=""
@@ -262,7 +262,7 @@ const AddMovie = ({
                         ></textarea>
                     </form>
 
-                    <button class="button-movie" onClick={handleAddMovie}>
+                    <button className="button-movie" onClick={handleAddMovie}>
                         Add
                     </button>
                     <svg
@@ -271,7 +271,7 @@ const AddMovie = ({
                         viewBox="0 0 24 24"
                         stroke-width="1.5"
                         stroke="currentColor"
-                        class="exit-icon"
+                        className="exit-icon"
                         onClick={handleCloseModal}
                     >
                         <path
@@ -282,7 +282,9 @@ const AddMovie = ({
                     </svg>
                 </div>
             )}
-            {isOpen && <div class="overlay" onClick={handleCloseModal}></div>}
+            {isOpen && (
+                <div className="overlay" onClick={handleCloseModal}></div>
+            )}
         </>
     );
 };

@@ -64,18 +64,18 @@ const SearchBar = ({ type, reference, setFilterText, onClickSearch }) => {
 
     return (
         <div
-            class={"dropdown " + type}
+            className={"dropdown " + type}
             data-selectedId={selectedData}
             ref={reference}
         >
-            <div id="myDropdown" class="dropdown-content">
+            <div id="myDropdown" className="dropdown-content">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke-width="1.5"
                     stroke="currentColor"
-                    class="search-icon"
+                    className="search-icon"
                     onClick={onClickSearch}
                 >
                     <path

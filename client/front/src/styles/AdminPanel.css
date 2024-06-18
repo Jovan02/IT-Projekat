@@ -72,6 +72,7 @@ h1 {
 }
 
 .manage-users-main-container {
+    width: 90%;
     background-color: #d9d9d9;
     border-radius: 24px;
     padding: 40px;

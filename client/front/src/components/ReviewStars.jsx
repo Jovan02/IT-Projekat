@@ -71,14 +71,14 @@ const ReviewStars = ({ selected, setSelected, submitted, userReview }) => {
     }, [selected]);
 
     return (
-        <div class="movie-rating-stars">
+        <div className="movie-rating-stars">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                class="icon-star"
+                className="icon-star"
                 onMouseEnter={(e) => hoverStar(0)}
                 onMouseLeave={(e) => hoverStarLeave(0)}
                 onClick={(e) => starClicked(0)}
@@ -96,7 +96,7 @@ const ReviewStars = ({ selected, setSelected, submitted, userReview }) => {
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                class="icon-star"
+                className="icon-star"
                 onMouseEnter={(e) => hoverStar(1)}
                 onMouseLeave={(e) => hoverStarLeave(1)}
                 onClick={(e) => starClicked(1)}
@@ -114,7 +114,7 @@ const ReviewStars = ({ selected, setSelected, submitted, userReview }) => {
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                class="icon-star"
+                className="icon-star"
                 onMouseEnter={(e) => hoverStar(2)}
                 onMouseLeave={(e) => hoverStarLeave(2)}
                 onClick={(e) => starClicked(2)}
@@ -132,7 +132,7 @@ const ReviewStars = ({ selected, setSelected, submitted, userReview }) => {
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                class="icon-star"
+                className="icon-star"
                 onMouseEnter={(e) => hoverStar(3)}
                 onMouseLeave={(e) => hoverStarLeave(3)}
                 onClick={(e) => starClicked(3)}
@@ -150,7 +150,7 @@ const ReviewStars = ({ selected, setSelected, submitted, userReview }) => {
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                class="icon-star"
+                className="icon-star"
                 onMouseEnter={(e) => hoverStar(4)}
                 onMouseLeave={(e) => hoverStarLeave(4)}
                 onClick={(e) => starClicked(4)}

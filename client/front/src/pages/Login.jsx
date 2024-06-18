@@ -37,11 +37,11 @@ const Login = () => {
 
     return (
         <>
-            <form class="login-form">
-                <h2 class="login-text">Login</h2>
+            <form className="login-form">
+                <h2 className="login-text">Login</h2>
                 <label for="username">Username</label>
                 <input
-                    class="input-field"
+                    className="input-field"
                     id="username"
                     type="text"
                     name="username"
@@ -50,7 +50,7 @@ const Login = () => {
                 />
                 <label for="password">Password</label>
                 <input
-                    class="input-field"
+                    className="input-field"
                     type="password"
                     id="password"
                     name="password"
@@ -58,16 +58,16 @@ const Login = () => {
                     required
                 />
                 <button
-                    class="login-button"
+                    className="login-button"
                     type="submit"
                     onClick={handleLogin}
                 >
                     Login
                 </button>
-                {error && <p class="error-message">{error}</p>}
-                <p class="register-here-text">
+                {error && <p className="error-message">{error}</p>}
+                <p className="register-here-text">
                     Don't have an account yet?{" "}
-                    <Link class="register-link" to="/register">
+                    <Link className="register-link" to="/register">
                         Register here.
                     </Link>
                 </p>

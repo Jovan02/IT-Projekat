@@ -4,37 +4,37 @@ import "../styles/Contact.css";
 const Contact = () => {
     return (
         <>
-            <form class="contact-form">
-                <div class="form-group">
+            <form className="contact-form">
+                <div className="form-group">
                     <label for="name">Name:</label>
                     <input
-                        class="contact-input"
+                        className="contact-input"
                         type="text"
                         id="name"
                         name="name"
                     />
                 </div>
 
-                <div class="form-group">
+                <div className="form-group">
                     <label for="email">Email:</label>
                     <input
-                        class="contact-input"
+                        className="contact-input"
                         type="email"
                         id="email"
                         name="email"
                     />
                 </div>
 
-                <div class="form-group">
+                <div className="form-group">
                     <label for="message">Message:</label>
                     <textarea
-                        class="contact-input"
+                        className="contact-input"
                         id="message"
                         name="message"
                     ></textarea>
                 </div>
 
-                <button type="submit" class="contact-button">
+                <button type="submit" className="contact-button">
                     Submit
                 </button>
             </form>

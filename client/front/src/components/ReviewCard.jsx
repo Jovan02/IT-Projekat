@@ -57,19 +57,19 @@ const ReviewCard = ({ movieId, author, authorImage, description, rating }) => {
     }, [, rating]);
 
     return (
-        <div class="review-card">
-            <div class="review-author-section">
-                <img src={authorImage} class="review-author-image" />
-                <p class="review-author">{author}</p>
+        <div className="review-card">
+            <div className="review-author-section">
+                <img src={authorImage} className="review-author-image" />
+                <p className="review-author">{author}</p>
 
-                <div class="review-author-stars">
+                <div className="review-author-stars">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke-width="1.5"
                         stroke="currentColor"
-                        class="icon-star-review-card"
+                        className="icon-star-review-card"
                         ref={(el) => (ref.current[0] = el)}
                     >
                         <path
@@ -84,7 +84,7 @@ const ReviewCard = ({ movieId, author, authorImage, description, rating }) => {
                         viewBox="0 0 24 24"
                         stroke-width="1.5"
                         stroke="currentColor"
-                        class="icon-star-review-card"
+                        className="icon-star-review-card"
                         ref={(el) => (ref.current[1] = el)}
                     >
                         <path
@@ -99,7 +99,7 @@ const ReviewCard = ({ movieId, author, authorImage, description, rating }) => {
                         viewBox="0 0 24 24"
                         stroke-width="1.5"
                         stroke="currentColor"
-                        class="icon-star-review-card"
+                        className="icon-star-review-card"
                         ref={(el) => (ref.current[2] = el)}
                     >
                         <path
@@ -114,7 +114,7 @@ const ReviewCard = ({ movieId, author, authorImage, description, rating }) => {
                         viewBox="0 0 24 24"
                         stroke-width="1.5"
                         stroke="currentColor"
-                        class="icon-star-review-card"
+                        className="icon-star-review-card"
                         ref={(el) => (ref.current[3] = el)}
                     >
                         <path
@@ -129,7 +129,7 @@ const ReviewCard = ({ movieId, author, authorImage, description, rating }) => {
                         viewBox="0 0 24 24"
                         stroke-width="1.5"
                         stroke="currentColor"
-                        class="icon-star-review-card"
+                        className="icon-star-review-card"
                         ref={(el) => (ref.current[4] = el)}
                     >
                         <path
@@ -141,7 +141,7 @@ const ReviewCard = ({ movieId, author, authorImage, description, rating }) => {
                 </div>
             </div>
 
-            <p class="review-card-text">{description}</p>
+            <p className="review-card-text">{description}</p>
 
             {user.IsAdmin || user.Username == author ? (
                 <svg
@@ -150,7 +150,7 @@ const ReviewCard = ({ movieId, author, authorImage, description, rating }) => {
                     viewBox="0 0 24 24"
                     stroke-width="1.5"
                     stroke="currentColor"
-                    class="delete-review-icon"
+                    className="delete-review-icon"
                     onClick={handleChooseReviewToDelete}
                 >
                     <path

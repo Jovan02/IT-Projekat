@@ -87,21 +87,21 @@ const ManageMovies = ({
                 onClickSearch={handleSearchClick}
             />
             {error ? (
-                <div class="loading-text">{error}</div>
+                <div className="loading-text">{error}</div>
             ) : (
                 <div className="movies-list">
                     {movies ? (
                         movies.map((movie) => (
                             <div className="movie" id={movie.ID}>
                                 <img
-                                    class="card-img"
+                                    className="card-img"
                                     src={movie.Image}
                                     alt="movie"
                                 />
-                                <div class="card-content">
-                                    <h3 class="card-title">{movie.Name}</h3>
+                                <div className="card-content">
+                                    <h3 className="card-title">{movie.Name}</h3>
                                     <button
-                                        class="card-button card-button--edit"
+                                        className="card-button card-button--edit"
                                         onClick={(e) =>
                                             handleEditClick(movie.ID)
                                         }
@@ -109,7 +109,7 @@ const ManageMovies = ({
                                         Edit
                                     </button>
                                     <button
-                                        class="card-button card-button--delete"
+                                        className="card-button card-button--delete"
                                         onClick={(e) =>
                                             handleDeleteClick(movie.ID)
                                         }
@@ -120,11 +120,11 @@ const ManageMovies = ({
                             </div>
                         ))
                     ) : (
-                        <div class="loading-text">Loading...</div>
+                        <div className="loading-text">Loading...</div>
                     )}
                 </div>
             )}
-            <div class="movies-pages">
+            <div className="movies-pages">
                 <PaginationNumbers
                     selectedPageId={moviePageId}
                     numberOfPages={moviePages}

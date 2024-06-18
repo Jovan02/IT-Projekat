@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import "../styles/Welcome.css";
 const Welcome = () => {
     return (
-        <div class="main-welcome">
-            <div class="main-container">
-                <h1 class="main-title">CINEMAXX</h1>
-                <Link to="/login" class="main-button">
+        <div className="main-welcome">
+            <div className="main-container">
+                <h1 className="main-title">CINEMAXX</h1>
+                <Link to="/login" className="main-button">
                     Get Started
                 </Link>
             </div>

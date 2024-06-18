@@ -74,7 +74,7 @@ const AdminPanel = () => {
 
     return (
         <>
-            <div class="choice-buttons">
+            <div className="choice-buttons">
                 <button
                     className={
                         "button " +
@@ -85,7 +85,7 @@ const AdminPanel = () => {
                     Manage Users
                 </button>
                 <button
-                    class={
+                    className={
                         "button " +
                         (selectedTab == 2 ? "choice-buttons--selected" : "")
                     }
@@ -94,7 +94,7 @@ const AdminPanel = () => {
                     Manage Movies
                 </button>
                 <button
-                    class={
+                    className={
                         "button " +
                         (selectedTab == 3 ? "choice-buttons--selected" : "")
                     }
@@ -117,7 +117,7 @@ const AdminPanel = () => {
 
             {selectedTab == 2 && (
                 <>
-                    <button class="button" onClick={handleAddMovieClick}>
+                    <button className="button" onClick={handleAddMovieClick}>
                         Add New Movie
                     </button>
                     <AddMovie

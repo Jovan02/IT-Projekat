@@ -67,10 +67,6 @@ const router = createBrowserRouter([
                 path: "/admin-panel",
                 element: <AdminPanel />,
             },
-            {
-                path: "/contact",
-                element: <Contact />,
-            },
         ],
     },
     {

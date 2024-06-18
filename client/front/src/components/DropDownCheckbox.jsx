@@ -60,9 +60,9 @@ const DropDownCheckbox = ({
     }, [filterGenres]);
 
     return (
-        <div ref={dropDownRef} class="dropdows-genres">
+        <div ref={dropDownRef} className="dropdows-genres">
             <button
-                class={
+                className={
                     darkMode
                         ? "genre-filter-button--dark"
                         : "genre-filter-button"
@@ -72,10 +72,10 @@ const DropDownCheckbox = ({
                 Genres
             </button>
             {expanded && (
-                <select name="genres" class="genres" multiple>
+                <select name="genres" className="genres" multiple>
                     {genres.map((genre) => (
                         <option
-                            class={
+                            className={
                                 "genre-item " +
                                 (filterGenres.includes(genre.Name)
                                     ? "selected-genre"

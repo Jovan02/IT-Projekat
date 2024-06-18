@@ -82,17 +82,17 @@ const Profile = () => {
 
     return (
         <>
-            <div class="profile-container">
-                <h2 class="profile-username">{user.Username}</h2>
+            <div className="profile-container">
+                <h2 className="profile-username">{user.Username}</h2>
 
                 <img
-                    class="img-profile"
+                    className="img-profile"
                     src={user.Image}
                     alt="Profile Picture"
                 />
 
                 <button
-                    class="change-picture-button"
+                    className="change-picture-button"
                     onClick={handleToggleEdit}
                 >
                     Edit profile
@@ -100,31 +100,31 @@ const Profile = () => {
 
                 {toggleEdit && (
                     <>
-                        <div class="edit-container">
+                        <div className="edit-container">
                             <input
                                 type="file"
                                 id="change-picture"
                                 name="change-picture"
                                 required
                                 multiple={false}
-                                class="change-picture-text"
+                                className="change-picture-text"
                                 onChange={handleImageChange}
                             />
                             <button
-                                class="change-picture-button"
+                                className="change-picture-button"
                                 onClick={handleChangeImage}
                             >
                                 Change Picture
                             </button>
                         </div>
-                        <form class="edit-container">
+                        <form className="edit-container">
                             <input
                                 type="email"
                                 onChange={handleChangeEmail}
                                 placeholder={user.Email}
                             />
                             <button
-                                class="change-picture-button"
+                                className="change-picture-button"
                                 onClick={handleEditEmail}
                             >
                                 Change Email
@@ -133,12 +133,12 @@ const Profile = () => {
                     </>
                 )}
 
-                <h2 class="profile-ticket-text">My tickets</h2>
+                <h2 className="profile-ticket-text">My tickets</h2>
 
-                <div class="profile-ticket-container">
+                <div className="profile-ticket-container">
                     {tickets.map((ticket) => (
                         <div
-                            class="profile-ticket"
+                            className="profile-ticket"
                             onClick={(e) =>
                                 handleTicketClick(e, ticket.MovieID)
                             }
@@ -153,7 +153,7 @@ const Profile = () => {
                         </div>
                     ))}
                 </div>
-                <div class="ticket-pagination-numbers">
+                <div className="ticket-pagination-numbers">
                     <PaginationNumbers
                         selectedPageId={selectedPageId}
                         numberOfPages={numberOfPages}

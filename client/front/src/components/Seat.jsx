@@ -9,7 +9,7 @@ const Seat = ({ taken, reference, clickEvent, row, column }) => {
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="icon-seat unselected"
+            className="icon-seat unselected"
             onClick={clickEvent}
             ref={reference}
             data-row={row}

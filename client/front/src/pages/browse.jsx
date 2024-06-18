@@ -103,46 +103,46 @@ const Browse = () => {
     }, [filterGenres, allScreenings]);
 
     return (
-        <div class="browse-container">
-            <div class="filter-container">
+        <div className="browse-container">
+            <div className="filter-container">
                 <DropDownCheckbox
                     filterGenres={filterGenres}
                     setFilterGenres={setFilterGenres}
                 />
                 <input
                     type="date"
-                    class="date-filter date-from-filter"
+                    className="date-filter date-from-filter"
                     placeholder="From"
                     value={dateFrom}
                     onChange={handleDateChange}
                 />
                 <input
                     type="date"
-                    class="date-filter date-to-filter"
+                    className="date-filter date-to-filter"
                     placeholder="To"
                     value={dateTo}
                     onChange={handleDateChange}
                 />
-                <button class="filter-button" onClick={handleFilterClick}>
+                <button className="filter-button" onClick={handleFilterClick}>
                     Filter
                 </button>
             </div>
-            <div class="browse-movies">
+            <div className="browse-movies">
                 {screenings ? (
                     movies.map((movie) => (
-                        <div class="browse-movie">
+                        <div className="browse-movie">
                             <img
                                 src={movie.image}
                                 alt="movie"
-                                class="browse-movie-img"
+                                className="browse-movie-img"
                                 onClick={(e) => handleMovieClick(e, movie.id)}
                             />
-                            <div class="browse-movie-info">
+                            <div className="browse-movie-info">
                                 <h3>{movie.name}</h3>
                                 {/* <p>Genres: Thriller, Drama, Mystery</p> */}
                                 <p>Duration: {movie.duration}</p>
                             </div>
-                            <div class="browse-movie-screenings">
+                            <div className="browse-movie-screenings">
                                 {allScreenings
                                     .filter(
                                         (screening) =>
@@ -150,7 +150,7 @@ const Browse = () => {
                                     )
                                     .map((screening) => (
                                         <div
-                                            class="browse-movie-screening"
+                                            className="browse-movie-screening"
                                             onClick={(e) =>
                                                 handleScreeningClick(
                                                     e,
@@ -169,7 +169,7 @@ const Browse = () => {
                         </div>
                     ))
                 ) : (
-                    <p class="loading-text">No Movies Found</p>
+                    <p className="loading-text">No Movies Found</p>
                 )}
             </div>
         </div>

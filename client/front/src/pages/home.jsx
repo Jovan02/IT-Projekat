@@ -46,7 +46,7 @@ const Home = () => {
     }, [moviePageId]);
 
     return (
-        <div class="home-container">
+        <div className="home-container">
             <SearchBar
                 type="movies"
                 setFilterText={setFilterText}
@@ -54,9 +54,9 @@ const Home = () => {
             />
 
             {error ? (
-                <div class="loading-text">{error}</div>
+                <div className="loading-text">{error}</div>
             ) : (
-                <div class="card-container">
+                <div className="card-container">
                     {movies ? (
                         movies.map((movie) => (
                             <MovieCard
@@ -66,11 +66,11 @@ const Home = () => {
                             />
                         ))
                     ) : (
-                        <div class="loading-text">Loading...</div>
+                        <div className="loading-text">Loading...</div>
                     )}
                 </div>
             )}
-            <div class="movies-pages">
+            <div className="movies-pages">
                 <PaginationNumbers
                     selectedPageId={moviePageId}
                     numberOfPages={moviePages}
