@@ -12,13 +12,13 @@ const AddMovie = ({
     isOpen,
     setIsOpen,
 }) => {
-    // isEdit - ako je true, onda se prikazuju podaci o filmu koji se edituje i klik na dugme Add se vrsi update, a ne add
     const [genres, setGenres] = useState([]);
     const [file, setFile] = useState(null);
     const [movieName, setMovieName] = useState("");
     const [movieDescription, setMovieDescription] = useState("");
     const [movieDuration, setMovieDuration] = useState("");
     const [movieGenres, setMovieGenres] = useState([]);
+    const [movieTrailer, setMovieTrailer] = useState("");
     const [selectedGenres, setSelectedGenres] = useState([]);
 
     const loadGenres = async () => {
@@ -58,6 +58,10 @@ const AddMovie = ({
         }
     };
 
+    useEffect(() => {
+        console.log("abbabababbababbababb", selectedGenres);
+    }, [selectedGenres]);
+
     const handleAddMovie = async () => {
         if (!movieName || !movieDescription || !movieDuration || !movieGenres) {
             setModal({
@@ -74,7 +78,9 @@ const AddMovie = ({
                     description: movieDescription,
                     duration: movieDuration,
                     genres: movieGenres,
+                    trailer: movieTrailer,
                 };
+                console.log(movieGenres);
                 const response = await axios.put(
                     `/api/api/movies/${movieData.ID}`,
                     movieDataToSend
@@ -101,7 +107,9 @@ const AddMovie = ({
                     description: movieDescription,
                     duration: movieDuration,
                     genres: movieGenres,
+                    trailer: movieTrailer,
                 };
+                console.log(movieGenres);
                 const response = await axios.post(`/api/api/movies`, movieData);
                 console.log(response);
                 setModal({
@@ -119,6 +127,7 @@ const AddMovie = ({
                 setMovieDescription("");
                 setMovieDuration("");
                 setMovieGenres([]);
+                setMovieTrailer("");
                 setFile(null);
             }
         }
@@ -127,6 +136,7 @@ const AddMovie = ({
         setMovieDescription("");
         setMovieDuration("");
         setMovieGenres([]);
+        setMovieTrailer("");
         setFile(null);
         setIsOpen(false);
     };
@@ -141,6 +151,10 @@ const AddMovie = ({
 
     const handleDescriptionChange = (e) => {
         setMovieDescription(e.target.value);
+    };
+
+    const handleTrailerChange = (e) => {
+        setMovieTrailer(e.target.value);
     };
 
     const handleGenreCheckbox = (e) => {
@@ -167,7 +181,8 @@ const AddMovie = ({
         setMovieDescription(movieData.Description);
         setMovieDuration(movieData.Duration);
         console.log("muvi dejta: ", movieData);
-        setMovieGenres(genres); // UNDEFINED!!!
+        setMovieGenres(genres);
+        setMovieTrailer(movieData.Trailer);
         loadMovieGenres();
     }, [movieData]);
 
@@ -179,7 +194,12 @@ const AddMovie = ({
             selectedGenres.includes("Action")
         );
         setMovieGenres(selectedGenres);
+        console.log("selektovani zanrovi: ", selectedGenres);
     }, [selectedGenres]);
+
+    useEffect(() => {
+        console.log(movieGenres);
+    }, [movieGenres]);
 
     return (
         <>
@@ -209,21 +229,9 @@ const AddMovie = ({
                             filterGenres={movieGenres}
                             setFilterGenres={setMovieGenres}
                             darkMode={true}
+                            isEdit={isEdit}
                         />
-                        {/* <div class="genre-checkbox-container">
-                    {genres.map((genre) => (
-                        <label class="checkbox-box">
-                            {genre.Name}
-                            <input
-                                type="checkbox"
-                                name={genre.Name}
-                                onChange={handleGenreCheckbox}
-                                checked={movieGenres.includes(genre.Name)}
-                            />
-                            <span class="checkmark"></span>
-                        </label>
-                    ))}
-                </div> */}
+
                         <label for="duration">Duration</label>
                         <input
                             type="text"
@@ -232,6 +240,15 @@ const AddMovie = ({
                             required
                             onChange={handleDurationChange}
                             value={movieDuration}
+                        />
+                        <label for="trailer">Trailer</label>
+                        <input
+                            type="text"
+                            id="trailer"
+                            name="trailer"
+                            required
+                            onChange={handleTrailerChange}
+                            value={movieTrailer}
                         />
                         <label for="description">Description</label>
                         <textarea

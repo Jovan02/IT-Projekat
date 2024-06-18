@@ -2,7 +2,12 @@ import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import "../styles/DropDownCheckbox.css";
 
-const DropDownCheckbox = ({ filterGenres, setFilterGenres, darkMode }) => {
+const DropDownCheckbox = ({
+    filterGenres,
+    setFilterGenres,
+    darkMode,
+    isEdit,
+}) => {
     const [genres, setGenres] = useState([]);
     const [expanded, setExpanded] = useState(false);
 
@@ -28,10 +33,11 @@ const DropDownCheckbox = ({ filterGenres, setFilterGenres, darkMode }) => {
         e.preventDefault();
         const genre = e.target.value;
         if (filterGenres.includes(genre)) {
-            setFilterGenres((prev) => prev.filter((item) => item !== genre));
+            setFilterGenres(filterGenres.filter((item) => item !== genre));
         } else {
-            setFilterGenres((prev) => [...prev, genre]);
+            setFilterGenres([...filterGenres, genre]);
         }
+        console.log("filterisanji: ", filterGenres);
     };
 
     useEffect(() => {
@@ -44,6 +50,9 @@ const DropDownCheckbox = ({ filterGenres, setFilterGenres, darkMode }) => {
                 setExpanded(false);
             }
         });
+        if (!isEdit) {
+            setFilterGenres([]);
+        }
     }, []);
 
     useEffect(() => {

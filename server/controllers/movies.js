@@ -87,12 +87,12 @@ function findMovieIdPromise() {
     });
 }
 
-function addMoviePromise(name, image, description, duration) {
-    const insertMovieQuery = `INSERT INTO movie(Name, Image, Description, Duration) VALUES(?, ?, ?, ?)`;
+function addMoviePromise(name, image, description, duration, trailer) {
+    const insertMovieQuery = `INSERT INTO movie(Name, Image, Description, Duration, Trailer) VALUES(?, ?, ?, ?, ?)`;
     return new Promise((resolve, reject) => {
         db.query(
             insertMovieQuery,
-            [name, image, description, duration],
+            [name, image, description, duration, trailer],
             (err, res) => {
                 if (err) {
                     reject(err);
@@ -106,9 +106,13 @@ function addMoviePromise(name, image, description, duration) {
 
 function addGenresPromise(movieId, genres) {
     const insertGenresQuery = `INSERT INTO moviegenre(MovieID, GenreName) VALUES (?, ?)`;
+    console.log("odje puca stoposto");
+    console.log(genres);
     return new Promise((resolve, reject) => {
         genres.map((genre) => {
+            console.log(genre);
             db.query(insertGenresQuery, [movieId, genre], (err, res) => {
+                console.log("Ziv sam odje.");
                 if (err) {
                     reject(err);
                 } else {
@@ -129,17 +133,22 @@ const createMovie = async (req, res) => {
     } catch (error) {
         return res.status(401).json({ message: "Unauthorized" });
     }
-
-    const { name, image, description, duration, genres } = req.body;
+    console.log("odje ulazi!");
+    const { name, image, description, duration, genres, trailer } = req.body;
+    console.log("I odje ulazi isto.");
+    console.log(genres);
     try {
         const addMovie = await addMoviePromise(
             name,
             image,
             description,
-            duration
+            duration,
+            trailer
         );
+        console.log("Dovde stigao- ubacio film");
 
         const findMovieIdResult = await findMovieIdPromise();
+        console.log("Nasao ajdi filma.");
 
         const insertGenresQuery = await addGenresPromise(
             findMovieIdResult,
@@ -163,18 +172,22 @@ const editMovie = async (req, res) => {
         return res.status(401).json({ message: "Unauthorized" });
     }
 
-    const { name, description, duration, genres } = req.body;
+    const { name, description, duration, genres, trailer } = req.body;
     const { id } = req.params;
 
-    const query = `UPDATE movie SET Name = ?, Description = ?, Duration = ? WHERE ID = ?`;
-    db.query(query, [name, description, duration, id], (err, result) => {
-        if (err) {
-            res.status(500).json({ message: err });
-        } else {
-            addGenresPromise(id, genres);
-            res.status(200).json({ message: "Updated successfully." });
+    const query = `UPDATE movie SET Name = ?, Description = ?, Duration = ?, Trailer = ? WHERE ID = ?`;
+    db.query(
+        query,
+        [name, description, duration, trailer, id],
+        (err, result) => {
+            if (err) {
+                res.status(500).json({ message: err });
+            } else {
+                addGenresPromise(id, genres);
+                res.status(200).json({ message: "Updated successfully." });
+            }
         }
-    });
+    );
 };
 
 const deleteMovie = (req, res) => {
