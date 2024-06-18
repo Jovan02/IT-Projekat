@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../styles/Register.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import Modal from "../components/Modal";
+import AuthContext from "../AuthContext";
 
 function Register() {
     const navigate = useNavigate();
@@ -15,6 +16,8 @@ function Register() {
     const [error, setError] = useState(null);
     const [modal, setModal] = useState(null);
 
+    const { register } = useContext(AuthContext);
+
     const handleChange = (e) => {
         setInputs({
             ...inputs,
@@ -24,19 +27,19 @@ function Register() {
 
     const onExitModal = () => {
         setModal(null);
-        navigate("/login");
+        navigate("/home");
     };
 
     const handleRegister = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post("/api/api/auth/register", inputs);
+            await register(inputs);
             setModal({
                 title: "Registration successful",
-                message: response.data.message,
+                message: "You have registered successfully.",
             });
-            console.log(response.data);
+            navigate("/home");
         } catch (error) {
             console.log(error);
             setError(error.response.data.message);

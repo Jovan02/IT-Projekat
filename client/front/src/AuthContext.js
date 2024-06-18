@@ -13,11 +13,23 @@ export const AuthContextProvider = ({ children }) => {
     );
 
     const login = async (inputs) => {
-        const response = await axios.post(`/api/api/auth/login`, inputs);
-        const { token, ...other } = response.data;
-        setUser(other);
-        setUserToken(token);
-        console.log(response.data.username);
+        try {
+            const response = await axios.post(`/api/api/auth/login`, inputs);
+            const { token, ...other } = response.data;
+            setUser(other);
+            setUserToken(token);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const register = async (inputs) => {
+        try {
+            const response = await axios.post("/api/api/auth/register", inputs);
+            login(inputs);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const logout = () => {
@@ -34,7 +46,9 @@ export const AuthContextProvider = ({ children }) => {
     }, [userToken]);
 
     return (
-        <AuthContext.Provider value={{ user, setUser, login, logout }}>
+        <AuthContext.Provider
+            value={{ user, setUser, login, logout, register }}
+        >
             {children}
         </AuthContext.Provider>
     );
