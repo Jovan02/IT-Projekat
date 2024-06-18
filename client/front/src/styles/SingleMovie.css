@@ -270,6 +270,36 @@ path {
     stroke: #e94f37;
 }
 
+.movie-trailer-screen {
+    width: 70%;
+    height: 70%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.movie-trailer-button {
+    background-color: #393e41;
+    color: #d9d9d9;
+    border: none;
+    width: 200px;
+    border-radius: 50px;
+    padding: 16px;
+    font-size: 1.2em;
+    cursor: pointer;
+    align-self: center;
+    scale: 1;
+    transition: scale 0.3s ease;
+}
+
+.movie-trailer-button:hover {
+    background-color: #e94f37;
+    scale: 1.1;
+    transition: scale 0.3s ease;
+}
+
 @media (max-width: 768px) {
     .movie-card {
         padding: 16px;

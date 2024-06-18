@@ -7,6 +7,7 @@ import ReviewCard from "../components/ReviewCard";
 import { useRef } from "react";
 import PaginationNumbers from "../components/PaginationNumbers";
 import ReviewStars from "../components/ReviewStars";
+import YouTube from "react-youtube";
 
 const SingleMovie = () => {
     const { id } = useParams();
@@ -23,6 +24,7 @@ const SingleMovie = () => {
     const [nextDays, setNextDays] = useState([]);
     const [selectedPageId, setSelectedPageId] = useState(1);
     const [numberOfPages, setNumberOfPages] = useState(1);
+    const [trailerVisible, setTrailerVisible] = useState(false);
 
     const calculateRating = (data) => {
         let sum = 0;
@@ -165,6 +167,14 @@ const SingleMovie = () => {
         navigate(`/ticket/${id}`);
     };
 
+    const handleTrailerClick = (e) => {
+        setTrailerVisible(true);
+    };
+
+    const handleOverlayClick = (e) => {
+        setTrailerVisible(false);
+    };
+
     useEffect(() => {
         loadMovie();
         loadReviews();
@@ -213,6 +223,15 @@ const SingleMovie = () => {
                 </div>
 
                 <p class="movie-card-rating">Rating: {rating}</p>
+
+                {movie.Trailer && (
+                    <button
+                        class="movie-trailer-button"
+                        onClick={handleTrailerClick}
+                    >
+                        Watch Trailer
+                    </button>
+                )}
 
                 <div class="movie-tickets">
                     <p class="movie-buy-ticket">Buy a ticket</p>
@@ -302,6 +321,16 @@ const SingleMovie = () => {
                     </div>
                 </div>
             </div>
+            {trailerVisible && (
+                <>
+                    <YouTube
+                        className="movie-trailer-screen"
+                        videoId={movie.Trailer}
+                        opts={{ width: "100%", height: "100%" }}
+                    />
+                    <div class="overlay" onClick={handleOverlayClick}></div>
+                </>
+            )}
         </>
     );
 };
