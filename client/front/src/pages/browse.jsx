@@ -21,9 +21,16 @@ const Browse = () => {
     );
 
     const handleDateChange = (e) => {
-        if (e.target.placeholder == "From") {
+        const chosenDate = new Date(e.target.value);
+        if (e.target.placeholder === "From") {
+            if (chosenDate < new Date()) {
+                e.target.value = new Date().toISOString().split("T")[0];
+            }
             setDateFrom(e.target.value);
         } else {
+            if (chosenDate < new Date(dateFrom)) {
+                e.target.value = dateFrom;
+            }
             setDateTo(e.target.value);
         }
     };
@@ -36,13 +43,34 @@ const Browse = () => {
         navigate(`/ticket/${id}`);
     };
 
+    const handleMovieClick = (e, id) => {
+        navigate(`/movie/${id}`);
+    };
+
     const loadData = async () => {
         try {
             const response = await axios.get(
                 `/api/api/screenings/movies?genres=${filterGenres.toString()}&dateFrom=${dateFrom}&dateTo=${dateTo}`
             );
-            setAllScreenings(response.data);
-            console.log(response.data);
+            let fixedScreenings = response.data.map((screening) => {
+                return {
+                    ID: screening.ID,
+                    Date: new Date(
+                        new Date(screening.Date).getTime() + 24 * 60 * 60 * 1000
+                    )
+                        .toISOString()
+                        .split("T")[0],
+                    Time: screening.Time,
+                    Duration: screening.Duration,
+                    MovieID: screening.MovieID,
+                    Name: screening.Name,
+                    Image: screening.Image,
+                    HallID: screening.HallID,
+                };
+            });
+
+            setAllScreenings(fixedScreenings);
+            console.log(fixedScreenings);
         } catch (error) {
             if (error.response.status === 404) {
                 setAllScreenings([]);
@@ -81,7 +109,13 @@ const Browse = () => {
                     filterGenres={filterGenres}
                     setFilterGenres={setFilterGenres}
                 />
-
+                <input
+                    type="date"
+                    class="date-filter date-from-filter"
+                    placeholder="From"
+                    value={dateFrom}
+                    onChange={handleDateChange}
+                />
                 <input
                     type="date"
                     class="date-filter date-to-filter"
@@ -100,6 +134,7 @@ const Browse = () => {
                             src={movie.image}
                             alt="movie"
                             class="browse-movie-img"
+                            onClick={(e) => handleMovieClick(e, movie.id)}
                         />
                         <div class="browse-movie-info">
                             <h3>{movie.name}</h3>

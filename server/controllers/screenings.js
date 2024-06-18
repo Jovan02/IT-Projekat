@@ -82,7 +82,7 @@ const getMoviesScreenings = (req, res) => {
             INNER JOIN moviegenre mg
             ON s.MovieID = mg.MovieID
             WHERE s.Date >= ? AND s.Date <= ? AND mg.GenreName IN ${genresList}`;
-        db.query(query, [dateFrom, dateTo, genresList], (err, result) => {
+        db.query(query, [dateFrom, dateTo], (err, result) => {
             if (err) {
                 res.status(500).json({ message: err });
             } else if (result.length === 0) {
