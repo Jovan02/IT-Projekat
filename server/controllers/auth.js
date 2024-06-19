@@ -20,8 +20,7 @@ function checkUserExistsPromise(username) {
 function registerUserPromise(email, username, password) {
     return new Promise((resolve, reject) => {
         const registerQuery = `INSERT INTO user (Email, Username, Password, Image) VALUES (?, ?, ?, ?)`;
-        const image =
-            "http://localhost:8000/public/images/profile-placeholder.jfif";
+        const image = "/api/public/images/profile-placeholder.jfif";
         db.query(
             registerQuery,
             [email, username, password, image],
