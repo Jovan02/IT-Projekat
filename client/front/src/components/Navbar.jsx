@@ -127,9 +127,7 @@ const Navbar = () => {
                     <li className="nav-element">
                         <Link to="/browse">Browse</Link>
                     </li>
-                    <li className="nav-element">
-                        <Link to="/contact">Contact</Link>
-                    </li>
+
                     {user && user.IsAdmin == 1 && (
                         <li className="nav-element">
                             <Link to="/admin-panel">Admin Panel</Link>
