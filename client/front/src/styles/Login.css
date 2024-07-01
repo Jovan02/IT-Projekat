@@ -30,11 +30,16 @@
     padding: 8px 16px;
     align-self: center;
     border: none;
+    cursor: pointer;
+    scale: 1;
+    transition: scale 0.4s ease;
 }
 
 .login-button:hover {
     background-color: #e94f37;
-    color: #393e41;
+    color: #d9d9d9;
+    scale: 1.1;
+    transition: scale 0.4s ease;
 }
 
 .input-field {
