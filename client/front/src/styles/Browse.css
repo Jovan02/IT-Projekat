@@ -1,0 +1,146 @@
+.browse-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.browse-movies {
+    width: 90%;
+    background-color: #d9d9d9;
+    border-radius: 24px;
+    padding: 40px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 20px;
+}
+
+.browse-movie {
+    background-color: #393e41;
+    border-radius: 24px;
+    padding: 20px;
+    color: #d9d9d9;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.browse-movie-img {
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+    cursor: pointer;
+    scale: 1;
+    transition: scale 0.4s ease;
+}
+
+.browse-movie-img:hover {
+    scale: 1.05;
+    transition: scale 0.4s ease;
+}
+
+.browse-movie-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.browse-movie-screenings {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.browse-movie-screening {
+    /* min-width: 100px; */
+    max-height: 80px;
+    background-color: #d9d9d9;
+    color: #393e41;
+    border-radius: 16px;
+    padding: 8px;
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: center;
+    align-items: center;
+
+    scale: 1;
+    transition: scale 0.4s ease;
+}
+
+.browse-movie-screening:hover {
+    background-color: #e94f37;
+    color: #d9d9d9;
+    scale: 1.05;
+    transition: scale 0.4s ease;
+}
+
+.filter-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.filter-button {
+    background-color: #d9d9d9;
+    color: #393e41;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 24px;
+
+    scale: 1;
+    transition: scale 0.4s ease;
+}
+.filter-button:hover {
+    background-color: #e94f37;
+    color: #d9d9d9;
+
+    scale: 1.1;
+    transition: scale 0.4s ease;
+}
+
+@media (max-width: 768px) {
+    .browse-movies {
+        padding: 20px;
+    }
+    .browse-movie {
+        flex-direction: column;
+        gap: 16px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .browse-movie-img {
+        width: 150px;
+        height: 250px;
+    }
+
+    .browse-movie-screenings {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .filter-container {
+        flex-direction: column;
+        gap: 16px;
+    }
+}
+@media (max-width: 1150px) {
+    .filter-container {
+        flex-direction: column;
+        gap: 16px;
+    }
+}

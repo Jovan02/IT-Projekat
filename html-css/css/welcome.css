@@ -1,0 +1,63 @@
+
+/* 
+COLORS:
+    GREY: #393e41
+    ORANGE: #e94f37
+    LIGHT GREY: #d9d9d9
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', serif;
+    background-color: #393E41;
+}
+
+a, a:link, a:visited {
+    text-decoration: none;
+    color: #d9d9d9;
+}
+
+
+.main-container a {
+    background-color: #d9d9d9;
+    color: #393E41;
+    padding: 32px 64px;
+    border-radius: 50px;
+    box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.2), -8px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.main-container a:hover, .main-container a:active{
+    background-color: #e94f37;
+    
+    transform: scale(1.1); 
+    transition: transform 0.4s ease;
+}
+
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 64px;
+}
+
+
+.main-title {
+    color: #d9d9d9;
+    font-weight: 500;
+    font-size: 8em;
+    margin: auto;
+    text-align: center;
+    margin-top: 35vh;
+}
+
+
+
+
+
+

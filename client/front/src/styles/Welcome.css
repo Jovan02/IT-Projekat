@@ -1,0 +1,41 @@
+.main-welcome {
+    width: 100vw;
+    height: 100vh;
+    background-color: #393e41;
+}
+
+.main-container .main-button {
+    background-color: #d9d9d9;
+    color: #393e41;
+    padding: 32px 64px;
+    border-radius: 50px;
+    box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.2),
+        -8px 8px 16px rgba(0, 0, 0, 0.2);
+    transform: scale(1);
+    transition: transform 0.4s ease;
+}
+
+.main-container .main-button:hover,
+.main-container .main-button:active {
+    background-color: #e94f37;
+    color: #d9d9d9;
+    transform: scale(1.1);
+    transition: transform 0.4s ease;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 64px;
+}
+
+.main-title {
+    color: #d9d9d9;
+    font-weight: 500;
+    font-size: calc(3em + 4vw);
+    margin: auto;
+    text-align: center;
+    margin-top: 35vh;
+}

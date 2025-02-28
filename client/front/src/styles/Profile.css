@@ -1,0 +1,119 @@
+.profile-container {
+    margin: 100px auto;
+    width: 80%;
+    padding: 40px;
+    background-color: #d9d9d9;
+    border-radius: 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+}
+
+.edit-container {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-profile {
+    /* OVO ODJE TREBA DA SE NAPRAVI DA SLIKA FINO IZGLEDA*/
+    border-radius: 50%;
+    object-fit: cover;
+    width: 300px;
+    height: 300px;
+}
+
+.profile-username {
+    font-size: 3em;
+}
+
+.profile-container input {
+    /* width: 20%; */
+    padding: 16px;
+    border: none;
+    border-radius: 24px;
+    background-color: #393e41;
+    color: #d9d9d9;
+    font-size: 1.1em;
+}
+
+.ticket-pagination-numbers {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+input[type="file"]::file-selector-button {
+    display: none;
+}
+
+input[type="file"]:hover {
+    color: #e94f37;
+}
+
+.change-picture-button {
+    background-color: #393e41;
+    border: none;
+    border-radius: 24px;
+    padding: 16px;
+    color: #d9d9d9;
+    font-size: 1.1em;
+    cursor: pointer;
+}
+
+.profile-ticket-text {
+    font-size: 1.5em;
+}
+
+.profile-ticket {
+    scale: 1;
+    transition: all 0.4s ease;
+}
+
+.profile-ticket:hover {
+    background-color: #e94f37;
+    color: #d9d9d9;
+    scale: 1.05;
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
+
+.profile-ticket-container {
+    background-color: #393e41;
+    border-radius: 24px;
+    padding: 24px;
+    width: 90%;
+
+    display: flex;
+    gap: 24px;
+    /* flex-wrap: wrap; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-ticket {
+    background-color: #d9d9d9;
+    border-radius: 24px;
+    padding: 16px;
+    width: 90%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .profile-container input {
+        width: 90%;
+    }
+    .profile-container img {
+        width: 200px;
+        height: 200px;
+    }
+}
